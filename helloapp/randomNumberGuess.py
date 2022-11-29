@@ -13,9 +13,27 @@ def play_game(name):
           f'The computer has chosen a random number between 1 to 100, your aim is to identify the number'
           f' within 10 turns.')
     print(f'The rules of the game are simple: '
-          f'')
+          f'you can ask if the number is greater than a number or equal to a number')
 
     secret_number = random.randint(1, 100)
+
+    # print(secret_number)
+
+    count: int = 0
+
+    while True:
+        guessed_number = int(input("Guess the number: "))
+
+        if guessed_number == secret_number:
+            print(f'Correct number guessed!!!')
+            break
+        elif guessed_number > secret_number:
+            print(f'' + str(guessed_number) + ' is greater than the secret number')
+        else:
+            print(f'' + str(guessed_number) + ' is lesser than the secret number')
+
+        count += 1
+        print(f'' + str(count) + ' times tried')
 
 
 # Press the green button in the gutter to run the script.
