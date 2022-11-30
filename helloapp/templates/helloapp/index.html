@@ -8,9 +8,11 @@
     {% load static %}
 
     {% if secret_number %}
-        <p>Secret Number is:  {{ secret_number }} </p>
+<!--        <p>Secret Number is:  {{ secret_number }} </p>-->
+        <p>Let's play a game of guessing a random number</p>
     {% elif user_guess %}
         <p>The guessed number:  {{ user_guess.guessed_number }} is  {{ user_guess.comparison }} than the secret number</p>
+        <p>Number of guesses:  {{ guess_count }} </p>
     {% else %}
         <p>No data is available.</p>
     {% endif %}

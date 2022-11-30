@@ -16,6 +16,9 @@ check_count: int = 0
 def index(request):
     template = loader.get_template('helloapp/index.html')
     global secret_number
+    global check_count
+
+    check_count = 0
     secret_number = random.randint(1, 100)
 
     context = {'secret_number': secret_number}
