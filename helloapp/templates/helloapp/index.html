@@ -5,17 +5,20 @@
   <title>Hello App Webpage</title>
 </head>
 <body>
-hi <a href="https://www.google.com/search?gs_ssp=eJzj4tTP1TcwM02T1JgNGB0YPBiS8_PT89JBQBASQXT&q=google&rlz=1C5CHFA_enUS1003US1003&oq=go&aqs=chrome.1.69i57j46i131i199i433i465i512j0i131i433i512l2j0i512j0i131i433i512j0i433i512j0i131i433i512l2j0i271.2592j0j15&sourceid=chrome&ie=UTF-8">link text</a>
+    {% load static %}
 
-{% load static %}
+    {% if secret_number %}
+        <p>Secret Number is:  {{ secret_number }} </p>
+    {% elif user_guess %}
+        <p>The guessed number:  {{ user_guess.guessed_number }} is  {{ user_guess.comparison }} than the secret number</p>
+    {% else %}
+        <p>No data is available.</p>
+    {% endif %}
 
-{% if gnumber %}
-    <p> {{ gnumber.guessed_number }} </p>
-    <p> {{ gnumber.comparison }} </p>
-{% else %}
-    <p>No data is available.</p>
-{% endif %}
-
-
+    <form action="{% url 'helloapp:check_guess' %}" method="post">
+    {% csrf_token %}
+        <input type="text" name="Enter Your Guess" id="user_guess">
+        <input type="submit" value="Check Guess">
+    </form>
 </body>
 </html>
