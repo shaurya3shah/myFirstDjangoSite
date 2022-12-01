@@ -11,8 +11,12 @@
 <!--        <p>Secret Number is:  {{ secret_number }} </p>-->
         <p>Let's play a game of guessing a random number</p>
     {% elif user_guess %}
-        <p>The guessed number:  {{ user_guess.guessed_number }} is  {{ user_guess.comparison }} than the secret number</p>
-        <p>Number of guesses:  {{ guess_count }} </p>
+        {% if user_guess.comparison == 'equal' %}
+            <p>YAY!!! You correctly guessed the secret number: {{ user_guess.guessed_number }} in {{ guess_count }} guesses</p>
+        {% else %}
+            <p>The guessed number:  {{ user_guess.guessed_number }} is  {{ user_guess.comparison }} than the secret number</p>
+            <p>Number of guesses:  {{ guess_count }} </p>
+        {% endif %}
     {% else %}
         <p>No data is available.</p>
     {% endif %}
@@ -22,5 +26,7 @@
         <input type="text" name="Enter Your Guess" id="user_guess">
         <input type="submit" value="Check Guess">
     </form>
+
+    <input type="submit" value="Play Again" id="play_again" style="display: none;">
 </body>
 </html>
