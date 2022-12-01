@@ -5,6 +5,32 @@
   <title>Hello App Webpage</title>
 </head>
 <body>
+    <script>
+      function showAlert() {
+            alert ("Test Alert");
+      }
+
+      function hideGame() {
+            alert ("hideGame");
+
+            var x = document.getElementById("user_guess");
+            alert (x);
+            x.style.display = "none";
+
+            var y = document.getElementById("check_guess");
+            alert (y);
+            y.style.display = "none";
+      }
+
+      function showPlayAgain() {
+            alert ("showPlayAgain");
+
+            var x = document.getElementById("play_again");
+            alert (x);
+            x.style.display = "block";
+      }
+    </script>
+
     {% load static %}
 
     {% if secret_number %}
@@ -12,8 +38,18 @@
         <p>Let's play a game of guessing a random number</p>
     {% elif user_guess %}
         {% if user_guess.comparison == 'equal' %}
+            <script>
+<!--                hideGame()-->
+<!--                showPlayAgain()-->
+            </script>
             <p>YAY!!! You correctly guessed the secret number: {{ user_guess.guessed_number }} in {{ guess_count }} guesses</p>
         {% else %}
+            <script>
+<!--                var x = document.getElementById("user_guess");-->
+<!--                alert (x);-->
+<!--                hideGame()-->
+<!--                showPlayAgain()-->
+            </script>
             <p>The guessed number:  {{ user_guess.guessed_number }} is  {{ user_guess.comparison }} than the secret number</p>
             <p>Number of guesses:  {{ guess_count }} </p>
         {% endif %}
@@ -23,8 +59,8 @@
 
     <form action="{% url 'helloapp:check_guess' %}" method="post">
     {% csrf_token %}
-        <input type="text" name="Enter Your Guess" id="user_guess">
-        <input type="submit" value="Check Guess">
+        <input type="text" name="Enter Your Guess" id="user_guess" autofocus>
+        <input type="submit" value="Check Guess" id="check_guess">
     </form>
 
     <input type="submit" value="Play Again" id="play_again" style="display: none;">
