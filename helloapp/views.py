@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 
+from helloapp.crazyLibs import generate_crazy_libs
 from helloapp.models import GuessedNumber
 
 secret_number: int = 0
@@ -42,5 +43,15 @@ def check_guess(request):
 
     check_count += 1
     context = {'user_guess': user_guess, 'guess_count': check_count}
+
+    return HttpResponse(template.render(context, request))
+
+
+def crazy_libs(request):
+    template = loader.get_template('helloapp/crazylibs.html')
+
+    story = generate_crazy_libs()
+
+    context = {'story': story.choices[0].text}
 
     return HttpResponse(template.render(context, request))

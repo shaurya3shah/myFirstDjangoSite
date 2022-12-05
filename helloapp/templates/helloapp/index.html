@@ -35,7 +35,7 @@
 
     {% if secret_number %}
 <!--        <p>Secret Number is:  {{ secret_number }} </p>-->
-        <p>Let's play a game of guessing a random number</p>
+        <p>Let's play a game of guessing a random number between 1 to 100</p>
     {% elif user_guess %}
         {% if user_guess.comparison == 'equal' %}
             <script>
