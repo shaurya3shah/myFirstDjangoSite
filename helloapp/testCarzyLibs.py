@@ -18,6 +18,11 @@ class MyTestCase(unittest.TestCase):
         print(initial_story)
         self.assertEqual(True, True)
 
+    def test_tokenize(self):
+        story = generate_crazy_libs()
+        story.tokenize(story)
+        print(story.nouns)
+        self.assertEqual(True, True)
 
 if __name__ == '__main__':
     unittest.main()

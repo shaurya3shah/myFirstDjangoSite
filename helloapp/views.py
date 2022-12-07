@@ -1,7 +1,5 @@
 import random
-from typing import Set
-
-from django.shortcuts import render
+import nltk
 
 # Create your views here.
 from django.http import HttpResponse
@@ -9,6 +7,9 @@ from django.template import loader
 
 from helloapp.crazyLibs import generate_crazy_libs
 from helloapp.models import GuessedNumber
+from helloapp.models import CrazyLibs
+
+from nltk.tokenize import word_tokenize
 
 secret_number: int = 0
 check_count: int = 0
@@ -50,8 +51,10 @@ def check_guess(request):
 def crazy_libs(request):
     template = loader.get_template('helloapp/crazylibs.html')
 
-    story = generate_crazy_libs()
+    crazyLibsObj = CrazyLibs()
+    crazyLibsObj = generate_crazy_libs()
+    crazyLibsObj.tokenize(crazyLibsObj)
 
-    context = {'story': story.choices[0].text}
-
+    context = {'story': crazyLibsObj.original_story(crazyLibsObj), 'nouns': crazyLibsObj.nouns,
+               'verbs': crazyLibsObj.verbs, 'adjectives': crazyLibsObj.adjectives}
     return HttpResponse(template.render(context, request))
