@@ -17,6 +17,16 @@ check_count: int = 0
 
 def index(request):
     template = loader.get_template('helloapp/index.html')
+    welcome_message = 'Hub'
+
+    context = {'welcome_message': welcome_message}
+    print(context)
+
+    return HttpResponse(template.render(context, request))
+
+
+def guess_number(request):
+    template = loader.get_template('helloapp/guessnumber.html')
     global secret_number
     global check_count
 
@@ -29,7 +39,7 @@ def index(request):
 
 
 def check_guess(request):
-    template = loader.get_template('helloapp/index.html')
+    template = loader.get_template('helloapp/guessnumber.html')
     number = int(request.POST["Enter Your Guess"])
     user_guess = GuessedNumber
     user_guess.guessed_number = number

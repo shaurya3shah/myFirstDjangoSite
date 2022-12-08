@@ -5,38 +5,14 @@
   <title>Hello App Webpage</title>
 </head>
 <body>
-    <script>
-    </script>
 
     {% load static %}
 
-    {% if secret_number %}
-<!--        <p>Secret Number is:  {{ secret_number }} </p>-->
-        <p>Let's play a game of guessing a random number between 1 to 100</p>
-        <form action="{% url 'helloapp:check_guess' %}" method="post">
-        {% csrf_token %}
-            <input type="text" name="Enter Your Guess" autofocus>
-            <button name="check_guess">Check Guess</button>
-        </form>
-    {% elif user_guess %}
-        {% if user_guess.comparison == 'equal' %}
-            <p>YAY!!! You correctly guessed the secret number: {{ user_guess.guessed_number }} in {{ guess_count }} guesses</p>
-            <form action="{% url 'helloapp:index' %}" method="post">
-                {% csrf_token %}
-                <input type="submit" value="Play Again">
-            </form>
-        {% else %}
-            <p>The guessed number:  {{ user_guess.guessed_number }} is  {{ user_guess.comparison }} than the secret number</p>
-            <p>Number of guesses:  {{ guess_count }} </p>
-
-            <form action="{% url 'helloapp:check_guess' %}" method="post">
-            {% csrf_token %}
-                <input type="text" name="Enter Your Guess" autofocus>
-                <button name="check_guess">Check Guess</button>
-            </form>
-        {% endif %}
-    {% else %}
-        <p>No data is available.</p>
+    {% if welcome_message %}
+        <h1>{{ welcome_message }} </h1>
     {% endif %}
+    <input type="submit" value="Guess A Number" onclick="location.href = '/helloapp/guess_number';">
+
+    <input type="submit" value="Crazy Lib" onclick="location.href = '/helloapp/crazy_libs';">
 </body>
 </html>
