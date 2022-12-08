@@ -5,7 +5,7 @@ import nltk
 from django.http import HttpResponse
 from django.template import loader
 
-from helloapp.crazyLibs import generate_crazy_libs
+from helloapp.crazyLibs import generate_original_libs
 from helloapp.models import GuessedNumber
 from helloapp.models import CrazyLibs
 
@@ -51,10 +51,45 @@ def check_guess(request):
 def crazy_libs(request):
     template = loader.get_template('helloapp/crazylibs.html')
 
-    crazyLibsObj = CrazyLibs()
-    crazyLibsObj = generate_crazy_libs()
+    crazyLibsObj = generate_original_libs()
     crazyLibsObj.tokenize(crazyLibsObj)
 
     context = {'story': crazyLibsObj.original_story(crazyLibsObj), 'nouns': crazyLibsObj.nouns,
                'verbs': crazyLibsObj.verbs, 'adjectives': crazyLibsObj.adjectives}
+
+    request.session['crazyLibsObj'] = crazyLibsObj
+    print("setting session crazyLibsObj: " + str(crazyLibsObj.__str__(crazyLibsObj)))
+    return HttpResponse(template.render(context, request))
+
+
+def generate_crazy_libs(request):
+    template = loader.get_template('helloapp/crazylibs.html')
+    crazyLibsObj = request.session['crazyLibsObj']
+    print("received session crazyLibsObj: " + str(crazyLibsObj.__str__(crazyLibsObj)))
+
+    for noun in crazyLibsObj.nouns:
+        input_noun = str(request.POST.get("input_noun_" + noun))
+        print("input_noun_" + noun + ": " + input_noun)
+        if input_noun != '':
+            crazyLibsObj.make_crazy(crazyLibsObj, noun, input_noun)
+
+    for verb in crazyLibsObj.verbs:
+        input_verb = str(request.POST.get("input_verb_" + verb))
+        print("input_verb_" + verb + ": " + input_verb)
+        if input_verb != '':
+            crazyLibsObj.make_crazy(crazyLibsObj, verb, input_verb)
+
+    for adjective in crazyLibsObj.adjectives:
+        input_adjective = str(request.POST.get("input_adjective_" + adjective))
+        print("input_adjective_" + adjective + ": " + input_adjective)
+        if input_adjective != '':
+            crazyLibsObj.make_crazy(crazyLibsObj, adjective, input_adjective)
+
+    print("The final crazy story is" + crazyLibsObj.crazy_story)
+    request.session['crazyLibsObj'] = crazyLibsObj
+
+    print("setting session crazyLibsObj: " + str(crazyLibsObj.__str__(crazyLibsObj)))
+
+    context = {'crazyLibsObj': crazyLibsObj}
+
     return HttpResponse(template.render(context, request))

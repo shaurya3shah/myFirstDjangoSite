@@ -3,13 +3,14 @@ import openai
 import requests
 from helloapp.models import CrazyLibs
 
-# openai.api_key = "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"
-openai.api_key = "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"
+# openai.api_key = "bad1"
+# openai.api_key = "bad2"
+openai.api_key = "good1"
 
 crazyLibs = CrazyLibs
 
 
-def generate_crazy_libs():
+def generate_original_libs():
     initiate_story()
     response = openai.Completion.create(
         model="text-davinci-003",
@@ -22,6 +23,7 @@ def generate_crazy_libs():
     )
 
     crazyLibs.added_story = response.choices[0].text
+    crazyLibs.crazy_story = ""
     print(crazyLibs.added_story)
 
     return crazyLibs

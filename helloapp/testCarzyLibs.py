@@ -1,6 +1,6 @@
 import unittest
 
-from helloapp.crazyLibs import generate_crazy_libs, initiate_story
+from helloapp.crazyLibs import generate_original_libs, initiate_story
 
 
 class MyTestCase(unittest.TestCase):
@@ -8,7 +8,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(True, True)  # add assertion here
 
     def test_crazy_libs(self):
-        story = generate_crazy_libs()
+        story = generate_original_libs()
         # print(story.choices[0].text)
         print(story)
         self.assertEqual(True, True)
@@ -19,9 +19,14 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(True, True)
 
     def test_tokenize(self):
-        story = generate_crazy_libs()
+        story = generate_original_libs()
         story.tokenize(story)
         print(story.nouns)
+        self.assertEqual(True, True)
+
+    def test_make_crazy_story(self):
+        story = generate_original_libs()
+        story.make_crazy(story, 'hello', 'world')
         self.assertEqual(True, True)
 
 if __name__ == '__main__':

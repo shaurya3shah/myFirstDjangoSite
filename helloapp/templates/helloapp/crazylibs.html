@@ -8,10 +8,51 @@
     {% load static %}
 
     {% if story %}
-        <p>Original story is:  {{ story }} </p>
-        <p>nouns:  {{ nouns }} </p>
-        <p>verbs:  {{ verbs }} </p>
-        <p>adjectives:  {{ adjectives }} </p>
+        <p>You might have heard of Mad Libs... Let's do some Crazy Libs!</p>
+        <p style="display:none" >Original lib is:  {{ story }} </p>
+        <form action="{% url 'helloapp:generate_crazy_libs' %}" method="post">
+            {% csrf_token %}
+        {% if nouns %}
+        <ul>
+            Please fill out the nouns:
+        {% for noun in nouns %}
+            <li><input type="text" name="input_noun_{{ noun }}">{{ noun }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if verbs %}
+        <ul>
+            Please fill out the verbs:
+        {% for verb in verbs %}
+            <li><input type="text" name="input_verb_{{ verb }}">{{ verb }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if adjectives %}
+        <ul>
+            Please fill out the adjectives:
+        {% for adjective in adjectives %}
+            <li><input name="input_adjective_{{ adjective }}">{{ adjective }}</li>
+        {% endfor %}
+
+        </ul>
+        {% endif %}
+
+            <input type="submit" type="text" value="Generate Crazy Lib">
+        </form>
+
+    {% elif crazyLibsObj %}
+
+        <p>Crazy Lib is:  {{ crazyLibsObj.crazy_story }} </p>
+
+        <p id="original_lib" style="display:none">Original Lib is:  {{ crazyLibsObj }} </p>
+
+
+        <input type="submit" value="See Original Lib" onclick="getElementById('original_lib').style.display = 'block';">
+
+        <input type="submit" value="Do Another Lib" onclick="location.href = '/helloapp/crazy_libs';">
     {% endif %}
 </body>
 </html>

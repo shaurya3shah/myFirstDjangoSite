@@ -52,6 +52,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'myFirstDjangoSite.urls'
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

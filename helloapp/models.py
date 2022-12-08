@@ -14,7 +14,7 @@ class GuessedNumber:
 class CrazyLibs:
     initial_text = str
     added_story = str
-    created_story = str
+    crazy_story = ""
     pos_tagged_text = []
     nouns = []
     verbs = []
@@ -38,11 +38,23 @@ class CrazyLibs:
             print(pos_tag_word[0], ":", pos_tag_word[1])
             match pos_tag_word[1]:
                 case 'NN':
-                    self.nouns.append(pos_tag_word[0])
+                    if pos_tag_word[0] not in self.nouns:
+                        self.nouns.append(pos_tag_word[0])
                 case 'VB':
-                    self.verbs.append(pos_tag_word[0])
+                    if pos_tag_word[0] not in self.verbs:
+                        self.verbs.append(pos_tag_word[0])
                 case 'JJ':
-                    self.adjectives.append(pos_tag_word[0])
+                    if pos_tag_word[0] not in self.adjectives:
+                        self.adjectives.append(pos_tag_word[0])
 
     def original_story(self):
         return self.initial_text + " " + self.added_story
+
+    def make_crazy(self, item, input_item):
+        print("noun: " + item + " input_item: " + input_item)
+        if not self.crazy_story:
+            self.crazy_story = self.initial_text + " " + self.added_story
+        if input_item != '':
+            self.crazy_story = self.crazy_story.replace(item, input_item)
+
+        print("crazy story is: " + self.crazy_story)
