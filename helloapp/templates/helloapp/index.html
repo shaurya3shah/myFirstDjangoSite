@@ -1,17 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Hello App Webpage</title>
-</head>
-<body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% load static %}
-    {% if welcome_message %}
-        <h1>{{ welcome_message }} </h1>
-    {% endif %}
-    <input type="submit" value="Guess A Number" onclick="location.href = '/helloapp/guess_number';">
+    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/w3.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/Poppins.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/font-awesome.min.css' %}">
 
-    <input type="submit" value="Crazy Lib" onclick="location.href = '/helloapp/crazy_libs';">
+    <style>
+    body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+    body {font-size: 16px;}
+    img {margin-bottom: -8px;}
+    .mySlides {display: none;}
+    </style>
+  <title>Hello App Webpage</title>
+</head>
+<body class="w3-content w3-white" style="max-width:1500px;">
+
+    <div class="w3-display w3-padding w3-hide-small" style="width:50%">
+    {% if welcome_message %}
+        <h1 class="w3-xlarge-center">{{ welcome_message }} </h1>
+        <hr class="w3-opacity">
+    {% endif %}
+    <input class="w3-button w3-block w3-blue w3-round" type="submit" value="Guess A Number" onclick="location.href = '/helloapp/guess_number';">
+    <hr class="w3-opacity">
+    <input class="w3-button w3-block w3-green w3-round" type="submit" value="Crazy Lib" onclick="location.href = '/helloapp/crazy_libs';">
+    </div>
 </body>
 </html>
