@@ -70,19 +70,19 @@ def generate_crazy_libs(request):
     for noun in crazyLibsObj.nouns:
         input_noun = str(request.POST.get("input_noun_" + noun))
         print("input_noun_" + noun + ": " + input_noun)
-        if input_noun != '':
+        if input_noun != '' and len(input_noun) > 2:
             crazyLibsObj.make_crazy(crazyLibsObj, noun, input_noun)
 
     for verb in crazyLibsObj.verbs:
         input_verb = str(request.POST.get("input_verb_" + verb))
         print("input_verb_" + verb + ": " + input_verb)
-        if input_verb != '':
+        if input_verb != '' and len(input_verb) > 2:
             crazyLibsObj.make_crazy(crazyLibsObj, verb, input_verb)
 
     for adjective in crazyLibsObj.adjectives:
         input_adjective = str(request.POST.get("input_adjective_" + adjective))
         print("input_adjective_" + adjective + ": " + input_adjective)
-        if input_adjective != '':
+        if input_adjective != '' and len(input_adjective) > 2:
             crazyLibsObj.make_crazy(crazyLibsObj, adjective, input_adjective)
 
     print("The final crazy story is" + crazyLibsObj.crazy_story)
