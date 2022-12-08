@@ -35,7 +35,7 @@ class CrazyLibs:
         # nltk.help.upenn_tagset(pos_tag_word[1])
         # https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
         for pos_tag_word in self.pos_tagged_text:
-            print(pos_tag_word[0], ":", pos_tag_word[1])
+            # print(pos_tag_word[0], ":", pos_tag_word[1])
             match pos_tag_word[1]:
                 case 'NN':
                     if pos_tag_word[0] not in self.nouns:
