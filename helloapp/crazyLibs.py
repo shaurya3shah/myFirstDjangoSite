@@ -1,7 +1,8 @@
 import os
 import openai
 import requests
-from helloapp.models import CrazyLibs
+
+from helloapp.models.models import CrazyLibs
 
 # openai.api_key = "bad1"
 # openai.api_key = "bad2"
