@@ -29,5 +29,11 @@ class MyTestCase(unittest.TestCase):
         story.make_crazy(story, 'hello', 'world')
         self.assertEqual(True, True)
 
+    def test_scratchpad(self):
+        for i in range(5):
+            if i == 3:
+                break
+            print(i)
+
 if __name__ == '__main__':
     unittest.main()

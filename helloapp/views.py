@@ -103,3 +103,31 @@ def generate_crazy_libs(request):
     context = {'crazyLibsObj': crazyLibsObj}
 
     return HttpResponse(template.render(context, request))
+
+
+def numberdle(request):
+    template = loader.get_template('helloapp/numberdle.html')
+    welcome_message = 'Numberdle!'
+
+    context = {'welcome_message': welcome_message}
+    print(context)
+
+    return HttpResponse(template.render(context, request))
+
+def countries_connection(request):
+    template = loader.get_template('helloapp/countriesconnection.html')
+    welcome_message = 'Countries Connection!'
+
+    context = {'welcome_message': welcome_message}
+    print(context)
+
+    return HttpResponse(template.render(context, request))
+
+def connect_country(request):
+    template = loader.get_template('helloapp/countriesconnection.html')
+
+    context = {}
+    print(context)
+
+    return HttpResponse(template.render(context, request))
+

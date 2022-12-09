@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Numberdle</title>
+
+<!--    UI Inspiration: https://github.com/minhlong149/wordle-->
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/wordle_style.css' %}">
+</head>
+<body>
+    <p>Wordle of Numbers... This is Numberdle!</p>
+
+    <main>
+    <div class="board">
+      <div id="row-1" class="board__row">
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+      </div>
+
+      <div id="row-2" class="board__row">
+        <input class="tile-input"></input>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <button class="tile"></button>
+      </div>
+
+      <div id="row-3" class="board__row">
+        <input class="tile"></input>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+      </div>
+
+      <div id="row-4" class="board__row">
+        <input class="tile"></input>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+      </div>
+
+      <div id="row-5" class="board__row">
+        <input class="tile"></input>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+      </div>
+
+      <div id="row-6" class="board__row">
+        <input class="tile"></input>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+        <span class="tile"></span>
+      </div>
+    </div>
+    </main>
+
+    <br><br><br>
+    <input type="submit" value="Go To Hub" onclick="location.href = '/helloapp/';">
+</body>
+</html>

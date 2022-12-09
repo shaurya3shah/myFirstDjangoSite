@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Countries Connection</title>
+</head>
+<body>
+    <p>Let's create a connection of countries!</p>
+
+    {% if countries_connection_obj %}
+        <p>Please enter your next country</p>
+    {% else %}
+        <p>Please enter your first country</p>
+    {% endif %}
+
+    <form action="{% url 'helloapp:connect_country' %}" method="post">
+    {% csrf_token %}
+        <input type="text" name="Enter Country" autofocus>
+        <button name="connect_country">Connect</button>
+    </form>
+
+    <br><br><br>
+    <input type="submit" value="Go To Hub" onclick="location.href = '/helloapp/';">
+</body>
+</html>
