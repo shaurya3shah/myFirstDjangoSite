@@ -1,3 +1,4 @@
+import random
 from enum import Enum
 
 from country_list import countries_for_language
@@ -14,6 +15,7 @@ class CountriesConnection:
     countries_connection = ''
 
     def connect_country(self, player_input):
+        player_input = player_input.lower()
         print(f"player_input: " + player_input)
         # print(f"countries_of_world: " + self.countries_of_world.__str__())
 
@@ -27,6 +29,7 @@ class CountriesConnection:
             self.add_player_country(player_input)
             last_character = player_input[-1]
             found = False
+            random.shuffle(self.countries_of_world)
             for computer_country in self.countries_of_world:
                 if computer_country not in self.connected_countries and computer_country[0] == last_character.lower():
                     print(f"Computer choice is {computer_country}")
@@ -65,6 +68,8 @@ class CountriesConnection:
             countries = dict(countries_for_language('en'))
             for a, b in countries.items():
                 self.countries_of_world.append(b.lower())
+
+        random.shuffle(self.countries_of_world)
 
         self.score = 0
         self.connected_countries = []
