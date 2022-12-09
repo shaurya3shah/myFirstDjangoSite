@@ -55,6 +55,11 @@ class CrazyLibs:
         if not self.crazy_story:
             self.crazy_story = self.initial_text + " " + self.added_story
         if input_item != '':
-            self.crazy_story = self.crazy_story.replace(item, input_item)
+            self.crazy_story = self.crazy_story.replace(item, '<span style="color: green; "><u>' + input_item + '</u></span>')
+
+        self.initial_text = self.initial_text.replace(item, '<span style="color: green; ">' + item + '</span>')
+        self.added_story = self.added_story.replace(item, '<span style="color: green; ">' + item + '</span>')
 
         print("crazy story is: " + self.crazy_story)
+        #https://stackoverflow.com/questions/50398901/python-django-change-font-color-for-part-of-string-found-in-another-list
+        #https://stackoverflow.com/questions/21483003/replacing-a-character-in-django-template

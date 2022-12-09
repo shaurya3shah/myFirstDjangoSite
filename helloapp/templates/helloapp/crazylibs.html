@@ -5,6 +5,8 @@
     <title>Crazy Libs</title>
 </head>
 <body>
+    <input type="submit" value="Go To Hub" onclick="location.href = '/helloapp/';"
+           style="position: absolute; right: 0; top: 0; margin-top: 20px; margin-right: 20px;">
     {% load static %}
 
     {% if story %}
@@ -45,9 +47,9 @@
 
     {% elif crazyLibsObj %}
 
-        <p>Crazy Lib is:  {{ crazyLibsObj.crazy_story }} </p>
+        <p>Crazy Lib is:  {{ crazyLibsObj.crazy_story | safe}} </p>
 
-        <p id="original_lib" style="display:none">Original Lib is:  {{ crazyLibsObj }} </p>
+        <p id="original_lib" style="display:none">Original Lib is:  {{ crazyLibsObj | safe}} </p>
 
 
         <input type="submit" value="See Original Lib" onclick="getElementById('original_lib').style.display = 'block';">
