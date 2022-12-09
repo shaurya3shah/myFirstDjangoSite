@@ -6,10 +6,8 @@ from django.http import HttpResponse
 from django.template import loader
 
 from helloapp.crazyLibs import generate_original_libs
-from helloapp.models import GuessedNumber
-from helloapp.models import CrazyLibs
-
-from nltk.tokenize import word_tokenize
+from helloapp.models.countriesConnection import CountriesConnection
+from helloapp.models.models import GuessedNumber
 
 secret_number: int = 0
 check_count: int = 0
@@ -114,20 +112,31 @@ def numberdle(request):
 
     return HttpResponse(template.render(context, request))
 
+
 def countries_connection(request):
     template = loader.get_template('helloapp/countriesconnection.html')
     welcome_message = 'Countries Connection!'
 
-    context = {'welcome_message': welcome_message}
+    countries_connection_obj = CountriesConnection()
+    request.session['countries_connection_obj'] = countries_connection_obj
+    context = {'welcome_message': welcome_message, 'countries_connection_obj': countries_connection_obj}
     print(context)
 
     return HttpResponse(template.render(context, request))
+
 
 def connect_country(request):
     template = loader.get_template('helloapp/countriesconnection.html')
 
-    context = {}
+    player_input = str(request.POST.get("Enter Country"))
+
+    countries_connection_obj = request.session['countries_connection_obj']
+
+    result = countries_connection_obj.connect_country(player_input)
+
+    request.session['countries_connection_obj'] = countries_connection_obj
+
+    context = {'countries_connection_obj': countries_connection_obj, 'result': result}
     print(context)
 
     return HttpResponse(template.render(context, request))
-

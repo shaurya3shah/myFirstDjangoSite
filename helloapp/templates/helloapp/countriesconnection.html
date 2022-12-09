@@ -7,7 +7,10 @@
 <body>
     <p>Let's create a connection of countries!</p>
 
-    {% if countries_connection_obj %}
+    {% if countries_connection_obj.countries_connection %}
+        <p>Countries Connection: {{countries_connection_obj.countries_connection}}</p>
+        <p>Your Score: {{countries_connection_obj.score}}</p>
+        <p>Result: {{result}}</p>
         <p>Please enter your next country</p>
     {% else %}
         <p>Please enter your first country</p>

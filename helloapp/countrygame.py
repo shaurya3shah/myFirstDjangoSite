@@ -1,46 +1,42 @@
-#This is a country game where you say a country and the computer will say a new country starting with the last Alphabet of the country you mentioned
+# This is a country connection game where you add a country and the computer will add a
+# new country starting with the last Alphabet of the country you mentioned
 
-from country_list import available_languages
 from country_list import countries_for_language
 
-
 countries = dict(countries_for_language('en'))
-country_of_world=[]
-for a,b in countries.items():
-   country_of_world.append(b.lower())
+countries_of_world = []
+for a, b in countries.items():
+    countries_of_world.append(b.lower())
 
-#print(country_of_world)
-#print(len(country_of_world))
+# print(country_of_world)
+# print(len(country_of_world))
 
-your_country=input("Name a country : ")
-your_turn=True
+player_input = input("Name a country : ")
+player_turn = True
 
-
-current_country_list=[]
-found=True
+connected_countries = []
+found = True
 while found:
-    if your_turn:
-        if your_country.lower() in current_country_list:
+    if player_turn:
+        if player_input.lower() in connected_countries:
             print(f"Its a repeat")
-            your_country=input(f"Name a country starting with {country[-1]}")
-        elif your_country.lower() in country_of_world:
-            current_country_list.append(your_country)
-            last_character=your_country[-1]
-            found=False
-            for country in country_of_world:
+            player_input = input(f"Name a country starting with {computer_country[-1]}")
+        elif player_input.lower() in countries_of_world:
+            connected_countries.append(player_input)
+            last_character = player_input[-1]
+            found = False
+            for computer_country in countries_of_world:
 
                 if found is True:
                     break
-                elif country not in current_country_list and country[0] == last_character.lower():
-                    print(f"My choice is {country}")
-                    current_country_list.append(country)
-                    your_country=input(f"Name a country starting with {country[-1]} : ")
-                    found=True
+                elif computer_country not in connected_countries and computer_country[0] == last_character.lower():
+                    print(f"My choice is {computer_country}")
+                    connected_countries.append(computer_country)
+                    player_input = input(f"Name a country starting with {computer_country[-1]} : ")
+                    found = True
                     print(found)
-#                    your_turn=False
+                    #                    your_turn=False
                     break
-
-
 
             if found is False:
                 print("I lost")
