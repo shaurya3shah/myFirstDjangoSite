@@ -50,9 +50,9 @@ class CountriesConnection:
         self.player_countries.append(player_input)
 
         if not self.countries_connection:
-            self.countries_connection = player_input
+            self.countries_connection = '<span style="color: green; ">' + player_input + '<span>'
         else:
-            self.countries_connection = self.countries_connection + ' --> ' + player_input
+            self.countries_connection = self.countries_connection + ' --> ' + '<span style="color: green; ">' + player_input + '<span>'
 
         self.score += 1
 
@@ -60,7 +60,7 @@ class CountriesConnection:
         self.connected_countries.append(computer_country)
         self.last_computer_country = computer_country
         self.computer_countries.append(computer_country)
-        self.countries_connection = self.countries_connection + ' --> ' + computer_country
+        self.countries_connection = self.countries_connection + ' --> ' + '<span style="color: blue; ">' + computer_country + '<span>'
         self.score += 1
 
     def __init__(self):
@@ -86,3 +86,6 @@ class Result(Enum):
     INVALID = 3
     EXHAUSTED = 4
     DISCONNECT = 5
+
+    def __str__(self):
+        return self.name

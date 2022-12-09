@@ -8,10 +8,22 @@
     <p>Let's create a connection of countries!</p>
 
     {% if countries_connection_obj.countries_connection %}
-        <p>Countries Connection: {{countries_connection_obj.countries_connection}}</p>
+        <p>Countries Connection: {{countries_connection_obj.countries_connection | safe}}</p>
         <p>Your Score: {{countries_connection_obj.score}}</p>
-        <p>Result: {{result}}</p>
-        <p>Please enter your next country</p>
+        <p style="display:none;">Result: {{result}}</p>
+        {% if result|stringformat:"s" == "DISCONNECT" %}
+            <p>For the connection to progress, the first letter of country you enter must be the last letter of the latest connected countries</p>
+        {% elif result|stringformat:"s" == "CONNECTED" %}
+            <p>Country connected & score increased. Let's connect another country</p>
+        {% elif result|stringformat:"s" == "REPEAT" %}
+            <p>For the connection to progress, the country you enter must not already be present in the connected countries</p>
+        {% elif result|stringformat:"s" == "INVALID" %}
+            <p>Please enter a valid country</p>
+        {% elif result|stringformat:"s" == "EXHAUSTED" %}
+            <p>The computer cannot find any new country to connect. Congratulations you beat the computer!</p>
+        {% else %}
+            <p>Please enter your next country</p>
+        {% endif %}
     {% else %}
         <p>Please enter your first country</p>
     {% endif %}
