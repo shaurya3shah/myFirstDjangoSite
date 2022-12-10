@@ -8,6 +8,7 @@ from django.template import loader
 from helloapp.crazyLibs import generate_original_libs
 from helloapp.models.countriesConnection import CountriesConnection
 from helloapp.models.models import GuessedNumber
+from helloapp.models.numberdle import Numberdle
 
 secret_number: int = 0
 check_count: int = 0
@@ -106,6 +107,23 @@ def generate_crazy_libs(request):
 def numberdle(request):
     template = loader.get_template('helloapp/numberdle.html')
     welcome_message = 'Numberdle!'
+
+    numberdle_obj = Numberdle()
+    request.session['numberdle_obj'] = numberdle_obj
+    context = {'welcome_message': welcome_message, 'numberdle_obj': numberdle_obj}
+
+    print(context)
+
+    return HttpResponse(template.render(context, request))
+
+def check_numberdle(request):
+    template = loader.get_template('helloapp/numberdle.html')
+    welcome_message = 'Numberdle!'
+    numberdle_obj = request.session['numberdle_obj']
+    numberdle_obj.guesses += 1
+    player_guess = str(request.POST.get("Guess_") + str(numberdle_obj.guesses))
+
+
 
     context = {'welcome_message': welcome_message}
     print(context)
