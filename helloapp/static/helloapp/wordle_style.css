@@ -30,6 +30,7 @@ button {
   --green-correct: #538d4e;
   --yellow-present: #b59f3b;
   --dark-absent: #3a3a3c;
+  --light-input: #ffffff;
 
   /* Text */
   --light-text: #ffffff;
@@ -114,7 +115,7 @@ header {
 .board {
   display: grid;
   align-content: center;
-  grid-template-rows: repeat(6, 4em);
+  grid-template-rows: repeat(5, 4em);
   gap: 0.25em;
 }
 
@@ -142,8 +143,12 @@ header {
 }
 
 .tile--input {
-  border: blue;
-  background-color: var(--dark-absent);
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 2em;
+  font-weight: 500;
+  text-align: center;
+  border: none;
+  background-color: var(--light-input);
 }
 
 .tile--absent {
@@ -262,4 +267,27 @@ header {
 .tile--shake {
   animation-name: shake;
   animation-duration: 0.5s;
+}
+
+.button-input {
+  background-color: --light-input;
+  border-radius: 8px;
+  border-width: 0;
+  color: #333333;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1px;
+  list-style: none;
+  margin: 0;
+  padding: 1px 1px;
+  text-align: center;
+  transition: all 200ms;
+  vertical-align: baseline;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }

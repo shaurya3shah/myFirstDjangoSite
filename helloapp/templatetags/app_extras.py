@@ -4,6 +4,6 @@ register = template.Library()
 
 
 @register.filter
-def black(value, arg):
-    """Removes all values of arg from the given string"""
-    return value.replace(arg, '<span style="color: black">' + arg + '</span>')
+def blue(value, arg):
+    """Returns string in HTML blue"""
+    return value.replace(arg, '<span style="color: blue">' + arg + '</span>')

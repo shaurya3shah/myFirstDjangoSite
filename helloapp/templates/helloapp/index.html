@@ -21,8 +21,8 @@
 <!--    {% load app_extras %}-->
     <div class="w3-display w3-padding w3-hide-small" style="width:50%">
     {% if welcome_message %}
-<!--        <h1 class="w3-xlarge-center">{{welcome_message|black:"Hub"|safe}}</h1>-->
-        <h1 class="w3-xlarge-center">{{welcome_message|safe}}</h1>
+        <h1 class="w3-xlarge-center">{{welcome_message|blue:"Hub"|safe}}</h1>
+<!--        <h1 class="w3-xlarge-center">{{welcome_message|safe}}</h1>-->
         <hr class="w3-opacity">
     {% endif %}
     <input class="w3-button w3-block w3-blue w3-round" type="submit" value="Guess A Number" onclick="location.href = '/helloapp/guess_number';">
