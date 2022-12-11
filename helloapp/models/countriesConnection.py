@@ -64,6 +64,7 @@ class CountriesConnection:
         self.score += 1
 
     def __init__(self):
+        print("initiating countries connection")
         if not self.countries_of_world:
             countries = dict(countries_for_language('en'))
             for a, b in countries.items():

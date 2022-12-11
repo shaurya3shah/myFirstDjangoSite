@@ -11,59 +11,68 @@
 </head>
 <body>
     <p>Wordle of Numbers... This is Numberdle!</p>
-
     <main>
-    <div class="board">
-      <div id="row-1" class="board__row">
-        <input class="tile--input" type="text">
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <button class="button-input">Check</button>
+      <div class="board">
+    {% load static %}
+        <p>{{numberdle_obj.guesses}}</p>
+    {% if numberdle_obj.guesses == 0 %}
+      <form action="{% url 'helloapp:check_numberdle' %}" method="post">
+        {% csrf_token %}
+        <div id="row-1" class="board__row">
+          <input class="tile--input" type="text" name="player_guess_1" autofocus>
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <input type="submit" class="button-input" value="Check">
+        </div>
+      </form>
+        <div id="row-2" class="board__row">
+          <input class="tile--input" type="text">
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <button class="button-input" disabled>Check</button>
+        </div>
+
+        <div id="row-3" class="board__row">
+          <input class="tile--input" type="text">
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <button class="button-input" disabled>Check</button>
+        </div>
+
+        <div id="row-4" class="board__row">
+          <input class="tile--input" type="text">
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <button class="button-input" disabled>Check</button>
+        </div>
+
+        <div id="row-5" class="board__row">
+          <input class="tile--input" type="text">
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <span class="tile"></span>
+          <button class="button-input" disabled >Check</button>
+        </div>
       </div>
 
-      <div id="row-2" class="board__row">
-        <input class="tile--input" type="text">
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <button class="button-input">Check</button>
-      </div>
+    {% else %}
 
-      <div id="row-3" class="board__row">
-        <input class="tile--input" type="text">
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <button class="button-input">Check</button>
-      </div>
+    {% endif %}
 
-      <div id="row-4" class="board__row">
-        <input class="tile--input" type="text">
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <button class="button-input">Check</button>
-      </div>
-
-      <div id="row-5" class="board__row">
-        <input class="tile--input" type="text">
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <span class="tile"></span>
-        <button class="button-input">Check</button>
-      </div>
-    </div>
     </main>
 
     <input type="submit" value="Go To Hub" onclick="location.href = '/helloapp/';">

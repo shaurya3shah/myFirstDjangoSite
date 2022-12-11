@@ -9,6 +9,10 @@ class TestNumberdle(unittest.TestCase):
         print(str(numberdle))
         self.assertEqual(True, True)  # add assertion here
 
+    def test_init(self):
+        numberdle = Numberdle()
+        print(numberdle.secret_numbers)
+        self.assertEqual(True, True)  # add assertion here
 
 if __name__ == '__main__':
     unittest.main()
