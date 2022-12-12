@@ -14,18 +14,21 @@
     <main>
       <div class="board">
     {% load static %}
-        <p>Number of Guesses: {{numberdle_obj.guesses}}</p>
+    {% load app_extras %}
+        <p>Numbers ranging from 1 to 20 are hidden behind the five tiles. Your aim is to figure out each hidden number.
+            Input your guesses, and press check for clues.</p>
+          <br>
             {% if numberdle_obj %}
                 <form action="{% url 'helloapp:check_numberdle' %}" method="post">
                 {% csrf_token %}
                     {% for row in numberdle_obj.board %}
                     <div class="board__row">
-                        <span class="tile">{{row.0}}</span>
-                        <span class="tile">{{row.1}}</span>
-                        <span class="tile">{{row.2}}</span>
-                        <span class="tile">{{row.3}}</span>
-                        <span class="tile">{{row.4}}</span>
-                        <span class="tile">{{row.5}}</span>
+                        <span class="tile--past--input">{{row.0}}</span>
+                        <span class="{{row.1|tile|safe}}">{{row.1}}</span>
+                        <span class="{{row.2|tile|safe}}">{{row.2}}</span>
+                        <span class="{{row.3|tile|safe}}">{{row.3}}</span>
+                        <span class="{{row.4|tile|safe}}">{{row.4}}</span>
+                        <span class="{{row.5|tile|safe}}">{{row.5}}</span>
                     </div>
                     <br>
                     {% endfor %}
@@ -44,6 +47,9 @@
                     {% endif %}
                 </form>
             {% endif %}
+          <p>Number of Guesses: {{numberdle_obj.guesses}}</p>
+          <br>
+          <input type="submit" class="button-input" value="New Game" onclick="location.href = '/helloapp/numberdle';">
           <input type="submit" class="button-input" value="Go To Hub" onclick="location.href = '/helloapp/';">
         </div>
     </main>
