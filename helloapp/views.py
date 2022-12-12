@@ -123,7 +123,7 @@ def check_numberdle(request):
     numberdle_obj = request.session['numberdle_obj']
     numberdle_obj.guesses += 1
 
-    player_guess = int(request.POST.get("player_guess_" + str(numberdle_obj.guesses)))
+    player_guess = int(request.POST.get("player_guess"))
 
     print(numberdle_obj.secret_numbers)
 

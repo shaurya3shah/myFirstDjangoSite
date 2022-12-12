@@ -14,67 +14,38 @@
     <main>
       <div class="board">
     {% load static %}
-        <p>{{numberdle_obj.guesses}}</p>
-    {% if numberdle_obj.guesses == 0 %}
-      <form action="{% url 'helloapp:check_numberdle' %}" method="post">
-        {% csrf_token %}
-        <div id="row-1" class="board__row">
-          <input class="tile--input" type="text" name="player_guess_1" autofocus>
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <input type="submit" class="button-input" value="Check">
+        <p>Number of Guesses: {{numberdle_obj.guesses}}</p>
+            {% if numberdle_obj %}
+                <form action="{% url 'helloapp:check_numberdle' %}" method="post">
+                {% csrf_token %}
+                    {% for row in numberdle_obj.board %}
+                    <div class="board__row">
+                        <span class="tile">{{row.0}}</span>
+                        <span class="tile">{{row.1}}</span>
+                        <span class="tile">{{row.2}}</span>
+                        <span class="tile">{{row.3}}</span>
+                        <span class="tile">{{row.4}}</span>
+                        <span class="tile">{{row.5}}</span>
+                    </div>
+                    <br>
+                    {% endfor %}
+                    {% if numberdle_obj.correct_guesses == 5 %}
+                        <p>Congratulations! You guessed all 5 numbers correctly!</p>
+                    {% else %}
+                    <div id="row-input" class="board__row">
+                      <input class="tile--input" type="text" name="player_guess" autofocus>
+                      <span class="tile"></span>
+                      <span class="tile"></span>
+                      <span class="tile"></span>
+                      <span class="tile"></span>
+                      <span class="tile"></span>
+                      <input type="submit" class="button-input" value="Check">
+                    </div>
+                    {% endif %}
+                </form>
+            {% endif %}
+          <input type="submit" class="button-input" value="Go To Hub" onclick="location.href = '/helloapp/';">
         </div>
-      </form>
-        <div id="row-2" class="board__row">
-          <input class="tile--input" type="text">
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <button class="button-input" disabled>Check</button>
-        </div>
-
-        <div id="row-3" class="board__row">
-          <input class="tile--input" type="text">
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <button class="button-input" disabled>Check</button>
-        </div>
-
-        <div id="row-4" class="board__row">
-          <input class="tile--input" type="text">
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <button class="button-input" disabled>Check</button>
-        </div>
-
-        <div id="row-5" class="board__row">
-          <input class="tile--input" type="text">
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <span class="tile"></span>
-          <button class="button-input" disabled >Check</button>
-        </div>
-      </div>
-
-    {% else %}
-
-    {% endif %}
-
     </main>
-
-    <input type="submit" value="Go To Hub" onclick="location.href = '/helloapp/';">
 </body>
 </html>

@@ -28,15 +28,17 @@ button {
   --gray-key: #818384;
 
   --green-correct: #538d4e;
-  --yellow-present: #b59f3b;
+  --blue-correct: #2986cc;
+  --yellow-present: #ffe599;
   --dark-absent: #3a3a3c;
   --light-input: #ffffff;
 
   /* Text */
   --light-text: #ffffff;
 
-  /* Borger */
+  /* Border */
   --gray-border: #3a3a3c;
+  --yellow-border: #4b4b4d;
 }
 
 .dark-mode {
@@ -79,7 +81,6 @@ main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
 }
 
 aside {
@@ -115,7 +116,7 @@ header {
 .board {
   display: grid;
   align-content: center;
-  grid-template-rows: repeat(5, 4em);
+  grid-template-rows: repeat(4em);
   gap: 0.25em;
 }
 
@@ -130,7 +131,7 @@ header {
 
 .tile {
   color: var(--light-text);
-  border: 0.05em solid var(--gray-border);
+  border: 0.05em solid var(--yellow-border);
 
   font-size: 2em;
   font-weight: bold;
@@ -166,99 +167,6 @@ header {
   background-color: var(--green-correct);
 }
 
-/* KEYBOARD */
-
-.keyboard {
-  display: flex;
-  flex-direction: column;
-  gap: .25em;
-}
-
-.keyboard__row {
-  display: flex;
-  justify-content: center;
-  touch-action: manipulation;
-  gap: .25em;
-}
-
-/* KEYS */
-
-.key {
-  font-weight: bold;
-
-  background-color: var(--gray-key);
-  color: var(--light-text);
-
-  border: 0;
-  border-radius: 4px;
-
-  height: 58px;
-  flex-grow: 1;
-  flex-basis: 0;
-  text-transform: uppercase;
-
-  cursor: pointer;
-  user-select: none;
-}
-
-.key--special {
-  flex-grow: 1.5;
-}
-
-.spacer-row {
-  flex-grow: 0.5;
-}
-
-.key--correct {
-  background-color: var(--green-correct);
-}
-
-.key--absent {
-  background-color: var(--dark-absent);
-}
-
-.key--present {
-  background-color: var(--yellow-present);
-}
-
-/* MODAL */
-
-.modal--hidden {
-  display: none;
-}
-
-/* ANIMATIONS */
-
-@keyframes flip {
-  0% {
-    transform: scaleY(1);
-  }
-
-  50% {
-    transform: scaleY(0);
-  }
-
-  100% {
-    transform: scaleY(1);
-  }
-}
-@keyframes shake {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-
-  20%,
-  60% {
-    transform: translateX(-10px);
-  }
-
-  40%,
-  80% {
-    transform: translateX(10px);
-  }
-}
-
 
 .tile--flip {
   animation-name: flip;
@@ -279,10 +187,10 @@ header {
   font-family: "Haas Grot Text R Web", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 10px;
   font-weight: 500;
-  line-height: 1px;
+  line-height: 10px;
   list-style: none;
   margin: 0;
-  padding: 1px 1px;
+  padding: 5px 5px;
   text-align: center;
   transition: all 200ms;
   vertical-align: baseline;
