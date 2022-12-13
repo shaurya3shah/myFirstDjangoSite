@@ -14,4 +14,4 @@ def tile(value):
     if '=' in value:
         return 'tile--correct'
     else:
-        return 'tile'
+        return 'tile--incorrect'
