@@ -10,9 +10,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'helloapp/wordle_style.css' %}">
 </head>
 <body>
-    <p>Wordle of Numbers... This is Numberdle!</p>
     <main>
-      <div class="board">
+        <p>Wordle of Numbers... This is Numberdle!</p>
+        <br>
+        <div class="board">
     {% load static %}
     {% load app_extras %}
         <p>Numbers ranging from 1 to 20 are hidden behind the five tiles. Your aim is to figure out each hidden number with minimum guesses.
@@ -48,6 +49,9 @@
                 </form>
             {% endif %}
           <p>Number of Guesses: {{numberdle_obj.guesses}}</p>
+            {% if error_message %}
+                <p style="color:red;">Please input a number</p>
+            {% endif %}
           <br>
           <input type="submit" class="button-input" value="New Game" onclick="location.href = '/helloapp/numberdle';">
           <input type="submit" class="button-input" value="Go To Hub" onclick="location.href = '/helloapp/';">

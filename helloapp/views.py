@@ -42,7 +42,7 @@ def check_guess(request):
     global secret_number
     global check_count
     user_input = request.POST["Enter Your Guess"]
-    if user_input.isdigit():
+    if user_input.isdigit:
         number = int(user_input)
         user_guess = GuessedNumber
         user_guess.guessed_number = number
@@ -128,17 +128,22 @@ def check_numberdle(request):
     template = loader.get_template('helloapp/numberdle.html')
     welcome_message = 'Numberdle!'
     numberdle_obj = request.session['numberdle_obj']
-    numberdle_obj.guesses += 1
 
-    player_guess = int(request.POST.get("player_guess"))
+    user_input = request.POST.get("player_guess")
+    if user_input.isdigit():
+        numberdle_obj.guesses += 1
+        player_guess = int(user_input)
 
-    print(numberdle_obj.secret_numbers)
+        print(numberdle_obj.secret_numbers)
 
-    numberdle_obj.asses_guess(player_guess)
+        numberdle_obj.asses_guess(player_guess)
 
-    request.session['numberdle_obj'] = numberdle_obj
-    context = {'welcome_message': welcome_message, 'numberdle_obj': numberdle_obj}
-    print(context)
+        request.session['numberdle_obj'] = numberdle_obj
+        context = {'welcome_message': welcome_message, 'numberdle_obj': numberdle_obj}
+        print(context)
+    else:
+        error_message = 'Please enter a number'
+        context = {'error_message': error_message, 'welcome_message': welcome_message, 'numberdle_obj': numberdle_obj}
 
     return HttpResponse(template.render(context, request))
 
