@@ -20,6 +20,16 @@
             <input type="text" name="Enter Your Guess" autofocus>
             <button name="check_guess">Check Guess</button>
         </form>
+    {% elif error_message %}
+            <p> The entered value is not a number  </p>
+            <p>Number of guesses:  {{ guess_count }} </p>
+
+            <form action="{% url 'helloapp:check_guess' %}" method="post">
+            {% csrf_token %}
+                <input type="text" name="Enter Your Guess" autofocus>
+                <button name="check_guess">Check Guess</button>
+                <p style="color:red;">Please input a number</p>
+            </form>
     {% elif user_guess %}
         {% if user_guess.comparison == 'equal' %}
             <p>YAY!!! You correctly guessed the secret number: {{ user_guess.guessed_number }} in {{ guess_count }} guesses</p>

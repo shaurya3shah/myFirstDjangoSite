@@ -39,22 +39,29 @@ def guess_number(request):
 
 def check_guess(request):
     template = loader.get_template('helloapp/guessnumber.html')
-    number = int(request.POST["Enter Your Guess"])
-    user_guess = GuessedNumber
-    user_guess.guessed_number = number
     global secret_number
     global check_count
-    if user_guess.guessed_number < secret_number:
-        user_guess.comparison = 'lesser'
-    elif user_guess.guessed_number > secret_number:
-        user_guess.comparison = 'greater'
-    else:
-        user_guess.comparison = 'equal'
+    user_input = request.POST["Enter Your Guess"]
+    if user_input.isdigit():
+        number = int(user_input)
+        user_guess = GuessedNumber
+        user_guess.guessed_number = number
+        if user_guess.guessed_number < secret_number:
+            user_guess.comparison = 'lesser'
+        elif user_guess.guessed_number > secret_number:
+            user_guess.comparison = 'greater'
+        else:
+            user_guess.comparison = 'equal'
 
-    check_count += 1
-    context = {'user_guess': user_guess, 'guess_count': check_count}
+        check_count += 1
+        context = {'user_guess': user_guess, 'guess_count': check_count}
+    else:
+        error_message = 'Please enter a number'
+        context = {'error_message': error_message, 'guess_count': check_count}
 
     return HttpResponse(template.render(context, request))
+
+
 
 
 def crazy_libs(request):
