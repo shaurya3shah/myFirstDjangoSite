@@ -42,7 +42,7 @@ def check_guess(request):
     global secret_number
     global check_count
     user_input = request.POST["Enter Your Guess"]
-    if user_input.isdigit:
+    if user_input.isdigit():
         number = int(user_input)
         user_guess = GuessedNumber
         user_guess.guessed_number = number
