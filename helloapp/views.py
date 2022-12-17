@@ -1,3 +1,4 @@
+import os
 import random
 import nltk
 
@@ -9,6 +10,7 @@ from helloapp.crazyLibs import generate_original_libs
 from helloapp.models.countriesConnection import CountriesConnection
 from helloapp.models.models import GuessedNumber
 from helloapp.models.numberdle import Numberdle
+from myFirstDjangoSite.settings import env
 
 secret_number: int = 0
 check_count: int = 0
@@ -20,6 +22,7 @@ def index(request):
 
     context = {'welcome_message': welcome_message}
     print(context)
+    print('LOVE is ' + str(env('LOVE')))
 
     return HttpResponse(template.render(context, request))
 
