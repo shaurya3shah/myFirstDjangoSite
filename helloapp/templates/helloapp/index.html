@@ -8,14 +8,8 @@
 <!--    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/w3.css' %}">-->
 <!--    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/Poppins.css' %}">-->
 <!--    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/font-awesome.min.css' %}">-->
-    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/wordle_style.css' %}">
-    <style>
-    body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
-    body {font-size: 16px;}
-    img {margin-bottom: -8px;}
-    .mySlides {display: none;}
-    </style>
-  <title>Hello App Webpage</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/button.css' %}">
+  <title>Fun</title>
 </head>
 <body class="w3-content w3-white" style="max-width:1500px;">
 <!--    {% load app_extras %}-->
@@ -25,13 +19,13 @@
 <!--        <h1 class="w3-xlarge-center">{{welcome_message|safe}}</h1>-->
         <hr class="w3-opacity">
     {% endif %}
-    <input class="w3-button w3-block w3-blue w3-round" type="submit" value="Guess A Number" onclick="location.href = '/helloapp/guess_number';">
+    <input class="btn btn-primary" type="submit" value="Guess A Number" onclick="location.href = '/helloapp/guess_number';">
     <hr class="w3-opacity">
-    <input class="w3-button w3-block w3-green w3-round" type="submit" value="Crazy Lib" onclick="location.href = '/helloapp/crazy_libs';">
+    <input class="btn btn-primary" type="submit" value="Crazy Lib" onclick="location.href = '/helloapp/crazy_libs';">
     <hr class="w3-opacity">
-    <input class="w3-button w3-block w3-purple w3-round" type="submit" value="Numberdle" onclick="location.href = '/helloapp/numberdle';">
+    <input class="btn btn-primary" type="submit" value="Numberdle" onclick="location.href = '/helloapp/numberdle';">
     <hr class="w3-opacity">
-    <input class="w3-button w3-block w3-yellow w3-round" type="submit" value="Countries Connection" onclick="location.href = '/helloapp/countries_connection';">
+    <input class="btn btn-primary" type="submit" value="Countries Connection" onclick="location.href = '/helloapp/countries_connection';">
     <hr class="w3-opacity">
     </div>
 </body>
