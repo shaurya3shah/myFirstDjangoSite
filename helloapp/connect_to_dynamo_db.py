@@ -1,16 +1,19 @@
 import boto3
-import os
-import datetime                                                                                                                                                                                                        [0/381]
+
+from myFirstDjangoSite.settings import env
 
 client = boto3.client(
     'dynamodb',
- aws_access_key_id = os.environ["KEY_ID"], aws_secret_access_key = os.environ["SECRET_ACCESS_KEY"]
-    )
+    aws_access_key_id=env("KEY_ID"),
+    aws_secret_access_key=env("SECRET_ACCESS_KEY"),
+    region_name="us-west-2"
+)
 dynamodb = boto3.resource(
     'dynamodb',
-    aws_access_key_id = os.environ["KEY_ID"],
-    aws_secret_access_key = os.environ["SECRET_ACCESS_KEY"]
-    )
+    aws_access_key_id=env("KEY_ID"),
+    aws_secret_access_key=env("SECRET_ACCESS_KEY"),
+    region_name="us-west-2"
+)
 ddb_exceptions = client.exceptions
 
 try:
@@ -46,7 +49,7 @@ table_name = "ISS_locations"
 response = client.put_item(
     TableName=table_name,
     Item={
-        "timestamp" : {"N": "1"},
+        "timestamp": {"N": "1"},
         "order_id": {"S": "ord1234"},
         "order_date": {"S": "2022-08-03"},
         "user_email": {"S": "test@example.com"},
@@ -54,4 +57,3 @@ response = client.put_item(
     },
 )
 print(response)
-
