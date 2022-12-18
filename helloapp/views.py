@@ -18,7 +18,7 @@ check_count: int = 0
 
 def index(request):
     template = loader.get_template('helloapp/index.html')
-    welcome_message = 'Hub'
+    welcome_message = 'Fun Hub!'
 
     context = {'welcome_message': welcome_message}
     print(context)
