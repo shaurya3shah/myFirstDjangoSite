@@ -57,3 +57,11 @@ response = client.put_item(
     },
 )
 print(response)
+
+response = client.get_item(
+    Key={
+        "timestamp": {"N": "1"}
+    },
+    TableName=table_name,
+)
+print(response)
