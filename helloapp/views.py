@@ -166,7 +166,7 @@ def countries_connection(request):
 def connect_country(request):
     template = loader.get_template('helloapp/countriesconnection.html')
 
-    player_input = str(request.POST.get("Enter Country"))
+    player_input = str(request.POST.get("Enter Country")).strip()
 
     countries_connection_obj = request.session['countries_connection_obj']
 
