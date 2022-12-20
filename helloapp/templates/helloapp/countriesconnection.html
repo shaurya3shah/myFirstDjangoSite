@@ -5,36 +5,43 @@
     <title>Countries Connection</title>
 </head>
 <body>
-    <p>Let's create a connection of countries!</p>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/button.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/form.css' %}">
+
+    <p><h1>Countries Connection!</h1></p>
+    <p><h2>Let's create a connection of countries!</h2></p>
+    <p><h2>The more countries you connect, the more points you get</h2></p>
 
     {% if countries_connection_obj.countries_connection %}
-        <p>Countries Connection: {{countries_connection_obj.countries_connection | safe}}</p>
-        <p>Your Score: {{countries_connection_obj.score}}</p>
-        <p style="display:none;">Result: {{result}}</p>
+    <p><h2>Countries Connection: {{countries_connection_obj.countries_connection | safe}}</h2></p>
+    <p><h2>Your Score: {{countries_connection_obj.score}}</h2></p>
+<!--    <p style="display:none;"><h2>Result: {{result}}</h2></p>-->
         {% if result|stringformat:"s" == "DISCONNECT" %}
-            <p>For the connection to progress, the first letter of country you enter must be the last letter of the latest connected countries</p>
+    <p><h2>For the connection to progress, the first letter of country you enter must be the last letter of the latest connected countries</h2></p>
         {% elif result|stringformat:"s" == "CONNECTED" %}
-            <p>Country connected & score increased. Let's connect another country</p>
+    <p><h2 class="success">Country connected & score increased. Let's connect another country</h2></p>
         {% elif result|stringformat:"s" == "REPEAT" %}
-            <p>For the connection to progress, the country you enter must not already be present in the connected countries</p>
+    <p><h2>For the connection to progress, the country you enter must not already be present in the connected countries</h2></p>
         {% elif result|stringformat:"s" == "INVALID" %}
-            <p>Please enter a valid country</p>
+        <p><h2>Please enter a valid country</h2></p>
         {% elif result|stringformat:"s" == "EXHAUSTED" %}
-            <p>The computer cannot find any new country to connect. Congratulations you beat the computer!</p>
+    <p><h2 class="success">The computer cannot find any new country to connect. Congratulations you beat the computer!</h2></p>
         {% else %}
-            <p>Please enter your next country</p>
+    <p><h2>Please enter your next country</h2></p>
         {% endif %}
     {% else %}
-        <p>Please enter your first country</p>
+    <p><h2>Please enter your first country</h2></p>
     {% endif %}
 
-    <form action="{% url 'helloapp:connect_country' %}" method="post">
+    <form class="form" action="{% url 'helloapp:connect_country' %}" method="post">
     {% csrf_token %}
         <input type="text" name="Enter Country" autofocus>
-        <button name="connect_country">Connect</button>
+        <button class="btn btn-primary" name="connect_country">Connect</button>
     </form>
 
     <br><br><br>
-    <input type="submit" value="Go To Hub" onclick="location.href = '/helloapp/';">
+    <input class="btn btn-primary" type="submit" value="Go To Hub" onclick="location.href = '/helloapp/';">
 </body>
 </html>
