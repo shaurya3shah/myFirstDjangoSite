@@ -10,7 +10,7 @@
     {% if story %}
         <p>You might have heard of Mad Libs... Let's do some Crazy Libs!</p>
         <p style="display:none" >Original lib is:  {{ story }} </p>
-        <form action="{% url 'helloapp:generate_crazy_libs' %}" method="post">
+        <form action="{% url 'fun:generate_crazy_libs' %}" method="post">
             {% csrf_token %}
         {% if nouns %}
         <ul>
@@ -52,9 +52,9 @@
 
         <input type="submit" value="See Original Lib" onclick="getElementById('original_lib').style.display = 'block';">
 
-        <input type="submit" value="Do Another Lib" onclick="location.href = '/helloapp/crazy_libs';">
+        <input type="submit" value="Do Another Lib" onclick="location.href = '/fun/crazy_libs';">
     {% endif %}
     <br><br><br>
-    <input type="submit" value="Go To Hub" onclick="location.href = '/helloapp/';">
+    <input type="submit" value="Go To Hub" onclick="location.href = '/fun/';">
 </body>
 </html>

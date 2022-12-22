@@ -7,7 +7,7 @@
 <!--    UI Inspiration: https://github.com/minhlong149/wordle-->
 
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/wordle_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/wordle_style.css' %}">
 </head>
 <body>
     <main>
@@ -20,7 +20,7 @@
             Input your guesses, and press check for clues.</p>
           <br>
             {% if numberdle_obj %}
-                <form action="{% url 'helloapp:check_numberdle' %}" method="post">
+                <form action="{% url 'fun:check_numberdle' %}" method="post">
                 {% csrf_token %}
                     {% for row in numberdle_obj.board %}
                     <div class="board__row">
@@ -53,8 +53,8 @@
                 <p style="color:red;">Please input a number</p>
             {% endif %}
           <br>
-          <input type="submit" class="button-input" value="New Game" onclick="location.href = '/helloapp/numberdle';">
-          <input type="submit" class="button-input" value="Go To Hub" onclick="location.href = '/helloapp/';">
+          <input type="submit" class="button-input" value="New Game" onclick="location.href = '/fun/numberdle';">
+          <input type="submit" class="button-input" value="Go To Hub" onclick="location.href = '/fun/';">
         </div>
     </main>
 </body>

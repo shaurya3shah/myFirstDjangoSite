@@ -1,6 +1,6 @@
 import unittest
 
-from helloapp.models.countriesConnection import CountriesConnection
+from fun.models.countriesConnection import CountriesConnection
 
 
 class TestCountriesConnection(unittest.TestCase):

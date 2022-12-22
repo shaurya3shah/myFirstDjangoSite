@@ -6,9 +6,9 @@
 </head>
 <body>
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/button.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/reset.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/form.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/button.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/form.css' %}">
 
     <p><h1>Countries Connection!</h1></p>
     <p><h2>Let's create a connection of countries!</h2></p>
@@ -35,13 +35,13 @@
     <p><h2>Please enter your first country</h2></p>
     {% endif %}
 
-    <form class="form" action="{% url 'helloapp:connect_country' %}" method="post">
+    <form class="form" action="{% url 'fun:connect_country' %}" method="post">
     {% csrf_token %}
         <input type="text" name="Enter Country" autofocus>
         <button class="btn btn-primary" name="connect_country">Connect</button>
     </form>
 
     <br><br><br>
-    <input class="btn btn-primary" type="submit" value="Go To Hub" onclick="location.href = '/helloapp/';">
+    <input class="btn btn-primary" type="submit" value="Go To Hub" onclick="location.href = '/fun/';">
 </body>
 </html>

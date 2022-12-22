@@ -9,16 +9,16 @@
     <div id="fullDiv" width="800" height="400">
 
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/button.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/reset.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/form.css' %}">
-<!--    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/js/chart.js' %}">-->
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/button.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/form.css' %}">
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'fun/js/chart.js' %}">-->
 
     {% if secret_number %}
 <!--        <p>Secret Number is:  {{ secret_number }} </p>-->
         <p><h1>Guess A Number</h1></p>
         <p><h2>Let's play a game of guessing a secret number between 1 to 100</h2></p>
-        <form class="form" action="{% url 'helloapp:check_guess' %}" method="post">
+        <form class="form" action="{% url 'fun:check_guess' %}" method="post">
         {% csrf_token %}
             <input type="number" name="Enter Your Guess" autofocus>
             <button class="btn btn-primary" name="check_guess">Check Guess</button>
@@ -27,7 +27,7 @@
             <p><h2> The entered value is not a number  </h2></p>
             <p><h2>Number of guesses:  {{ guess_count }} </h2></p>
 
-            <form class="form" action="{% url 'helloapp:check_guess' %}" method="post">
+            <form class="form" action="{% url 'fun:check_guess' %}" method="post">
             {% csrf_token %}
                 <input type="number" name="Enter Your Guess" autofocus>
                 <button class="btn btn-primary" name="check_guess">Check Guess</button>
@@ -36,7 +36,7 @@
     {% elif user_guess %}
         {% if user_guess.comparison == 'equal' %}
             <p><h2 class="success">YAY!!! You correctly guessed the secret number {{ user_guess.guessed_number }} in {{ guess_count }} guesses</h2></p>
-            <form class="form" action="{% url 'helloapp:guess_number' %}" method="post">
+            <form class="form" action="{% url 'fun:guess_number' %}" method="post">
                 {% csrf_token %}
                 <input class="btn btn-primary" type="submit" value="Play Again">
             </form>
@@ -86,7 +86,7 @@
             <p><h2>The guessed number  {{ user_guess.guessed_number }} is  {{ user_guess.comparison }} than the secret number</h2></p>
             <p><h2>Number of guesses:  {{ guess_count }} </h2></p>
 
-            <form class="form" action="{% url 'helloapp:check_guess' %}" method="post">
+            <form class="form" action="{% url 'fun:check_guess' %}" method="post">
             {% csrf_token %}
                 <input type="number" name="Enter Your Guess" autofocus>
                 <button class="btn btn-primary" name="check_guess">Check Guess</button>
@@ -96,7 +96,7 @@
         <p><h2>No data is available.</h2></p>
     {% endif %}
     <br><br><br>
-    <input class="btn btn-primary" type="submit" value="Go To Hub" onclick="location.href = '/helloapp/';">
+    <input class="btn btn-primary" type="submit" value="Go To Hub" onclick="location.href = '/fun/';">
     </div>
 
 </body>

@@ -5,11 +5,11 @@ import pandas
 from django.http import HttpResponse
 from django.template import loader
 
-from helloapp.crazyLibs import generate_original_libs
-from helloapp.models.countriesConnection import CountriesConnection
-from helloapp.models.guessNumber import GuessNumber
-from helloapp.models.models import GuessedNumber
-from helloapp.models.numberdle import Numberdle
+from fun.crazyLibs import generate_original_libs
+from fun.models.countriesConnection import CountriesConnection
+from fun.models.guessNumber import GuessNumber
+from fun.models.models import GuessedNumber
+from fun.models.numberdle import Numberdle
 from myFirstDjangoSite.settings import env
 
 secret_number: int = 0
@@ -17,7 +17,7 @@ check_count: int = 0
 
 
 def index(request):
-    template = loader.get_template('helloapp/index.html')
+    template = loader.get_template('fun/index.html')
     welcome_message = 'My Fun Hub!'
 
     context = {'welcome_message': welcome_message}
@@ -28,7 +28,7 @@ def index(request):
 
 
 def guess_number(request):
-    template = loader.get_template('helloapp/guessnumber.html')
+    template = loader.get_template('fun/guessnumber.html')
     global secret_number
     global check_count
 
@@ -41,7 +41,7 @@ def guess_number(request):
 
 
 def check_guess(request):
-    template = loader.get_template('helloapp/guessnumber.html')
+    template = loader.get_template('fun/guessnumber.html')
     global secret_number
     global check_count
     user_input = request.POST["Enter Your Guess"]
@@ -96,7 +96,7 @@ def check_guess(request):
 
 
 def crazy_libs(request):
-    template = loader.get_template('helloapp/crazylibs.html')
+    template = loader.get_template('fun/crazylibs.html')
 
     crazyLibsObj = generate_original_libs()
     crazyLibsObj.tokenize(crazyLibsObj)
@@ -110,7 +110,7 @@ def crazy_libs(request):
 
 
 def generate_crazy_libs(request):
-    template = loader.get_template('helloapp/crazylibs.html')
+    template = loader.get_template('fun/crazylibs.html')
     crazyLibsObj = request.session['crazyLibsObj']
     print("received session crazyLibsObj: " + str(crazyLibsObj.__str__(crazyLibsObj)))
 
@@ -143,7 +143,7 @@ def generate_crazy_libs(request):
 
 
 def numberdle(request):
-    template = loader.get_template('helloapp/numberdle.html')
+    template = loader.get_template('fun/numberdle.html')
     welcome_message = 'Numberdle!'
 
     numberdle_obj = Numberdle()
@@ -156,7 +156,7 @@ def numberdle(request):
 
 
 def check_numberdle(request):
-    template = loader.get_template('helloapp/numberdle.html')
+    template = loader.get_template('fun/numberdle.html')
     welcome_message = 'Numberdle!'
     numberdle_obj = request.session['numberdle_obj']
 
@@ -180,7 +180,7 @@ def check_numberdle(request):
 
 
 def countries_connection(request):
-    template = loader.get_template('helloapp/countriesconnection.html')
+    template = loader.get_template('fun/countriesconnection.html')
     welcome_message = 'Countries Connection!'
 
     countries_connection_obj = CountriesConnection()
@@ -192,7 +192,7 @@ def countries_connection(request):
 
 
 def connect_country(request):
-    template = loader.get_template('helloapp/countriesconnection.html')
+    template = loader.get_template('fun/countriesconnection.html')
 
     player_input = str(request.POST.get("Enter Country")).strip()
 

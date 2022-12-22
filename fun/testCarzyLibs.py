@@ -1,6 +1,6 @@
 import unittest
 
-from helloapp.crazyLibs import generate_original_libs, initiate_story
+from fun.crazyLibs import generate_original_libs, initiate_story
 
 
 class MyTestCase(unittest.TestCase):

@@ -2,7 +2,7 @@ import unittest
 
 import pandas
 
-from helloapp.models.guessNumber import GuessNumber
+from fun.models.guessNumber import GuessNumber
 
 
 class MyTestCase(unittest.TestCase):
