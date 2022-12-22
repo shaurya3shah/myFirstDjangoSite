@@ -17,5 +17,6 @@ class TestNumberdle(unittest.TestCase):
         print(numberdle.secret_numbers)
         self.assertEqual(True, True)  # add assertion here
 
+
 if __name__ == '__main__':
     unittest.main()

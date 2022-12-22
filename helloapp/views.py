@@ -48,6 +48,7 @@ def check_guess(request):
     stats = None
     groupeddf = None
     tries = None
+    user_guesses = []
     count = None
     if user_input.isdigit():
         number = int(user_input)
@@ -75,9 +76,18 @@ def check_guess(request):
             tries = groupeddf['tries'].tolist()
             count = groupeddf['count'].tolist()
 
+
+            for x in tries:
+                user_guesses.append(str(x) + ' guesses')
+                print(x)
+
+            print('Printing user_guesses & counts')
+            print(user_guesses)
+            print(count)
+
             # bar(groupeddf)
 
-        context = {'user_guess': user_guess, 'guess_count': check_count, 'tries': tries, 'count': count}
+        context = {'user_guess': user_guess, 'guess_count': check_count, 'user_guesses': user_guesses, 'count': count}
     else:
         error_message = 'Please enter a number'
         context = {'error_message': error_message, 'guess_count': check_count}
