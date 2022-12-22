@@ -10,8 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
+
+import boto3
 import environ
 from pathlib import Path
+
+from myFirstDjangoSite.createDBModels import DBModels
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -129,3 +133,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Initialise environment variables
 env = environ.Env()
 environ.Env.read_env()
+
+client = boto3.client(
+    'dynamodb',
+    aws_access_key_id=env("KEY_ID"),
+    aws_secret_access_key=env("SECRET_ACCESS_KEY"),
+    region_name="us-west-2"
+)
+dynamodb = boto3.resource(
+    'dynamodb',
+    aws_access_key_id=env("KEY_ID"),
+    aws_secret_access_key=env("SECRET_ACCESS_KEY"),
+    region_name="us-west-2"
+)
+
+ddb_exceptions = client.exceptions
+
+createDB = DBModels()
+
+createDB.createGuessNumberDB(client, ddb_exceptions)

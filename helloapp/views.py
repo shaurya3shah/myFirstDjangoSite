@@ -1,6 +1,8 @@
 import os
 import random
 import nltk
+import pandas
+from chart import bar
 
 # Create your views here.
 from django.http import HttpResponse
@@ -8,6 +10,7 @@ from django.template import loader
 
 from helloapp.crazyLibs import generate_original_libs
 from helloapp.models.countriesConnection import CountriesConnection
+from helloapp.models.guessNumber import GuessNumber
 from helloapp.models.models import GuessedNumber
 from helloapp.models.numberdle import Numberdle
 from myFirstDjangoSite.settings import env
@@ -45,26 +48,44 @@ def check_guess(request):
     global secret_number
     global check_count
     user_input = request.POST["Enter Your Guess"]
+    stats = None
+    groupeddf = None
+    tries = None
+    count = None
     if user_input.isdigit():
         number = int(user_input)
         user_guess = GuessedNumber
         user_guess.guessed_number = number
+
+        check_count += 1
+
         if user_guess.guessed_number < secret_number:
             user_guess.comparison = 'lesser'
         elif user_guess.guessed_number > secret_number:
             user_guess.comparison = 'greater'
         else:
             user_guess.comparison = 'equal'
+            guessNumber = GuessNumber()
+            guessNumber.addResult(0, check_count)
+            stats = guessNumber.getStats()
 
-        check_count += 1
-        context = {'user_guess': user_guess, 'guess_count': check_count}
+            df = pandas.DataFrame(stats)
+
+            print(df)
+
+            groupeddf = df.groupby(['tries'])['tries'].count().reset_index(name="count")
+            print(groupeddf)
+            tries = groupeddf['tries'].tolist()
+            count = groupeddf['count'].tolist()
+
+            # bar(groupeddf)
+
+        context = {'user_guess': user_guess, 'guess_count': check_count, 'tries': tries, 'count': count}
     else:
         error_message = 'Please enter a number'
         context = {'error_message': error_message, 'guess_count': check_count}
 
     return HttpResponse(template.render(context, request))
-
-
 
 
 def crazy_libs(request):

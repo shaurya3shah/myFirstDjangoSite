@@ -33,6 +33,8 @@
     {% elif user_guess %}
         {% if user_guess.comparison == 'equal' %}
             <p><h2 class="success">YAY!!! You correctly guessed the secret number {{ user_guess.guessed_number }} in {{ guess_count }} guesses</h2></p>
+            <p>{{ tries }}</p>
+            <p>{{ count }}</p>
             <form class="form" action="{% url 'helloapp:guess_number' %}" method="post">
                 {% csrf_token %}
                 <input class="btn btn-primary" type="submit" value="Play Again">

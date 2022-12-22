@@ -1,4 +1,6 @@
+import time
 import unittest
+from datetime import datetime
 
 from helloapp.models.numberdle import Numberdle
 
@@ -10,6 +12,7 @@ class TestNumberdle(unittest.TestCase):
         self.assertEqual(True, True)  # add assertion here
 
     def test_init(self):
+        print(round(time.time()))
         numberdle = Numberdle()
         print(numberdle.secret_numbers)
         self.assertEqual(True, True)  # add assertion here

@@ -1,20 +1,6 @@
 import boto3
 
-from myFirstDjangoSite.settings import env
-
-client = boto3.client(
-    'dynamodb',
-    aws_access_key_id=env("KEY_ID"),
-    aws_secret_access_key=env("SECRET_ACCESS_KEY"),
-    region_name="us-west-2"
-)
-dynamodb = boto3.resource(
-    'dynamodb',
-    aws_access_key_id=env("KEY_ID"),
-    aws_secret_access_key=env("SECRET_ACCESS_KEY"),
-    region_name="us-west-2"
-)
-ddb_exceptions = client.exceptions
+from myFirstDjangoSite.settings import client, dynamodb, ddb_exceptions
 
 try:
     table = client.create_table(
@@ -58,10 +44,18 @@ response = client.put_item(
 )
 print(response)
 
-response = client.get_item(
-    Key={
-        "timestamp": {"N": "1"}
-    },
+response = client.put_item(
     TableName=table_name,
+    Item={
+        "timestamp": {"N": "2"},
+        "order_id": {"S": "ord5678"},
+        "order_date": {"S": "2023-09-04"},
+        "user_email": {"S": "test@example.com"},
+        "amount": {"N": "121"},
+    },
 )
 print(response)
+
+response = dynamodb.Table(table_name).scan()
+items = response.get('Items')
+print(items)
