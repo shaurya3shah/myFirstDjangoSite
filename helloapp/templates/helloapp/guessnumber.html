@@ -6,7 +6,7 @@
 </head>
 <body>
 
-
+    <div id="fullDiv" width="800" height="400">
 
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'helloapp/button.css' %}">
@@ -53,13 +53,13 @@
           labels: {{ user_guesses|safe }},
           datasets: [{
             type: 'bar',
-            label: 'Other Users',
+            label: 'Other Players',
             data: {{ count }},
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.2)'
           }, {
             type: 'bubble',
-            label: 'You Are Here',
+            label: 'You',
             data: [{}, {
               x: {{ guess_count }} + ' guesses',
               y: 1,
@@ -97,5 +97,7 @@
     {% endif %}
     <br><br><br>
     <input class="btn btn-primary" type="submit" value="Go To Hub" onclick="location.href = '/helloapp/';">
+    </div>
+
 </body>
 </html>
