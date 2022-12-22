@@ -6,10 +6,59 @@
 </head>
 <body>
 
+    <canvas id="myChart" width="800" height="400"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        const data = {
+          labels: [
+            '5',
+            '6',
+            '7',
+            '8',
+            '9',
+            '10'
+          ],
+          datasets: [{
+            type: 'bar',
+            label: 'Other Users',
+            data: [10, 20, 30, 80, 50, 30],
+            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 132, 0.2)'
+          }, {
+            type: 'bubble',
+            label: 'You Are Here',
+            data: [{}, {
+              x: 40,
+              y: 10,
+              r: 10
+            }],
+            fill: true,
+            backgroundColor: 'rgb(254, 0, 235)'
+          }]
+        };
+
+        const myChart = new Chart(ctx, {
+          type: 'scatter',
+          data: data,
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true
+                  }
+              }
+          }
+        });
+    </script>
+
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'helloapp/button.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'helloapp/reset.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'helloapp/form.css' %}">
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'helloapp/js/chart.js' %}">-->
 
     {% if secret_number %}
 <!--        <p>Secret Number is:  {{ secret_number }} </p>-->
