@@ -8,6 +8,9 @@
 
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'fun/wordle_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/button.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/form.css' %}">
 </head>
 <body>
     <main>
@@ -43,7 +46,7 @@
                       <span class="tile"></span>
                       <span class="tile"></span>
                       <span class="tile"></span>
-                      <input type="submit" class="button-input" value="Check">
+                      <input type="submit" class="btn btn-primary" value="Check">
                     </div>
                     {% endif %}
                 </form>
@@ -53,8 +56,8 @@
                 <p style="color:red;">Please input a number</p>
             {% endif %}
           <br>
-          <input type="submit" class="button-input" value="New Game" onclick="location.href = '/fun/numberdle';">
-          <input type="submit" class="button-input" value="Go To Hub" onclick="location.href = '/fun/';">
+          <input type="submit" class="btn btn-primary" value="New Game" onclick="location.href = '/fun/numberdle';">
+          <input type="submit" class="btn btn-primary" value="Go To Hub" onclick="location.href = '/fun/';">
         </div>
     </main>
 </body>
