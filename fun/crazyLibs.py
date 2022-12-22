@@ -3,10 +3,11 @@ import openai
 import requests
 
 from fun.models.models import CrazyLibs
+from myFirstDjangoSite.settings import env
 
 # openai.api_key = "bad1"
 # openai.api_key = "bad2"
-openai.api_key = "good1"
+openai.api_key = env("OPEN_API_KEY")
 
 crazyLibs = CrazyLibs
 
