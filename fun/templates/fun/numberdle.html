@@ -21,10 +21,12 @@
     {% load static %}
     {% load app_extras %}
             {% if numberdle_obj %}
-                <form action="{% url 'fun:check_numberdle' %}" method="post">
-                {% csrf_token %}
+
+
                     {% if numberdle_obj.correct_guesses == 5 %}
                     <p><h2 class="success">YAAY! You guessed all 5 numbers correctly in {{numberdle_obj.guesses}} guesses!</h2></p>
+                    <input type="submit" class="btn btn-primary" value="New Game" onclick="location.href = '/fun/numberdle';">
+
                     <canvas id="myChart" width="800" height="400"></canvas>
 
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -69,6 +71,8 @@
                     <p><h2>Numbers ranging from 1 to 20 are hidden behind the five tiles. Your aim is to figure out each hidden number with minimum guesses.
             Input your guesses, and press check for clues.</h2></p>
                     {% endif %}
+                    <form action="{% url 'fun:check_numberdle' %}" method="post">
+                        {% csrf_token %}
                     {% for row in numberdle_obj.board %}
                     <div class="board__row">
                         <span class="tile--past--input"><span class="hint--bottom" aria-label="Input Number">{{row.0}}</span></span>
@@ -94,7 +98,7 @@
                      <p><h2>Number of Guesses: {{numberdle_obj.guesses}}</h2></p>
 
                     {% endif %}
-                </form>
+                    </form>
             {% endif %}
 
             {% if error_message %}
