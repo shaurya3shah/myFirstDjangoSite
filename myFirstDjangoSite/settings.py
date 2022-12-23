@@ -16,6 +16,7 @@ import environ
 from pathlib import Path
 
 from myFirstDjangoSite.createDBModels import DBModels
+from myFirstDjangoSite.constants import TABLE_NAME_GUESS_NUMBER, TABLE_NAME_NUMBERDLE
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -151,4 +152,5 @@ ddb_exceptions = client.exceptions
 
 createDB = DBModels()
 
-createDB.createGuessNumberDB(client, ddb_exceptions)
+createDB.createSimpleTimestampDB(TABLE_NAME_GUESS_NUMBER, client, ddb_exceptions)
+createDB.createSimpleTimestampDB(TABLE_NAME_NUMBERDLE, client, ddb_exceptions)

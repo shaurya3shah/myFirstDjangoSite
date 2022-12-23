@@ -1,4 +1,8 @@
 import random
+import time
+
+from myFirstDjangoSite.constants import TABLE_NAME_NUMBERDLE
+from myFirstDjangoSite.settings import client, ddb_exceptions, dynamodb
 
 
 class Numberdle:
@@ -30,6 +34,26 @@ class Numberdle:
 
         self.board.append(row)
         print(self.board)
+
+    def addResult(self, user_id):
+        try:
+            response = client.put_item(
+                TableName=TABLE_NAME_NUMBERDLE,
+                Item={
+                    "timestamp": {"N": str(time.time())},
+                    "user_id": {"N": str(user_id)},
+                    "tries": {"N": str(self.guesses)},
+                    "board": {"S": str(self.board)}
+                },
+            )
+            print(response)
+        except ddb_exceptions:
+            print(str(ddb_exceptions))
+
+    def getStats(self):
+        response = dynamodb.Table(TABLE_NAME_NUMBERDLE).scan()
+        print(response)
+        return response.get('Items')
 
     def __init__(self):
         print("init called")

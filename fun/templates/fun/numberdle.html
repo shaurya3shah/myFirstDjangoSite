@@ -24,8 +24,47 @@
                 <form action="{% url 'fun:check_numberdle' %}" method="post">
                 {% csrf_token %}
                     {% if numberdle_obj.correct_guesses == 5 %}
-                    <p><h2 class="success">Congratulations! You guessed all 5 numbers correctly!</h2></p>
-                    <p><h2 class="success">Number of Guesses: {{numberdle_obj.guesses}}</h2></p>
+                    <p><h2 class="success">YAAY! You guessed all 5 numbers correctly in {{numberdle_obj.guesses}} guesses!</h2></p>
+                    <canvas id="myChart" width="800" height="400"></canvas>
+
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                    <script>
+                        const ctx = document.getElementById('myChart').getContext('2d');
+
+                        const data = {
+                          labels: {{ user_guesses|safe }},
+                          datasets: [{
+                            type: 'bar',
+                            label: 'Other Players',
+                            data: {{ counts }},
+                            borderColor: 'rgb(255, 99, 132)',
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)'
+                          }, {
+                            type: 'bubble',
+                            label: 'You',
+                            data: [{}, {
+                              x: {{numberdle_obj.guesses}} + ' guesses',
+                              y: 1,
+                              r: 10
+                            }],
+                            fill: true,
+                            backgroundColor: 'rgb(254, 0, 235)'
+                          }]
+                        };
+
+                        const myChart = new Chart(ctx, {
+                          type: 'scatter',
+                          data: data,
+                          options: {
+                              scales: {
+                                  y: {
+                                      beginAtZero: true
+                                  }
+                              }
+                          }
+                        });
+                    </script>
                     {% else %}
                     <p><h2>Numbers ranging from 1 to 20 are hidden behind the five tiles. Your aim is to figure out each hidden number with minimum guesses.
             Input your guesses, and press check for clues.</h2></p>
@@ -52,7 +91,7 @@
                       <input type="submit" class="btn btn-primary" value="Check">
                     </div>
 
-                     <p>Number of Guesses: {{numberdle_obj.guesses}}</p>
+                     <p><h2>Number of Guesses: {{numberdle_obj.guesses}}</h2></p>
 
                     {% endif %}
                 </form>

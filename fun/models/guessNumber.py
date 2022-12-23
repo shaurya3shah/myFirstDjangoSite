@@ -1,15 +1,15 @@
 import time
 
+from myFirstDjangoSite.constants import TABLE_NAME_GUESS_NUMBER
 from myFirstDjangoSite.settings import ddb_exceptions, client, dynamodb
 
 
 class GuessNumber:
-    guess_number_table_name = 'GuessNumber'
 
     def addResult(self, user_id, tries):
         try:
             response = client.put_item(
-                TableName=self.guess_number_table_name,
+                TableName=TABLE_NAME_GUESS_NUMBER,
                 Item={
                     "timestamp": {"N": str(time.time())},
                     "user_id": {"N": str(user_id)},
@@ -21,6 +21,6 @@ class GuessNumber:
             print(str(ddb_exceptions))
 
     def getStats(self):
-        response = dynamodb.Table(self.guess_number_table_name).scan()
+        response = dynamodb.Table(TABLE_NAME_GUESS_NUMBER).scan()
         print(response)
         return response.get('Items')

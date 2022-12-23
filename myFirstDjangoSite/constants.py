@@ -1,0 +1,2 @@
+TABLE_NAME_GUESS_NUMBER = 'GuessNumber'
+TABLE_NAME_NUMBERDLE = 'Numberdle'

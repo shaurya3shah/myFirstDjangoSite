@@ -1,11 +1,9 @@
-
 class DBModels:
-    def createGuessNumberDB(self, client, ddb_exceptions):
-        guess_number_table_name = 'GuessNumber'
-        print("Creating table" + guess_number_table_name)
+    def createSimpleTimestampDB(self, table_name, client, ddb_exceptions):
+        print("Creating table: " + table_name)
         try:
             table = client.create_table(
-                TableName=guess_number_table_name,
+                TableName=table_name,
                 KeySchema=[
                     {
                         'AttributeName': 'timestamp',
@@ -25,8 +23,8 @@ class DBModels:
             )
 
             waiter = client.get_waiter('table_exists')
-            waiter.wait(TableName=guess_number_table_name)
-            print("Table created" + str(table))
+            waiter.wait(TableName=table_name)
+            print("Table created: " + str(table))
 
         except ddb_exceptions.ResourceInUseException:
-            print(guess_number_table_name + " Table exists")
+            print(table_name + " Table exists")

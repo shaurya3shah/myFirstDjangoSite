@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.template import loader
 
 from fun.crazyLibs import generate_original_libs
+from fun.helpView import HelpView
 from fun.models.countriesConnection import CountriesConnection
 from fun.models.guessNumber import GuessNumber
 from fun.models.models import GuessedNumber
@@ -44,12 +45,9 @@ def check_guess(request):
     template = loader.get_template('fun/guessnumber.html')
     global secret_number
     global check_count
+    helpView = HelpView()
     user_input = request.POST["Enter Your Guess"]
-    stats = None
-    groupeddf = None
-    tries = None
-    user_guesses = []
-    count = None
+
     if user_input.isdigit():
         number = int(user_input)
         user_guess = GuessedNumber
@@ -65,29 +63,9 @@ def check_guess(request):
             user_guess.comparison = 'equal'
             guessNumber = GuessNumber()
             guessNumber.addResult(0, check_count)
-            stats = guessNumber.getStats()
+            helpView.getUserGuessesAndCounts(guessNumber.getStats())
 
-            df = pandas.DataFrame(stats)
-
-            print(df)
-
-            groupeddf = df.groupby(['tries'])['tries'].count().reset_index(name="count")
-            print(groupeddf)
-            tries = groupeddf['tries'].tolist()
-            count = groupeddf['count'].tolist()
-
-
-            for x in tries:
-                user_guesses.append(str(x) + ' guesses')
-                print(x)
-
-            print('Printing user_guesses & counts')
-            print(user_guesses)
-            print(count)
-
-            # bar(groupeddf)
-
-        context = {'user_guess': user_guess, 'guess_count': check_count, 'user_guesses': user_guesses, 'count': count}
+        context = {'user_guess': user_guess, 'guess_count': check_count, 'user_guesses': helpView.user_guesses, 'counts': helpView.counts}
     else:
         error_message = 'Please enter a number'
         context = {'error_message': error_message, 'guess_count': check_count}
@@ -159,9 +137,10 @@ def check_numberdle(request):
     template = loader.get_template('fun/numberdle.html')
     welcome_message = 'Numberdle!'
     numberdle_obj = request.session['numberdle_obj']
+    helpView = HelpView()
 
     user_input = request.POST.get("player_guess")
-    if user_input.isdigit():
+    if user_input and user_input.isdigit():
         numberdle_obj.guesses += 1
         player_guess = int(user_input)
 
@@ -169,8 +148,12 @@ def check_numberdle(request):
 
         numberdle_obj.asses_guess(player_guess)
 
+        if numberdle_obj.correct_guesses == 5:
+            numberdle_obj.addResult(0)
+            helpView.getUserGuessesAndCounts(numberdle_obj.getStats())
+
         request.session['numberdle_obj'] = numberdle_obj
-        context = {'welcome_message': welcome_message, 'numberdle_obj': numberdle_obj}
+        context = {'welcome_message': welcome_message, 'numberdle_obj': numberdle_obj, 'user_guesses': helpView.user_guesses, 'counts': helpView.counts}
         print(context)
     else:
         error_message = 'Please enter a number'
