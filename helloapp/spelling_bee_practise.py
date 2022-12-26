@@ -17,28 +17,40 @@ table_name = "Word_List"
 
 table = dynamodb.Table(table_name)
 items = table.scan()["Items"]
+word_list_check=[]
 
 print(items[0])
 
-for word_dict in items:
-    if word_dict["count_right"] == 0:
-        print(word_dict["word"])
+stop_flag=False
+
+for current_word in items:
+    if current_word["count_right"] == 0:
+        print(current_word["word"])
         check = input("Was it spelled correctly [y/n/exit] : ")
 
         if check == "y":
-            count_right = word_dict["count_right"] + 1
-            try:
-                response = table.update_item(
-                    Key={"id": word_dict["id"]},
-                    UpdateExpression="set count_right=:r",
-                    ExpressionAttributeValues={":r": count_right},
-                    ReturnValues="UPDATED_NEW",
+            current_word["count_right"] = current_word["count_right"] + 1
+        elif check == "n":
+            current_word["count_wrong"] = current_word["count_wrong"] +1
+        else:
+            print("good bye")
+            break
+
+        word_list_check.append(current_word)
+
+print("The practised word for today ")
+for i in word_list_check:
+    print(f" {i['word']} : count right is {i['count_right']} and  count wrong is {i['count_wrong']}")
+    #Put the things in DB
+    try:
+        response = table.update_item( Key={"id": i["id"]},
+                UpdateExpression="set count_right=:r, count_wrong=:w",
+                ExpressionAttributeValues={":r": i["count_right"],":w": i["count_wrong"]},
+                ReturnValues="UPDATED_NEW",
                 )
-            except Exception as err:
-                print(err)
-                raise
-            else:
-                print(response["Attributes"])
+    except Exception as err:
+        print(err)
+        raise
 
 
 
