@@ -12,5 +12,6 @@ urlpatterns = [
     path('numberdle', views.numberdle, name='numberdle'),
     path('check_numberdle', views.check_numberdle, name='check_numberdle'),
     path('countries_connection', views.countries_connection, name='countries_connection'),
-    path('connect_country', views.connect_country, name='connect_country')
+    path('connect_country', views.connect_country, name='connect_country'),
+    path('spelling_bee', views.spelling_bee, name='spelling_bee')
 ]

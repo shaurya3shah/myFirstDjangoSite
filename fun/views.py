@@ -1,9 +1,9 @@
 import random
 
-import pandas
 # Create your views here.
 from django.http import HttpResponse
 from django.template import loader
+from gtts.tts import gTTS
 
 from fun.crazyLibs import generate_original_libs
 from fun.helpView import HelpView
@@ -60,7 +60,8 @@ def check_guess(request):
             helpView.getUserGuessesAndCounts(guess_number_obj.getStats())
 
         request.session['guess_number_obj'] = guess_number_obj
-        context = {'guess_number': guess_number_obj, 'guess_count': len(guess_number_obj.guesses), 'user_guesses': helpView.user_guesses, 'counts': helpView.counts}
+        context = {'guess_number': guess_number_obj, 'guess_count': len(guess_number_obj.guesses),
+                   'user_guesses': helpView.user_guesses, 'counts': helpView.counts}
     else:
         error_message = 'Please enter a number'
         context = {'error_message': error_message, 'guess_count': len(guess_number_obj.guesses)}
@@ -148,7 +149,8 @@ def check_numberdle(request):
             helpView.getUserGuessesAndCounts(numberdle_obj.getStats())
 
         request.session['numberdle_obj'] = numberdle_obj
-        context = {'welcome_message': welcome_message, 'numberdle_obj': numberdle_obj, 'user_guesses': helpView.user_guesses, 'counts': helpView.counts}
+        context = {'welcome_message': welcome_message, 'numberdle_obj': numberdle_obj,
+                   'user_guesses': helpView.user_guesses, 'counts': helpView.counts}
         print(context)
     else:
         error_message = 'Please enter a number'
@@ -181,6 +183,20 @@ def connect_country(request):
     request.session['countries_connection_obj'] = countries_connection_obj
 
     context = {'countries_connection_obj': countries_connection_obj, 'result': result}
+    print(context)
+
+    return HttpResponse(template.render(context, request))
+
+
+def spelling_bee(request):
+    template = loader.get_template('fun/spelling.html')
+
+    welcome_message = 'Spelling Bee!'
+
+    tts = gTTS(text=welcome_message, lang='en-us')
+    tts.save("voice.mp3")
+
+    context = {'welcome_message': welcome_message, 'tts': tts}
     print(context)
 
     return HttpResponse(template.render(context, request))

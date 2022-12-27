@@ -6,41 +6,38 @@
 </head>
 <body>
     {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/button.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/form.css' %}">
 
     {% if story %}
-        <p>You might have heard of Mad Libs... Let's do some Crazy Libs!</p>
+        <p><h1>Like Mad Libs... This is Crazy Libs!</h1></p>
+        <p><h2>Fill the text boxes and create your own Crazy Story</h2></p>
         <p style="display:none" >Original lib is:  {{ story }} </p>
-        <form action="{% url 'fun:generate_crazy_libs' %}" method="post">
-            {% csrf_token %}
+        <form class="form" action="{% url 'fun:generate_crazy_libs' %}" method="post">
+        {% csrf_token %}
         {% if nouns %}
-        <ul>
             Please fill out the nouns:
         {% for noun in nouns %}
-            <li><input type="text" name="input_noun_{{ noun }}"></li>
+            <input type="text" name="input_noun_{{ noun }}">
         {% endfor %}
-        </ul>
         {% endif %}
 
         {% if verbs %}
-        <ul>
             Please fill out the verbs:
         {% for verb in verbs %}
-            <li><input type="text" name="input_verb_{{ verb }}"></li>
+            <input type="text" name="input_verb_{{ verb }}">
         {% endfor %}
-        </ul>
         {% endif %}
 
         {% if adjectives %}
-        <ul>
             Please fill out the adjectives:
         {% for adjective in adjectives %}
-            <li><input name="input_adjective_{{ adjective }}"></li>
+            <input type="text" name="input_adjective_{{ adjective }}">
         {% endfor %}
-
-        </ul>
         {% endif %}
 
-            <input type="submit" type="text" value="Generate Crazy Lib">
+            <input type="submit" class="btn btn-primary" type="text" value="Generate Crazy Lib">
         </form>
 
     {% elif crazyLibsObj %}
@@ -50,11 +47,11 @@
         <p id="original_lib" style="display:none">Original Lib is:  {{ crazyLibsObj | safe}} </p>
 
 
-        <input type="submit" value="See Original Lib" onclick="getElementById('original_lib').style.display = 'block';">
+        <input type="submit" class="btn btn-primary" value="See Original Lib" onclick="getElementById('original_lib').style.display = 'block';">
 
-        <input type="submit" value="Do Another Lib" onclick="location.href = '/fun/crazy_libs';">
+        <input type="submit" class="btn btn-primary" value="Do Another Lib" onclick="location.href = '/fun/crazy_libs';">
     {% endif %}
     <br><br><br>
-    <input type="submit" value="Go To Hub" onclick="location.href = '/fun/';">
+    <input type="submit" class="btn btn-primary" value="Go To Hub" onclick="location.href = '/fun/';">
 </body>
 </html>
