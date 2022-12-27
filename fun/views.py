@@ -4,13 +4,13 @@ import random
 from django.http import HttpResponse
 from django.template import loader
 from gtts.tts import gTTS
-
-from fun.crazyLibs import generate_original_libs
 from fun.helpView import HelpView
 from fun.models.countriesConnection import CountriesConnection
 from fun.models.guessNumber import GuessNumber
+from fun.models.models import CrazyLibs
 from fun.models.numberdle import Numberdle
 from myFirstDjangoSite.settings import env
+# from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 
 
 def index(request):
@@ -72,44 +72,53 @@ def check_guess(request):
 def crazy_libs(request):
     template = loader.get_template('fun/crazylibs.html')
 
-    crazyLibsObj = generate_original_libs()
-    crazyLibsObj.tokenize(crazyLibsObj)
+    crazyLibsObj = CrazyLibs()
+    crazyLibsObj.tokenize()
 
-    context = {'story': crazyLibsObj.original_story(crazyLibsObj), 'nouns': crazyLibsObj.nouns,
+    # text = 'Thats true. Fans usually only boo players or teams that they are familiar with or have a history with. ' \
+    #        'Setting session crazyLibsObj. Fans dont boo nobodies.'
+
+    # wordcloud = WordCloud().generate(text)
+
+    context = {'story': crazyLibsObj.original_story(), 'nouns': crazyLibsObj.nouns,
                'verbs': crazyLibsObj.verbs, 'adjectives': crazyLibsObj.adjectives}
 
     request.session['crazyLibsObj'] = crazyLibsObj
-    print("setting session crazyLibsObj: " + str(crazyLibsObj.__str__(crazyLibsObj)))
+    print("setting session crazyLibsObj: " + str(crazyLibsObj.__str__()))
     return HttpResponse(template.render(context, request))
 
 
 def generate_crazy_libs(request):
     template = loader.get_template('fun/crazylibs.html')
     crazyLibsObj = request.session['crazyLibsObj']
-    print("received session crazyLibsObj: " + str(crazyLibsObj.__str__(crazyLibsObj)))
+    print("received session crazyLibsObj: " + str(crazyLibsObj.__str__()))
 
     for noun in crazyLibsObj.nouns:
         input_noun = str(request.POST.get("input_noun_" + noun))
         print("input_noun_" + noun + ": " + input_noun)
         if input_noun != '' and len(input_noun) > 2:
-            crazyLibsObj.make_crazy(crazyLibsObj, noun, input_noun)
+            crazyLibsObj.make_crazy(noun, input_noun)
 
     for verb in crazyLibsObj.verbs:
         input_verb = str(request.POST.get("input_verb_" + verb))
         print("input_verb_" + verb + ": " + input_verb)
         if input_verb != '' and len(input_verb) > 2:
-            crazyLibsObj.make_crazy(crazyLibsObj, verb, input_verb)
+            crazyLibsObj.make_crazy(verb, input_verb)
 
     for adjective in crazyLibsObj.adjectives:
         input_adjective = str(request.POST.get("input_adjective_" + adjective))
         print("input_adjective_" + adjective + ": " + input_adjective)
         if input_adjective != '' and len(input_adjective) > 2:
-            crazyLibsObj.make_crazy(crazyLibsObj, adjective, input_adjective)
+            crazyLibsObj.make_crazy(adjective, input_adjective)
 
     print("The final crazy story is" + crazyLibsObj.crazy_story)
     request.session['crazyLibsObj'] = crazyLibsObj
 
-    print("setting session crazyLibsObj: " + str(crazyLibsObj.__str__(crazyLibsObj)))
+    print("setting session crazyLibsObj: " + str(crazyLibsObj.__str__()))
+
+    crazyLibsObj.addResult(0)
+
+    crazyLibsObj.getStats()
 
     context = {'crazyLibsObj': crazyLibsObj}
 
