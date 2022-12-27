@@ -5,15 +5,21 @@ from myFirstDjangoSite.settings import ddb_exceptions, client, dynamodb
 
 
 class GuessNumber:
+    guessed_number = int
+    comparison = str
+    secret_number = int
+    guesses = []
 
-    def addResult(self, user_id, tries):
+    def addResult(self, user_id):
         try:
             response = client.put_item(
                 TableName=TABLE_NAME_GUESS_NUMBER,
                 Item={
                     "timestamp": {"N": str(time.time())},
                     "user_id": {"N": str(user_id)},
-                    "tries": {"N": str(tries)}
+                    "secret_number": {"N": str(self.secret_number)},
+                    "guesses": {"S": str(self.guesses)},
+                    "tries": {"N": str(len(self.guesses))}
                 },
             )
             print(response)
@@ -24,3 +30,9 @@ class GuessNumber:
         response = dynamodb.Table(TABLE_NAME_GUESS_NUMBER).scan()
         print(response)
         return response.get('Items')
+
+    def __init__(self):
+        self.guesses = []
+
+    def __str__(self):
+        return str(self.guessed_number) + ' is' + self.comparison + ' than the secret number'

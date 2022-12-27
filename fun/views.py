@@ -9,12 +9,8 @@ from fun.crazyLibs import generate_original_libs
 from fun.helpView import HelpView
 from fun.models.countriesConnection import CountriesConnection
 from fun.models.guessNumber import GuessNumber
-from fun.models.models import GuessedNumber
 from fun.models.numberdle import Numberdle
 from myFirstDjangoSite.settings import env
-
-secret_number: int = 0
-check_count: int = 0
 
 
 def index(request):
@@ -30,11 +26,12 @@ def index(request):
 
 def guess_number(request):
     template = loader.get_template('fun/guessnumber.html')
-    global secret_number
-    global check_count
-
-    check_count = 0
     secret_number = random.randint(1, 100)
+
+    guess_number_obj = GuessNumber()
+    guess_number_obj.secret_number = secret_number
+
+    request.session['guess_number_obj'] = guess_number_obj
 
     context = {'secret_number': secret_number}
 
@@ -43,32 +40,30 @@ def guess_number(request):
 
 def check_guess(request):
     template = loader.get_template('fun/guessnumber.html')
-    global secret_number
-    global check_count
     helpView = HelpView()
     user_input = request.POST["Enter Your Guess"]
 
+    guess_number_obj = request.session['guess_number_obj']
+
     if user_input.isdigit():
         number = int(user_input)
-        user_guess = GuessedNumber
-        user_guess.guessed_number = number
+        guess_number_obj.guessed_number = number
+        guess_number_obj.guesses.append(number)
 
-        check_count += 1
-
-        if user_guess.guessed_number < secret_number:
-            user_guess.comparison = 'lesser'
-        elif user_guess.guessed_number > secret_number:
-            user_guess.comparison = 'greater'
+        if guess_number_obj.guessed_number < guess_number_obj.secret_number:
+            guess_number_obj.comparison = 'lesser'
+        elif guess_number_obj.guessed_number > guess_number_obj.secret_number:
+            guess_number_obj.comparison = 'greater'
         else:
-            user_guess.comparison = 'equal'
-            guessNumber = GuessNumber()
-            guessNumber.addResult(0, check_count)
-            helpView.getUserGuessesAndCounts(guessNumber.getStats())
+            guess_number_obj.comparison = 'equal'
+            guess_number_obj.addResult(0)
+            helpView.getUserGuessesAndCounts(guess_number_obj.getStats())
 
-        context = {'user_guess': user_guess, 'guess_count': check_count, 'user_guesses': helpView.user_guesses, 'counts': helpView.counts}
+        request.session['guess_number_obj'] = guess_number_obj
+        context = {'guess_number': guess_number_obj, 'guess_count': len(guess_number_obj.guesses), 'user_guesses': helpView.user_guesses, 'counts': helpView.counts}
     else:
         error_message = 'Please enter a number'
-        context = {'error_message': error_message, 'guess_count': check_count}
+        context = {'error_message': error_message, 'guess_count': len(guess_number_obj.guesses)}
 
     return HttpResponse(template.render(context, request))
 

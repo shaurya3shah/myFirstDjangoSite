@@ -33,9 +33,9 @@
                 <button class="btn btn-primary" name="check_guess">Check Guess</button>
                 <p><h6 class="error">Please input a number</h6></p>
             </form>
-    {% elif user_guess %}
-        {% if user_guess.comparison == 'equal' %}
-            <p><h2 class="success">YAY!!! You correctly guessed the secret number {{ user_guess.guessed_number }} in {{ guess_count }} guesses</h2></p>
+    {% elif guess_number %}
+        {% if guess_number.comparison == 'equal' %}
+            <p><h2 class="success">YAY!!! You correctly guessed the secret number {{ guess_number.guessed_number }} in {{ guess_count }} guesses</h2></p>
             <form class="form" action="{% url 'fun:guess_number' %}" method="post">
                 {% csrf_token %}
                 <input class="btn btn-primary" type="submit" value="Play Again">
@@ -55,8 +55,8 @@
             type: 'bar',
             label: 'Other Players',
             data: {{ counts }},
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)'
+            borderColor: 'rgb(0, 0, 255)',
+            backgroundColor: 'rgba(0, 0, 255, 0.2)'
           }, {
             type: 'bubble',
             label: 'You',
@@ -66,7 +66,7 @@
               r: 10
             }],
             fill: true,
-            backgroundColor: 'rgb(254, 0, 235)'
+            backgroundColor: 'rgb(0, 0, 255)'
           }]
         };
 
@@ -83,7 +83,7 @@
         });
     </script>
         {% else %}
-            <p><h2>The guessed number  {{ user_guess.guessed_number }} is  {{ user_guess.comparison }} than the secret number</h2></p>
+            <p><h2>The guessed number  {{ guess_number.guessed_number }} is  {{ guess_number.comparison }} than the secret number</h2></p>
             <p><h2>Number of guesses:  {{ guess_count }} </h2></p>
 
             <form class="form" action="{% url 'fun:check_guess' %}" method="post">

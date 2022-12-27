@@ -3,14 +3,6 @@ import nltk
 from nltk import word_tokenize
 
 
-class GuessedNumber:
-    guessed_number = int
-    comparison = str
-
-    def __str__(self):
-        return str(self.guessed_number) + ' is' + self.comparison + ' than the secret number'
-
-
 class CrazyLibs:
     initial_text = str
     added_story = str
