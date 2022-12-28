@@ -5,21 +5,21 @@
     <title>Spelling Bee</title>
 </head>
 <body>
-    <canvas id="myChart" width="800" height="400"></canvas>
+    <canvas id="wordChart" width="800" height="300"></canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
-        const ctx = document.getElementById('myChart').getContext('2d');
+        const ctx = document.getElementById('wordChart').getContext('2d');
 
-        const labels = ['word1', 'word2', 'word3'];
+        const labels = {{ words|safe }};
 
         const data = {
           labels: labels,
           datasets: [
             {
               label: 'Incorrect',
-              data: [-50, -25, -10],
+              data: {{ word_incorrect|safe }},
               borderColor: 'rgb(255, 0, 0)',
               backgroundColor: 'rgba(255, 0, 0, 0.5)',
               borderWidth: 2,
@@ -28,7 +28,7 @@
             },
             {
               label: 'Correct',
-              data: [10, 25, 50],
+              data: {{ word_correct|safe }},
               borderColor: 'rgb(0, 255, 0)',
               backgroundColor: 'rgba(0, 255, 0, 0.5)',
               borderWidth: 2,
@@ -38,18 +38,62 @@
           ]
         };
 
-        const myChart = new Chart(ctx, {
+        const wordChart = new Chart(ctx, {
           type: 'bar',
           data: data,
           options: {
             responsive: true,
             plugins: {
               legend: {
-                position: 'top',
+                position: 'bottom',
               },
               title: {
                 display: true,
                 text: 'Words Spelling'
+              }
+            }
+          },
+        });
+    </script>
+    <br>
+    <br>
+    <canvas id="dateChart" width="800" height="300"></canvas>
+
+    <script>
+        const ctx1 = document.getElementById('dateChart').getContext('2d');
+
+        const labels1 = {{ dates|safe }};
+
+        const data1 = {
+          labels: labels1,
+          datasets: [
+            {
+              label: 'Incorrect',
+              data: {{ date_incorrect|safe }},
+              borderColor: 'rgb(255, 0, 0)',
+              backgroundColor: 'rgba(255, 0, 0, 0.5)',
+            },
+            {
+              label: 'Correct',
+              data: {{ date_correct|safe }},
+              borderColor: 'rgb(0, 255, 0)',
+              backgroundColor: 'rgba(0, 255, 0, 0.5)',
+            }
+          ]
+        };
+
+        const dateChart = new Chart(ctx1, {
+          type: 'line',
+          data: data1,
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'bottom',
+              },
+              title: {
+                display: true,
+                text: 'Spelling Practice Score Trend'
               }
             }
           },
