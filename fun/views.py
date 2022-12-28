@@ -10,6 +10,7 @@ from fun.models.guessNumber import GuessNumber
 from fun.models.models import CrazyLibs
 from fun.models.numberdle import Numberdle
 from myFirstDjangoSite.settings import env
+from spelling_bee_practise_graph import dynamo_db_to_list
 
 
 # from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
@@ -207,14 +208,21 @@ def spelling_bee(request):
     tts = gTTS(text=welcome_message, lang='en-us')
     tts.save("voice.mp3")
 
-    words = "['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7', 'word8', 'word9', 'word10', 'word11', " \
-            "'word12', 'word13', 'word14', 'word15', 'word16', 'word17', 'word18', 'word19', 'word20', 'word21', 'word22', " \
-            "'word23', 'word24']"
+    word_list=dynamo_db_to_list()
 
-    word_correct = "[10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50]"
+    words = word_list["word"]
 
-    word_incorrect = "[-50, -25, -10, -50, -25, -10, -50, -25, -10, -50, -25, -10, -50, -25, -10, -50, -25, -10, -50, -25, " \
-                     "-10, -50, -25, -10]"
+ #       "['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7', 'word8', 'word9', 'word10', 'word11', " \
+ #           "'word12', 'word13', 'word14', 'word15', 'word16', 'word17', 'word18', 'word19', 'word20', 'word21', 'word22', " \
+ #           "'word23', 'word24']"
+
+    word_correct = word_list["count_right"]
+    word_incorrect=word_list["count_wrong"]
+
+        #"[10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50]"
+
+    #word_incorrect = "[-50, -25, -10, -50, -25, -10, -50, -25, -10, -50, -25, -10, -50, -25, -10, -50, -25, -10, -50, -25, " \
+  #                   "-10, -50, -25, -10]"
 
     dates = "['1/1/2023', '1/2/2013', '1/3/2023', '1/4/2023', '1/5/2023', '1/6/2023', '1/7/2023']"
 
