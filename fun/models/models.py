@@ -4,7 +4,7 @@ import time
 import nltk
 from nltk import word_tokenize
 
-from fun.crazyLibs import generate_original_libs, initiate_story
+from fun.contentGeneratorAI import generate_original_libs, initiate_story
 from myFirstDjangoSite.constants import TABLE_NAME_CRAZYLIBS
 from myFirstDjangoSite.settings import client, ddb_exceptions, dynamodb
 from django.db import models

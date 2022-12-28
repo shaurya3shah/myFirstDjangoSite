@@ -1,6 +1,6 @@
 import unittest
 
-from fun.crazyLibs import generate_original_libs, initiate_story
+from fun.contentGeneratorAI import generate_original_libs, initiate_story
 
 
 class MyTestCase(unittest.TestCase):

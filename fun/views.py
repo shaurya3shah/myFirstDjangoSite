@@ -5,13 +5,14 @@ from django.http import HttpResponse
 from django.template import loader
 from gtts.tts import gTTS
 
+from fun.contentGeneratorAI import generateSentence
 from fun.helpView import HelpView
 from fun.models.countriesConnection import CountriesConnection
 from fun.models.guessNumber import GuessNumber
 from fun.models.models import CrazyLibs
 from fun.models.numberdle import Numberdle
 from myFirstDjangoSite.settings import env
-from spelling_bee_practise_graph import dynamo_db_to_list
+from fun.spelling_bee_practise_graph import dynamo_db_to_list
 
 
 # from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
@@ -208,21 +209,28 @@ def spelling_bee(request):
 
     language = 'en-us'
 
-    word_list=dynamo_db_to_list()
+    word_list = dynamo_db_to_list()
 
-    words = word_list["word"]
+    print(word_list)
 
- #       "['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7', 'word8', 'word9', 'word10', 'word11', " \
- #           "'word12', 'word13', 'word14', 'word15', 'word16', 'word17', 'word18', 'word19', 'word20', 'word21', 'word22', " \
- #           "'word23', 'word24']"
+    word = word_list[random.randint(0, 99)]['word']
+    sentence = generateSentence(word)
 
-    word_correct = word_list["count_right"]
-    word_incorrect=word_list["count_wrong"]
+    print('word: ' + word + ' - sentence: ' + sentence)
 
-        #"[10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50]"
+    # words = word_list['word']
 
-    #word_incorrect = "[-50, -25, -10, -50, -25, -10, -50, -25, -10, -50, -25, -10, -50, -25, -10, -50, -25, -10, -50, -25, " \
-  #                   "-10, -50, -25, -10]"
+    words = "['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7', 'word8', 'word9', 'word10', 'word11', " \
+            "'word12', 'word13', 'word14', 'word15', 'word16', 'word17', 'word18', 'word19', 'word20', 'word21', " \
+            "'word22', 'word23', 'word24']"
+
+    # word_correct = word_list['count_right']
+    # word_incorrect = word_list['count_wrong']
+
+    word_correct = "[10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50, 10, 25, 50]"
+
+    word_incorrect = "[-50, -25, -10, -50, -25, -10, -50, -25, -10, -50, -25, -10, -50, -25, -10, -50, -25, -10, -50, " \
+                     "-25, -10, -50, -25, -10]"
 
     dates = "['1/1/2023', '1/2/2013', '1/3/2023', '1/4/2023', '1/5/2023', '1/6/2023', '1/7/2023']"
 
@@ -231,7 +239,7 @@ def spelling_bee(request):
     date_incorrect = "[49, 40, 30, 25, 5, 0, 0]"
     context = {'welcome_message': welcome_message, 'words': words, 'word_correct': word_correct,
                'word_incorrect': word_incorrect, 'dates': dates, 'date_correct': date_correct,
-               'date_incorrect': date_incorrect, 'language': language}
+               'date_incorrect': date_incorrect, 'word': word, 'sentence': sentence, 'language': language}
 
     print(context)
 

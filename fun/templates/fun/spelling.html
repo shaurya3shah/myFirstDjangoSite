@@ -6,12 +6,38 @@
 </head>
 <body>
     {% load gTTS %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/button.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/form.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/flex.css' %}">
 
-    <audio
-    src="{% say language welcome_message %}"
-    controls
-    ></audio>
+    <p><h1>Spelling Bee!!!</h1></p>
 
+    <div class="flex-left">
+      <div class="unit">
+        <p><h2>Play Word</h2></p>
+        <audio
+        src="{% say language word %}"
+        controls
+        ></audio>
+
+      </div>
+      <div class="unit">
+        <p><h2>Play Sentence</h2></p>
+        <audio
+        src="{% say language sentence %}"
+        controls
+        ></audio>
+      </div>
+    </div>
+
+    <form class="form" method="post">
+    {% csrf_token %}
+        <input type="text" name="Enter Spelling" autofocus>
+        <button class="btn btn-primary" name="check_spelling">Check Spelling</button>
+        <button class="btn btn-primary" name="next_word">Next Word</button>
+    </form>
     <canvas id="wordChart" width="800" height="300"></canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

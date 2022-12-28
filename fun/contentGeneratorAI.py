@@ -29,3 +29,17 @@ def initiate_story():
     initial_text = response.json()["content"]
     print(initial_text)
     return initial_text
+
+
+def generateSentence(word):
+    response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt="write a single sentence starting with, or containing the word - " + word,
+        temperature=0.5,
+        max_tokens=100,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    print(response)
+    return response.choices[0].text
