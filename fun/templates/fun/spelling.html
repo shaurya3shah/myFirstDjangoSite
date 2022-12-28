@@ -5,8 +5,56 @@
     <title>Spelling Bee</title>
 </head>
 <body>
-<audio controls>
-    <source src="voice.mp3" type="audio/mpeg">
-</audio>
+    <canvas id="myChart" width="800" height="400"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        const labels = ['word1', 'word2', 'word3'];
+
+        const data = {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Incorrect',
+              data: [-50, -25, -10],
+              borderColor: 'rgb(255, 0, 0)',
+              backgroundColor: 'rgba(255, 0, 0, 0.5)',
+              borderWidth: 2,
+              borderRadius: 10,
+              borderSkipped: false,
+            },
+            {
+              label: 'Correct',
+              data: [10, 25, 50],
+              borderColor: 'rgb(0, 255, 0)',
+              backgroundColor: 'rgba(0, 255, 0, 0.5)',
+              borderWidth: 2,
+              borderRadius: 5,
+              borderSkipped: false,
+            }
+          ]
+        };
+
+        const myChart = new Chart(ctx, {
+          type: 'bar',
+          data: data,
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'top',
+              },
+              title: {
+                display: true,
+                text: 'Words Spelling'
+              }
+            }
+          },
+        });
+    </script>
+
 </body>
 </html>
