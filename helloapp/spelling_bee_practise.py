@@ -21,7 +21,8 @@ word_list_check=[]
 
 print(items[0])
 
-stop_flag=False
+right=0
+wrong=0
 
 for current_word in items:
     if current_word["count_right"] == 0:
@@ -30,10 +31,13 @@ for current_word in items:
 
         if check == "y":
             current_word["count_right"] = current_word["count_right"] + 1
+            right=right+1
         elif check == "n":
             current_word["count_wrong"] = current_word["count_wrong"] +1
+            wrong=wrong+1
         else:
-            print("good bye")
+            print("You are exiting")
+            print(f"You got {right} right and {wrong} wrong ")
             break
 
         word_list_check.append(current_word)
