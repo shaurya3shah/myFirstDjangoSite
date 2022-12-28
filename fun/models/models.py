@@ -7,6 +7,7 @@ from nltk import word_tokenize
 from fun.crazyLibs import generate_original_libs, initiate_story
 from myFirstDjangoSite.constants import TABLE_NAME_CRAZYLIBS
 from myFirstDjangoSite.settings import client, ddb_exceptions, dynamodb
+from django.db import models
 
 
 class CrazyLibs:
@@ -91,3 +92,9 @@ class CrazyLibs:
         self.initial_text = initiate_story()
         self.added_story = generate_original_libs(self.initial_text)
         self.crazy_story = ""
+
+
+class Speech(models.Model):
+    text = models.TextField(max_length=2000)
+    language = models.TextField(max_length=50)
+    file_name = models.TextField(max_length=1000)
