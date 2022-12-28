@@ -5,6 +5,13 @@
     <title>Spelling Bee</title>
 </head>
 <body>
+    {% load gTTS %}
+
+    <audio
+    src="{% say language welcome_message %}"
+    controls
+    ></audio>
+
     <canvas id="wordChart" width="800" height="300"></canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

@@ -4,6 +4,7 @@ import random
 from django.http import HttpResponse
 from django.template import loader
 from gtts.tts import gTTS
+
 from fun.helpView import HelpView
 from fun.models.countriesConnection import CountriesConnection
 from fun.models.guessNumber import GuessNumber
@@ -204,8 +205,7 @@ def spelling_bee(request):
 
     welcome_message = 'Spelling Bee!'
 
-    tts = gTTS(text=welcome_message, lang='en-us')
-    tts.save("voice.mp3")
+    language = 'en-us'
 
     words = "['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7', 'word8', 'word9', 'word10', 'word11', " \
             "'word12', 'word13', 'word14', 'word15', 'word16', 'word17', 'word18', 'word19', 'word20', 'word21', 'word22', " \
@@ -221,9 +221,9 @@ def spelling_bee(request):
     date_correct = "[1, 10, 20, 25, 45, 50, 50]"
 
     date_incorrect = "[49, 40, 30, 25, 5, 0, 0]"
-    context = {'welcome_message': welcome_message, 'tts': tts, 'words': words, 'word_correct': word_correct,
+    context = {'welcome_message': welcome_message, 'words': words, 'word_correct': word_correct,
                'word_incorrect': word_incorrect, 'dates': dates, 'date_correct': date_correct,
-               'date_incorrect': date_incorrect}
+               'date_incorrect': date_incorrect, 'language': language}
 
     print(context)
 
