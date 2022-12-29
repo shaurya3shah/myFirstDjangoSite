@@ -14,6 +14,8 @@
 
     <p><h1>Spelling Bee!!!</h1></p>
 
+    <p><h2>Result:  {{ result }} </h2></p>
+
     <div class="flex-left">
       <div class="unit">
         <p><h2>Play Word</h2></p>
@@ -32,11 +34,9 @@
       </div>
     </div>
 
-    <p><h2>Result:  {{ result }} </h2></p>
-
     <form class="form" action="{% url 'fun:spell_check' %}"  method="post">
     {% csrf_token %}
-        <input type="text" name="Enter Spelling" placeholder="enter word" autofocus>
+        <input type="text" spellcheck="false" autocapitalize="off" autocomplete="off" name="Enter Spelling" placeholder="enter word" autofocus>
 
         <button class="btn btn-primary" name="check_spelling">Check Spelling</button>
     </form>
