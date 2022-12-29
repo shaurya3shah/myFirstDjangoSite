@@ -32,12 +32,17 @@
       </div>
     </div>
 
-    <form class="form" method="post">
+    <p><h2>Result:  {{ result }} </h2></p>
+
+    <form class="form" action="{% url 'fun:spell_check' %}"  method="post">
     {% csrf_token %}
-        <input type="text" name="Enter Spelling" autofocus>
+        <input type="text" name="Enter Spelling" placeholder="enter word" autofocus>
+
         <button class="btn btn-primary" name="check_spelling">Check Spelling</button>
-        <button class="btn btn-primary" name="next_word">Next Word</button>
     </form>
+
+        <button class="btn btn-primary" name="next_word" onclick="location.href = '/fun/spell_new';">Next Word</button>
+
     <canvas id="wordChart" width="800" height="300"></canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

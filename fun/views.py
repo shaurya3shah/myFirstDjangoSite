@@ -11,6 +11,7 @@ from fun.models.countriesConnection import CountriesConnection
 from fun.models.guessNumber import GuessNumber
 from fun.models.models import CrazyLibs
 from fun.models.numberdle import Numberdle
+from fun.models.spellingBee import SpellingBee
 from myFirstDjangoSite.settings import env
 from fun.spelling_bee_practise_graph import dynamo_db_to_list
 
@@ -209,11 +210,9 @@ def spelling_bee(request):
 
     language = 'en-us'
 
-    word_list = dynamo_db_to_list()
+    spelling_bee_obj = SpellingBee()
 
-    print(word_list)
-
-    word = word_list[random.randint(0, 99)]['word']
+    word = spelling_bee_obj.current_word
     sentence = generateSentence(word)
 
     print('word: ' + word + ' - sentence: ' + sentence)
@@ -240,6 +239,61 @@ def spelling_bee(request):
     context = {'welcome_message': welcome_message, 'words': words, 'word_correct': word_correct,
                'word_incorrect': word_incorrect, 'dates': dates, 'date_correct': date_correct,
                'date_incorrect': date_incorrect, 'word': word, 'sentence': sentence, 'language': language}
+
+    print(context)
+
+    request.session['spelling_bee_obj'] = spelling_bee_obj
+
+    return HttpResponse(template.render(context, request))
+
+
+def spell_check(request):
+    template = loader.get_template('fun/spelling.html')
+
+    user_input = request.POST["Enter Spelling"]
+
+    language = 'en-us'
+
+    spelling_bee_obj = request.session['spelling_bee_obj']
+
+    result = spelling_bee_obj.spellCheck(user_input)
+
+    if result:
+        word = spelling_bee_obj.getNewWord()
+    else:
+        word = spelling_bee_obj.current_word
+
+    sentence = generateSentence(word)
+
+    request.session['spelling_bee_obj'] = spelling_bee_obj
+
+    context = {'word': word, 'sentence': sentence, 'language': language, 'result': result}
+
+    print(context)
+
+    return HttpResponse(template.render(context, request))
+
+
+def spell_new(request):
+    template = loader.get_template('fun/spelling.html')
+
+    language = 'en-us'
+
+    spelling_bee_obj = request.session['spelling_bee_obj']
+
+    if not spelling_bee_obj:
+        spelling_bee_obj = SpellingBee()
+    else:
+        spelling_bee_obj.getNewWord()
+
+    word = spelling_bee_obj.current_word
+    sentence = generateSentence(word)
+
+    request.session['spelling_bee_obj'] = spelling_bee_obj
+
+    print('word: ' + word + ' - sentence: ' + sentence)
+
+    context = {'word': word, 'sentence': sentence, 'language': language}
 
     print(context)
 
