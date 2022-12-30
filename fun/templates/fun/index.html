@@ -7,6 +7,7 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'fun/button.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'fun/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/flex.css' %}">
   <title>Fun</title>
 </head>
 <body>
@@ -14,16 +15,25 @@
     <div>
     {% if welcome_message %}
         <h1>{{welcome_message|blue:"My Fun Hub!"|safe}}</h1>
-        <hr>
     {% endif %}
-    <input class="btn btn-primary" type="submit" value="Guess A Number" onclick="location.href = '/fun/guess_number';">
-    <hr>
-    <input class="btn btn-primary" type="submit" value="Crazy Lib" onclick="location.href = '/fun/crazy_libs';">
-    <hr>
-    <input class="btn btn-primary" type="submit" value="Numberdle" onclick="location.href = '/fun/numberdle';">
-    <hr>
-    <input class="btn btn-primary" type="submit" value="Countries Connection" onclick="location.href = '/fun/countries_connection';">
-    <hr>
+
+        <div class="flex-left">
+            <div class="unit">
+                <input class="btn btn-primary" type="submit" value="Guess A Number" onclick="location.href = '/fun/guess_number';">
+                <br>
+                <input class="btn btn-primary" type="submit" value="Crazy Lib" onclick="location.href = '/fun/crazy_libs';">
+                <br>
+                <input class="btn btn-primary" type="submit" value="Numberdle" onclick="location.href = '/fun/numberdle';">
+                <br>
+                <input class="btn btn-primary" type="submit" value="Countries Connection" onclick="location.href = '/fun/countries_connection';">
+                <br>
+            </div>
+            <div class="unit">
+                <h2>A Simplistic Fun and Learn App</h2>
+                Unlike other websites that use visual and audio over-stimulation,
+                Fun Hub is a simplistic website which focuses on the joy of playing games and learning
+                without the artificial confetti and loud sounds.
+            </div>
     </div>
 </body>
 </html>
