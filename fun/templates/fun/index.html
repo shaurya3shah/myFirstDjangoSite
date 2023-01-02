@@ -12,14 +12,25 @@
 </head>
 <body>
     {% load app_extras %}
-    <div class="flex-center flex-middle">
+    <div class="flex-vertical">
       <div class="flex-center flex-middle">
             {% if welcome_message %}
                 <h1>{{welcome_message|blue:"My Fun Hub!"|safe}}</h1>
             {% endif %}
       </div>
+        <div style="padding: 10px;" class="flex-wrap">
+<!--            <p><h2>A Simplistic Fun and Learn App</h2></p>-->
+            <p>
+            Unlike other websites that use visual and audio over-stimulation,
+            Fun Hub is a simplistic website which focuses on the joy of playing games and learning
+            without the artificial confetti and loud sounds.
+            </p>
+            <p>
+            We hope that you enjoy playing the following games as much as we enjoyed creating them for you...
+            </p>
+        </div>
     </div>
-    <div class="flex-left">
+    <div style="padding: 10px;" class="flex-left">
         <div class="flex-vertical">
             <div class="unit">
                 <input class="btn btn-primary" type="submit" value="Guess A Number" onclick="location.href = '/fun/guess_number';">
@@ -33,14 +44,6 @@
             <div class="unit">
                 <input class="btn btn-primary" type="submit" value="Countries Connection" onclick="location.href = '/fun/countries_connection';">
             </div>
-        </div>
-        <div style="padding: 10px;" class="unit">
-                <p><h2>A Simplistic Fun and Learn App</h2></p>
-                <p>
-                Unlike other websites that use visual and audio over-stimulation,
-                Fun Hub is a simplistic website which focuses on the joy of playing games and learning
-                without the artificial confetti and loud sounds.
-                </p>
         </div>
     </div>
 </body>
