@@ -1,34 +1,22 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends "./base_generic.html" %}
 
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'fun/button.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fun/reset.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fun/flex.css' %}">
-  <title>Fun</title>
-</head>
-<body>
-    {% load app_extras %}
-    <div class="flex-vertical">
-      <div class="flex-center flex-middle">
+{% block content %}
+{% load app_extras %}
+    <div class="flex-middle flex-center">
             {% if welcome_message %}
                 <h1>{{welcome_message|blue:"My Fun Hub!"|safe}}</h1>
             {% endif %}
-      </div>
-        <div style="padding: 10px;" class="flex-wrap">
+    </div>
+    <div style="padding: 10px;" class="flex-wrap">
 <!--            <p><h2>A Simplistic Fun and Learn App</h2></p>-->
-            <p>
-            Unlike other websites that use visual and audio over-stimulation,
-            Fun Hub is a simplistic website which focuses on the joy of playing games and learning
-            without the artificial confetti and loud sounds.
-            </p>
-            <p>
-            We hope that you enjoy playing the following games as much as we enjoyed creating them for you...
-            </p>
-        </div>
+        <p>
+        Unlike other websites that use visual and audio over-stimulation,
+        Fun Hub is a simplistic website which focuses on the joy of playing games and learning
+        without the artificial confetti and loud sounds.
+        </p>
+        <p>
+        We hope that you enjoy playing the following games as much as we enjoyed creating them for you...
+        </p>
     </div>
     <div style="padding: 10px;" class="flex-left">
         <div class="flex-vertical">
@@ -46,5 +34,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/button.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/flex.css' %}">
+  <title>Fun</title>
+</head>
+<body>
+    <div>
+    <input class="btn btn-right" type="submit" value="Feedback" onclick="location.href = '/fun/';">
+    <input style="display:none" class="btn btn-right" type="submit" value="Sign In" onclick="location.href = '/fun/';">
+    <input style="display:none" class="btn btn-right" type="submit" value="Sign Up" onclick="location.href = '/fun/';">
+    </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
