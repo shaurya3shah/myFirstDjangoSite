@@ -21,8 +21,9 @@ from myFirstDjangoSite.settings import env
 def index(request):
     template = loader.get_template('fun/index.html')
     welcome_message = 'My Fun Hub!'
+    print(request.META)
     usage = Usage()
-    usage.saveUsage(request.META['REMOTE_ADDR'], request.META['HTTP_HOST'], request.META['HTTP_USER_AGENT'], request.META['USER'])
+    usage.saveUsage(request.META['REMOTE_ADDR'], request.META['HTTP_HOST'], request.META['HTTP_USER_AGENT'])
     context = {'welcome_message': welcome_message}
 
     print(context)
