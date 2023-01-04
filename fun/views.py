@@ -23,7 +23,18 @@ def index(request):
     welcome_message = 'My Fun Hub!'
     print(request.META)
     usage = Usage()
-    usage.saveUsage(request.META['REMOTE_ADDR'], request.META['HTTP_HOST'], request.META['HTTP_USER_AGENT'])
+
+    try:
+        HTTP_X_REAL_IP = request.META['HTTP_X_REAL_IP']
+    except:
+        HTTP_X_REAL_IP = 'localhost'
+    try:
+        HTTP_X_FORWARDED_FOR = request.META['HTTP_X_FORWARDED_FOR']
+    except:
+        HTTP_X_FORWARDED_FOR = 'localhost'
+
+    usage.saveUsage(request.META['REMOTE_ADDR'], request.META['HTTP_HOST'], request.META['HTTP_USER_AGENT'],
+                    HTTP_X_REAL_IP, HTTP_X_FORWARDED_FOR)
     context = {'welcome_message': welcome_message}
 
     print(context)

@@ -5,8 +5,9 @@ import time
 
 class Usage:
 
-    def saveUsage(self, REMOTE_ADDR, HTTP_HOST, HTTP_USER_AGENT):
-        print(' REMOTE_ADDR: ' + REMOTE_ADDR + ' HTTP_HOST: ' + HTTP_HOST + ' HTTP_USER_AGENT: ' + HTTP_USER_AGENT)
+    def saveUsage(self, REMOTE_ADDR, HTTP_HOST, HTTP_USER_AGENT, HTTP_X_REAL_IP, HTTP_X_FORWARDED_FOR):
+        print(' REMOTE_ADDR: ' + REMOTE_ADDR + ' HTTP_HOST: ' + HTTP_HOST + ' HTTP_USER_AGENT: ' + HTTP_USER_AGENT
+              + ' HTTP_X_REAL_IP: ' + HTTP_X_REAL_IP + ' HTTP_X_FORWARDED_FOR: ' + HTTP_X_FORWARDED_FOR)
         try:
             response = client.put_item(
                 TableName=TABLE_NAME_USAGE,
@@ -14,7 +15,9 @@ class Usage:
                     "timestamp": {"N": str(time.time())},
                     "REMOTE_ADDR": {"S": str(REMOTE_ADDR)},
                     "HTTP_HOST": {"S": str(HTTP_HOST)},
-                    "HTTP_USER_AGENT": {"S": str(HTTP_USER_AGENT)}
+                    "HTTP_USER_AGENT": {"S": str(HTTP_USER_AGENT)},
+                    "HTTP_X_REAL_IP": {"S": str(HTTP_X_REAL_IP)},
+                    "HTTP_X_FORWARDED_FOR": {"S": str(HTTP_X_FORWARDED_FOR)}
                 },
             )
             print(response)
