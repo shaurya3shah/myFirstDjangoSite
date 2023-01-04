@@ -7,6 +7,7 @@ from django.template import loader
 from fun.contentGeneratorAI import generateSentence
 from fun.helpView import HelpView
 from fun.models.countriesConnection import CountriesConnection
+from fun.models.feedback import Feedback
 from fun.models.guessNumber import GuessNumber
 from fun.models.models import CrazyLibs
 from fun.models.numberdle import Numberdle
@@ -30,16 +31,16 @@ def index(request):
     except:
         print('localhost')
 
-    feedback = ''
-    email = ''
+    context = {'welcome_message': welcome_message}
+
     try:
         feedback = request.POST["Enter Feedback"]
         email = request.POST["Enter Email"]
         print('feedback = ' + feedback + ' email = ' + email)
+        Feedback().addFeedback(0, feedback, email)
+        context['feedback'] = 'success'
     except:
         print('direct landing')
-
-    context = {'welcome_message': welcome_message}
 
     print(context)
     print('LOVE is ' + str(env('LOVE')))
