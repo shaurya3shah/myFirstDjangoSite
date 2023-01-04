@@ -15,5 +15,6 @@ urlpatterns = [
     path('connect_country', views.connect_country, name='connect_country'),
     path('spelling_bee', views.spelling_bee, name='spelling_bee'),
     path('spell_check', views.spell_check, name='spell_check'),
-    path('spell_new', views.spell_new, name='spell_new')
+    path('spell_new', views.spell_new, name='spell_new'),
+    path('feedback', views.feedback, name='feedback')
 ]

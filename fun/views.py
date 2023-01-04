@@ -30,6 +30,15 @@ def index(request):
     except:
         print('localhost')
 
+    feedback = ''
+    email = ''
+    try:
+        feedback = request.POST["Enter Feedback"]
+        email = request.POST["Enter Email"]
+        print('feedback = ' + feedback + ' email = ' + email)
+    except:
+        print('direct landing')
+
     context = {'welcome_message': welcome_message}
 
     print(context)
@@ -305,4 +314,14 @@ def spell_new(request):
 
     print(context)
 
+    return HttpResponse(template.render(context, request))
+
+
+def feedback(request):
+    template = loader.get_template('fun/feedback.html')
+    feedback_message = 'Feedback!'
+
+    context = {'feedback_message': feedback_message}
+
+    print(context)
     return HttpResponse(template.render(context, request))

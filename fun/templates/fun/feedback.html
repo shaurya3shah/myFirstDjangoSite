@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback</title>
+</head>
+<body>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/button.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/reset.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fun/form.css' %}">
+
+    <form class="form" action="{% url 'fun:index' %}" method="post">
+    {% csrf_token %}
+        <div class="flex-left units-gap">
+        <label class="unit-0 text-right" for="Enter Feedback" style="width:85px;">Feedback: </label>
+        <div class="unit">
+          <textarea id="Enter Feedback" name="Enter Feedback" autofocus placeholder="feedback..."></textarea>
+        </div>
+        <label class="unit-0 text-right" for="Enter Email" style="width:85px;">Email: </label>
+        <div class="unit">
+            <input type="email" name="Enter Email" placeholder="email@...">
+        </div>
+        </div>
+        <button type="reset" class="btn btn-danger">Reset</button>
+        <button class="btn btn-primary" name="check_guess">Send Feedback</button>
+    </form>
+    <br><br><br>
+    <input class="btn btn-primary" type="submit" value="Go To Hub" onclick="location.href = '/fun/';">
+    </div>
+</body>
+</html>
