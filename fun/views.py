@@ -63,34 +63,37 @@ def guess_number(request):
 
 
 def check_guess(request):
-    template = loader.get_template('fun/guessnumber.html')
-    helpView = HelpView()
-    user_input = request.POST["Enter Your Guess"]
+    try:
+        template = loader.get_template('fun/guessnumber.html')
+        helpView = HelpView()
+        user_input = request.POST["Enter Your Guess"]
 
-    guess_number_obj = request.session['guess_number_obj']
+        guess_number_obj = request.session['guess_number_obj']
 
-    if user_input.isdigit():
-        number = int(user_input)
-        guess_number_obj.guessed_number = number
-        guess_number_obj.guesses.append(number)
+        if user_input.isdigit():
+            number = int(user_input)
+            guess_number_obj.guessed_number = number
+            guess_number_obj.guesses.append(number)
 
-        if guess_number_obj.guessed_number < guess_number_obj.secret_number:
-            guess_number_obj.comparison = 'lesser'
-        elif guess_number_obj.guessed_number > guess_number_obj.secret_number:
-            guess_number_obj.comparison = 'greater'
+            if guess_number_obj.guessed_number < guess_number_obj.secret_number:
+                guess_number_obj.comparison = 'lesser'
+            elif guess_number_obj.guessed_number > guess_number_obj.secret_number:
+                guess_number_obj.comparison = 'greater'
+            else:
+                guess_number_obj.comparison = 'equal'
+                guess_number_obj.addResult(0)
+                helpView.getUserGuessesAndCounts(guess_number_obj.getStats())
+
+            request.session['guess_number_obj'] = guess_number_obj
+            context = {'guess_number': guess_number_obj, 'guess_count': len(guess_number_obj.guesses),
+                       'user_guesses': helpView.user_guesses, 'counts': helpView.counts}
         else:
-            guess_number_obj.comparison = 'equal'
-            guess_number_obj.addResult(0)
-            helpView.getUserGuessesAndCounts(guess_number_obj.getStats())
+            error_message = 'Please enter a number'
+            context = {'error_message': error_message, 'guess_count': len(guess_number_obj.guesses)}
 
-        request.session['guess_number_obj'] = guess_number_obj
-        context = {'guess_number': guess_number_obj, 'guess_count': len(guess_number_obj.guesses),
-                   'user_guesses': helpView.user_guesses, 'counts': helpView.counts}
-    else:
-        error_message = 'Please enter a number'
-        context = {'error_message': error_message, 'guess_count': len(guess_number_obj.guesses)}
-
-    return HttpResponse(template.render(context, request))
+        return HttpResponse(template.render(context, request))
+    except:
+        return guess_number(request)
 
 
 def crazy_libs(request):
