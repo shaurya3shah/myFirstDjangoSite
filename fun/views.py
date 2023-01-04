@@ -3,7 +3,6 @@ import random
 # Create your views here.
 from django.http import HttpResponse
 from django.template import loader
-from gtts.tts import gTTS
 
 from fun.contentGeneratorAI import generateSentence
 from fun.helpView import HelpView
@@ -12,8 +11,8 @@ from fun.models.guessNumber import GuessNumber
 from fun.models.models import CrazyLibs
 from fun.models.numberdle import Numberdle
 from fun.models.spellingBee import SpellingBee
+from fun.models.usage import Usage
 from myFirstDjangoSite.settings import env
-from fun.spelling_bee_practise_graph import dynamo_db_to_list
 
 
 # from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
@@ -22,8 +21,10 @@ from fun.spelling_bee_practise_graph import dynamo_db_to_list
 def index(request):
     template = loader.get_template('fun/index.html')
     welcome_message = 'My Fun Hub!'
-
+    usage = Usage()
+    usage.saveUsage(request.META['REMOTE_ADDR'], request.META['HTTP_HOST'], request.META['HTTP_USER_AGENT'], request.META['USER'])
     context = {'welcome_message': welcome_message}
+
     print(context)
     print('LOVE is ' + str(env('LOVE')))
 
