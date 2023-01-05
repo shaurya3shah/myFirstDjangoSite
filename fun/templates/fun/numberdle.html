@@ -68,8 +68,8 @@
                         });
                     </script>
                     {% else %}
-                    <p><h2>Numbers ranging from 1 to 20 are hidden behind the five tiles. Your aim is to figure out each hidden number with minimum guesses.
-            Input your guesses, and press check for clues.</h2></p>
+                    <p><h2>Numbers ranging from 1 to 20 are hidden behind the five tiles. Figure out the hidden numbers.<br>
+                    Input your guesses, and press check for clues.</h2></p>
                     {% endif %}
                     <form action="{% url 'fun:check_numberdle' %}" method="post">
                         {% csrf_token %}
