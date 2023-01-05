@@ -269,32 +269,35 @@ def spelling_bee(request):
 
 
 def spell_check(request):
-    template = loader.get_template('fun/spelling.html')
+    try:
+        template = loader.get_template('fun/spelling.html')
 
-    user_input = request.POST["Enter Spelling"]
+        user_input = request.POST["Enter Spelling"]
 
-    language = 'en-us'
+        language = 'en-us'
 
-    spelling_bee_obj = request.session['spelling_bee_obj']
+        spelling_bee_obj = request.session['spelling_bee_obj']
 
-    result = spelling_bee_obj.spellCheck(user_input)
+        result = spelling_bee_obj.spellCheck(user_input)
 
-    if result:
-        word = spelling_bee_obj.getNewWord()
-    else:
-        word = spelling_bee_obj.current_word
+        if result:
+            word = spelling_bee_obj.getNewWord()
+        else:
+            word = spelling_bee_obj.current_word
 
-    sentence = generateSentence(word)
+        sentence = generateSentence(word)
 
-    request.session['spelling_bee_obj'] = spelling_bee_obj
+        request.session['spelling_bee_obj'] = spelling_bee_obj
 
-    context = {'word': word, 'sentence': sentence, 'language': language, 'result': result,
-               'tries': spelling_bee_obj.tries, 'correct': spelling_bee_obj.correct,
-               'incorrect': spelling_bee_obj.incorrect}
+        context = {'word': word, 'sentence': sentence, 'language': language, 'result': result,
+                   'tries': spelling_bee_obj.tries, 'correct': spelling_bee_obj.correct,
+                   'incorrect': spelling_bee_obj.incorrect}
 
-    print(context)
+        print(context)
 
-    return HttpResponse(template.render(context, request))
+        return HttpResponse(template.render(context, request))
+    except:
+        return spelling_bee(request)
 
 
 def spell_new(request):
