@@ -14,7 +14,10 @@
 
     <p><h1>Spelling Bee!!!</h1></p>
 
-    <p><h2>Result:  {{ result }} </h2></p>
+    <p><h5>Result:  {{ result }} </h5></p>
+    <p><h2 style="display:none">Tries:  {{ tries }} </h2></p>
+    <p><h2 style="display:none">Correct:  {{ correct }} </h2></p>
+    <p><h2 style="display:none">Incorrect:  {{ incorrect }} </h2></p>
 
     <div class="flex-left">
       <div class="unit">
@@ -42,6 +45,8 @@
     </form>
 
         <button class="btn btn-primary" name="next_word" onclick="location.href = '/fun/spell_new';">Next Word</button>
+
+    <canvas id="realtimeChart" width="800" height="300"></canvas>
 
     <canvas id="wordChart" width="800" height="300"></canvas>
 
@@ -95,32 +100,32 @@
     </script>
     <br>
     <br>
-    <canvas id="dateChart" width="800" height="300"></canvas>
+
 
     <script>
-        const ctx1 = document.getElementById('dateChart').getContext('2d');
+        const ctx1 = document.getElementById('realtimeChart').getContext('2d');
 
-        const labels1 = {{ dates|safe }};
+        const labels1 = {{ tries|safe }};
 
         const data1 = {
           labels: labels1,
           datasets: [
             {
               label: 'Incorrect',
-              data: {{ date_incorrect|safe }},
+              data: {{ incorrect|safe }},
               borderColor: 'rgb(255, 0, 0)',
               backgroundColor: 'rgba(255, 0, 0, 0.5)',
             },
             {
               label: 'Correct',
-              data: {{ date_correct|safe }},
+              data: {{ correct|safe }},
               borderColor: 'rgb(0, 255, 0)',
               backgroundColor: 'rgba(0, 255, 0, 0.5)',
             }
           ]
         };
 
-        const dateChart = new Chart(ctx1, {
+        const realtimeChart = new Chart(ctx1, {
           type: 'line',
           data: data1,
           options: {

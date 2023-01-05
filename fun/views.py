@@ -288,7 +288,9 @@ def spell_check(request):
 
     request.session['spelling_bee_obj'] = spelling_bee_obj
 
-    context = {'word': word, 'sentence': sentence, 'language': language, 'result': result}
+    context = {'word': word, 'sentence': sentence, 'language': language, 'result': result,
+               'tries': spelling_bee_obj.tries, 'correct': spelling_bee_obj.correct,
+               'incorrect': spelling_bee_obj.incorrect}
 
     print(context)
 
@@ -314,7 +316,9 @@ def spell_new(request):
 
     print('word: ' + word + ' - sentence: ' + sentence)
 
-    context = {'word': word, 'sentence': sentence, 'language': language}
+    context = {'word': word, 'sentence': sentence, 'language': language,
+               'tries': spelling_bee_obj.tries, 'correct': spelling_bee_obj.correct,
+               'incorrect': spelling_bee_obj.incorrect}
 
     print(context)
 
