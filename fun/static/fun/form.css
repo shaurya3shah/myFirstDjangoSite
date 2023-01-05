@@ -35,7 +35,7 @@
 	line-height: 1.25;
 	margin: 15px 0 0;
 	padding: 5px;
-	width: 100%
+	width: 40%
 }
 
 .form [type=number] {
@@ -52,7 +52,7 @@
 	line-height: 1.25;
 	margin: 15px 0 0;
 	padding: 5px;
-	width: 10%
+	width: 20%
 }
 
 .form [type=email]:focus,

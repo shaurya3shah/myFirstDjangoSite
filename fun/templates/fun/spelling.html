@@ -1,16 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Spelling Bee</title>
-</head>
-<body>
+{% extends "./base_generic.html" %}
+
+{% block content %}
+{% load app_extras %}
     {% load gTTS %}
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'fun/button.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fun/reset.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fun/form.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fun/flex.css' %}">
 
     <p><h1>Spelling Bee!!!</h1></p>
 
@@ -155,6 +148,4 @@
           },
         });
     </script>
-
-</body>
-</html>
+{% endblock %}

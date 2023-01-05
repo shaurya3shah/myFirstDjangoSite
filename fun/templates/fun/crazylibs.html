@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Crazy Libs</title>
-</head>
-<body>
+{% extends "./base_generic.html" %}
+
+{% block content %}
+{% load app_extras %}
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'fun/button.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fun/reset.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fun/form.css' %}">
 
     {% if story %}
         <p><h1>Like Mad Libs... This is Crazy Libs!</h1></p>
@@ -53,5 +47,4 @@
     {% endif %}
     <br><br><br>
     <input type="submit" class="btn btn-primary" value="Go To Hub" onclick="location.href = '/fun/';">
-</body>
-</html>
+{% endblock %}
