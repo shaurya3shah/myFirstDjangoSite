@@ -14,7 +14,16 @@
 
     <p><h1>Spelling Bee!!!</h1></p>
 
-    <p><h5>Result:  {{ result }} </h5></p>
+    {% if result == 'new' %}
+    <p>The previous word was: <b><u style="color:teal">{{old_word}}</u></b>. Click on Play to listen to the next word</p>
+    {% elif result == True %}
+        <p><h5 class="success">Correct! Good Job! Click Play to listen to the next word </h5></p>
+    {% elif result == False %}
+        <p>Try again, or click on See Spelling</p>
+    {% else %}
+        <p> Click Play to listen to the word, then enter its spelling </p>
+    {% endif %}
+
     <p><h2 style="display:none">Tries:  {{ tries }} </h2></p>
     <p><h2 style="display:none">Correct:  {{ correct }} </h2></p>
     <p><h2 style="display:none">Incorrect:  {{ incorrect }} </h2></p>
@@ -39,13 +48,13 @@
 
     <form class="form" action="{% url 'fun:spell_check' %}"  method="post">
     {% csrf_token %}
-        <input type="text" spellcheck="false" autocapitalize="off" autocomplete="off" name="Enter Spelling" placeholder="enter word" autofocus>
+        <input type="text" spellcheck="false" autocapitalize="off" autocomplete="off" name="Enter Spelling" placeholder="spell the word" autofocus>
 
         <button class="btn btn-primary" name="check_spelling">Check Spelling</button>
     </form>
 
-        <button class="btn btn-primary" name="next_word" onclick="location.href = '/fun/spell_new';">Next Word</button>
-
+        <button class="btn btn-primary" name="next_word" onclick="location.href = '/fun/spell_new';">See Spelling</button>
+        <input class="btn btn-primary" type="submit" value="Go To Hub" onclick="location.href = '/fun/';">
     <canvas id="realtimeChart" width="800" height="300"></canvas>
 
     <!--canvas id="wordChart" width="800" height="300"></canvas-->

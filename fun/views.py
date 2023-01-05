@@ -304,9 +304,13 @@ def spell_new(request):
 
     spelling_bee_obj = request.session['spelling_bee_obj']
 
+    result = 'new'
+    old_word = ''
+
     if not spelling_bee_obj:
         spelling_bee_obj = SpellingBee()
     else:
+        old_word = spelling_bee_obj.current_word
         spelling_bee_obj.getNewWord()
 
     word = spelling_bee_obj.current_word
@@ -316,7 +320,7 @@ def spell_new(request):
 
     print('word: ' + word + ' - sentence: ' + sentence)
 
-    context = {'word': word, 'sentence': sentence, 'language': language,
+    context = {'word': word, 'sentence': sentence, 'language': language, 'result': result, 'old_word': old_word,
                'tries': spelling_bee_obj.tries, 'correct': spelling_bee_obj.correct,
                'incorrect': spelling_bee_obj.incorrect}
 
