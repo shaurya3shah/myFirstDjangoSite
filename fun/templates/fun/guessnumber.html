@@ -1,23 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Number Guesser</title>
-</head>
-<body>
+{% extends "./base_generic.html" %}
 
-    <div id="fullDiv" width="800" height="400">
+{% block content %}
+{% load app_extras %}
 
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'fun/button.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fun/reset.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'fun/form.css' %}">
-<!--    <link rel="stylesheet" type="text/css" href="{% static 'fun/js/chart.js' %}">-->
-
     {% if secret_number %}
 <!--        <p>Secret Number is:  {{ secret_number }} </p>-->
-        <p><h1>Guess A Number</h1></p>
-        <p><h2>Let's play a game of guessing a secret number between 1 to 100</h2></p>
+        <p><h1>Mystery Number Challenge</h1></p>
+        <p><h2>Let's play a game of guessing a mystery number between 1 to 100</h2></p>
         <form class="form" action="{% url 'fun:check_guess' %}" method="post">
         {% csrf_token %}
             <input type="number" name="Enter Your Guess" autofocus>
@@ -97,7 +87,4 @@
     {% endif %}
     <br><br><br>
     <input class="btn btn-primary" type="submit" value="Go To Hub" onclick="location.href = '/fun/';">
-    </div>
-
-</body>
-</html>
+{% endblock %}
