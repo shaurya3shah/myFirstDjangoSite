@@ -16,7 +16,7 @@ class SpellingBee:
 
     def getNewWord(self):
         print('before - current_word: ' + self.current_word)
-        self.current_word = self.word_list[random.randint(0, 99)]['word']
+        self.current_word = self.word_list[random.randint(0, 151)]['word']
         print('after - current_word: ' + self.current_word)
         return self.current_word
 
@@ -49,7 +49,7 @@ class SpellingBee:
 
     def __init__(self):
         self.word_list = dynamo_db_to_list()
-        self.current_word = self.word_list[random.randint(0, 99)]['word']
+        self.current_word = self.word_list[random.randint(0, 151)]['word']
         self.array_counter = 0
         self.tries = []
         self.tries.append(self.array_counter)
