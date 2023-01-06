@@ -8,11 +8,11 @@
     <p><h1>Spelling Bee!!!</h1></p>
 
     {% if result == 'new' %}
-    <p>The previous word was: <b><u style="color:teal">{{old_word}}</u></b>. Click on Play to listen to the next word</p>
+    <p>The previous word is spelled as - <b><u style="color:teal">{{old_word}}</u></b>. Click on Play to listen to the next word</p>
     {% elif result == True %}
         <p><h5 class="success">Correct! Good Job! Click Play to listen to the next word </h5></p>
     {% elif result == False %}
-        <p>Try again, or click on See Spelling</p>
+        <p>The input - <b style="color:red">{{previous_input}}</b>, is incorrect. Try again, or click on See Spelling</p>
     {% else %}
         <p> Click Play to listen to the word, then enter its spelling </p>
     {% endif %}
@@ -47,6 +47,7 @@
     </form>
 
         <button class="btn btn-primary" name="next_word" onclick="location.href = '/fun/spell_new';">See Spelling</button>
+        <br><br><br>
         <input class="btn btn-primary" type="submit" value="Go To Hub" onclick="location.href = '/fun/';">
     <canvas id="realtimeChart" width="800" height="300"></canvas>
 

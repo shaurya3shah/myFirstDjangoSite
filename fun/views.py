@@ -291,7 +291,7 @@ def spell_check(request):
 
         context = {'word': word, 'sentence': sentence, 'language': language, 'result': result,
                    'tries': spelling_bee_obj.tries, 'correct': spelling_bee_obj.correct,
-                   'incorrect': spelling_bee_obj.incorrect}
+                   'incorrect': spelling_bee_obj.incorrect, 'previous_input': user_input}
 
         print(context)
 
