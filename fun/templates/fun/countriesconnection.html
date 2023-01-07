@@ -11,21 +11,21 @@
     <link rel="stylesheet" type="text/css" href="{% static 'fun/form.css' %}">
 
     <p><h1>Countries Connection!</h1></p>
-    <p><h2>Let's create a connection of countries!</h2></p>
-    <p><h2>The more countries you connect, the more points you get</h2></p>
+    <p><h2>Let's create a connection of countries!
+    The more countries you connect, the more points you get</h2></p>
 
     {% if countries_connection_obj.countries_connection %}
-    <p><h2>Countries Connection: {{countries_connection_obj.countries_connection | safe}}</h2></p>
-    <p><h2>Your Score: {{countries_connection_obj.score}}</h2></p>
+    <p><h2>Countries Connection: {{countries_connection_obj.countries_connection | safe}} <br><br>
+    Your Score: {{countries_connection_obj.score}}</h2></p>
 <!--    <p style="display:none;"><h2>Result: {{result}}</h2></p>-->
         {% if result|stringformat:"s" == "DISCONNECT" %}
-    <p><h2>For the connection to progress, the first letter of country you enter must be the last letter of the latest connected countries</h2></p>
+    <p>For the connection to progress, the first letter of country you enter must be the last letter of the latest connected countries</p>
         {% elif result|stringformat:"s" == "CONNECTED" %}
-    <p><h2 class="success">Country connected & score increased. Let's connect another country</h2></p>
+    <p class="success">Country connected & score increased. Let's connect another country</p>
         {% elif result|stringformat:"s" == "REPEAT" %}
-    <p><h2>For the connection to progress, the country you enter must not already be present in the connected countries</h2></p>
+    <p>For the connection to progress, the country you enter must not already be present in the connected countries</p>
         {% elif result|stringformat:"s" == "INVALID" %}
-        <p><h2>Please enter a valid country</h2></p>
+    <p>Please enter a valid country</p>
         {% elif result|stringformat:"s" == "EXHAUSTED" %}
     <p><h2 class="success">The computer cannot find any new country to connect. Congratulations you beat the computer!</h2></p>
         {% else %}
@@ -35,13 +35,60 @@
     <p><h2>Please enter your first country</h2></p>
     {% endif %}
 
+    <canvas id="myChart" width="auto" height="100"></canvas>
+
     <form class="form" action="{% url 'fun:connect_country' %}" method="post">
     {% csrf_token %}
         <input type="text" name="Enter Country" autofocus>
         <button class="btn btn-primary" name="connect_country">Connect</button>
     </form>
+    <br><br>
+    <input class="btn btn-primary" type="submit" value="Play Again" onclick="location.href = '/fun/countries_connection';">
 
-    <br><br><br>
+    <br><br>
     <input class="btn btn-primary" type="submit" value="Go To Hub" onclick="location.href = '/fun/';">
+    <br>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        const data = {
+          labels: {{ user_scores|safe }},
+          datasets: [{
+            type: 'bar',
+            label: 'Other Players',
+            data: {{ counts }},
+            borderColor: 'rgb(255, 0, 0)',
+            backgroundColor: 'rgba(255, 0, 0, 0.1)'
+          }, {
+            type: 'bubble',
+            label: 'You are here',
+            data: [{}, {
+              x: 'score ' + {{countries_connection_obj.score}},
+              y: 1,
+              r: 10
+            }],
+            fill: true,
+            backgroundColor: 'rgb(0, 255, 0)'
+          }]
+        };
+
+        const myChart = new Chart(ctx, {
+          type: 'scatter',
+          data: data,
+          options: {
+              scales: {
+                  y: {
+                      beginAtZero: true,
+                      ticks: {
+                          // forces step size to be 1 units
+                          stepSize: 1
+                        }
+                  }
+              }
+          }
+        });
+    </script>
 </body>
 </html>

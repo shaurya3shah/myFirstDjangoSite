@@ -198,10 +198,29 @@ def check_numberdle(request):
 def countries_connection(request):
     template = loader.get_template('fun/countriesconnection.html')
     welcome_message = 'Countries Connection!'
+    countries_connection_obj = None
+
+    try:
+        countries_connection_obj = request.session['countries_connection_obj']
+    except:
+        print('countries_connection_obj not present')
+
+    if countries_connection_obj:
+        countries_connection_obj.addResult(0)
+    else:
+        print(' direct countries connection')
 
     countries_connection_obj = CountriesConnection()
     request.session['countries_connection_obj'] = countries_connection_obj
-    context = {'welcome_message': welcome_message, 'countries_connection_obj': countries_connection_obj}
+
+    helpView = HelpView()
+    helpView.getUserScoresAndCounts(countries_connection_obj.getStats())
+
+    request.session['user_scores'] = helpView.user_scores
+    request.session['counts'] = helpView.counts
+
+    context = {'welcome_message': welcome_message, 'countries_connection_obj': countries_connection_obj,
+               'user_scores': request.session['user_scores'], 'counts': request.session['counts']}
     print(context)
 
     return HttpResponse(template.render(context, request))
@@ -218,7 +237,8 @@ def connect_country(request):
 
     request.session['countries_connection_obj'] = countries_connection_obj
 
-    context = {'countries_connection_obj': countries_connection_obj, 'result': result}
+    context = {'countries_connection_obj': countries_connection_obj, 'result': result,
+               'user_scores': request.session['user_scores'], 'counts': request.session['counts']}
     print(context)
 
     return HttpResponse(template.render(context, request))

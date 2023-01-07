@@ -17,7 +17,7 @@ from pathlib import Path
 
 from myFirstDjangoSite.createDBModels import DBModels
 from myFirstDjangoSite.constants import TABLE_NAME_GUESS_NUMBER, TABLE_NAME_NUMBERDLE, TABLE_NAME_CRAZYLIBS, \
-    TABLE_NAME_USAGE, TABLE_NAME_FEEDBACK
+    TABLE_NAME_USAGE, TABLE_NAME_FEEDBACK, TABLE_NAME_COUNTRIESCONNECTION
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -158,3 +158,4 @@ createDB.createSimpleTimestampDB(TABLE_NAME_NUMBERDLE, client, ddb_exceptions)
 createDB.createSimpleTimestampDB(TABLE_NAME_CRAZYLIBS, client, ddb_exceptions)
 createDB.createSimpleTimestampDB(TABLE_NAME_USAGE, client, ddb_exceptions)
 createDB.createSimpleTimestampDB(TABLE_NAME_FEEDBACK, client, ddb_exceptions)
+createDB.createSimpleTimestampDB(TABLE_NAME_COUNTRIESCONNECTION, client, ddb_exceptions)

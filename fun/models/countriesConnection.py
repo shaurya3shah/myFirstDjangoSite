@@ -1,7 +1,11 @@
 import random
+import time
 from enum import Enum
 
 from country_list import countries_for_language
+
+from myFirstDjangoSite.constants import TABLE_NAME_COUNTRIESCONNECTION
+from myFirstDjangoSite.settings import client, ddb_exceptions, dynamodb
 
 
 class CountriesConnection:
@@ -40,6 +44,7 @@ class CountriesConnection:
 
             if found is False:
                 print("Coumpter exhausted the list of countries")
+                self.score += 50
                 return Result.EXHAUSTED
         else:
             return Result.INVALID
@@ -80,6 +85,26 @@ class CountriesConnection:
         self.last_computer_country = ''
         self.countries_connection = ''
 
+    def addResult(self, user_id):
+        if self.score > 0:
+            try:
+                response = client.put_item(
+                    TableName=TABLE_NAME_COUNTRIESCONNECTION,
+                    Item={
+                        "timestamp": {"N": str(time.time())},
+                        "user_id": {"N": str(user_id)},
+                        "connected_countries": {"S": str(self.connected_countries)},
+                        "score": {"N": str(self.score)}
+                    },
+                )
+                print(response)
+            except ddb_exceptions:
+                print(str(ddb_exceptions))
+
+    def getStats(self):
+        response = dynamodb.Table(TABLE_NAME_COUNTRIESCONNECTION).scan()
+        print(response)
+        return response.get('Items')
 
 class Result(Enum):
     REPEAT = 1
