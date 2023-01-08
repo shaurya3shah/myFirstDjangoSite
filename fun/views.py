@@ -227,21 +227,24 @@ def countries_connection(request):
 
 
 def connect_country(request):
-    template = loader.get_template('fun/countriesconnection.html')
+    try:
+        template = loader.get_template('fun/countriesconnection.html')
 
-    player_input = str(request.POST.get("Enter Country")).strip()
+        player_input = str(request.POST.get("Enter Country")).strip()
 
-    countries_connection_obj = request.session['countries_connection_obj']
+        countries_connection_obj = request.session['countries_connection_obj']
 
-    result = countries_connection_obj.connect_country(player_input)
+        result = countries_connection_obj.connect_country(player_input)
 
-    request.session['countries_connection_obj'] = countries_connection_obj
+        request.session['countries_connection_obj'] = countries_connection_obj
 
-    context = {'countries_connection_obj': countries_connection_obj, 'result': result,
-               'user_scores': request.session['user_scores'], 'counts': request.session['counts']}
-    print(context)
+        context = {'countries_connection_obj': countries_connection_obj, 'result': result,
+                   'user_scores': request.session['user_scores'], 'counts': request.session['counts']}
+        print(context)
 
-    return HttpResponse(template.render(context, request))
+        return HttpResponse(template.render(context, request))
+    except:
+        return countries_connection(request)
 
 
 def spelling_bee(request):
