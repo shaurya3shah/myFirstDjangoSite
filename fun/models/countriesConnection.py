@@ -57,7 +57,7 @@ class CountriesConnection:
         if not self.countries_connection:
             self.countries_connection = '<span style="color: green; ">' + player_input + '<span>'
         else:
-            self.countries_connection = self.countries_connection + ' --> ' + '<span style="color: green; ">' + player_input + '<span>'
+            self.countries_connection = self.countries_connection + ' &rarr; ' + '<span style="color: green; ">' + player_input + '<span>'
 
         self.score += 1
 
@@ -65,7 +65,7 @@ class CountriesConnection:
         self.connected_countries.append(computer_country)
         self.last_computer_country = computer_country
         self.computer_countries.append(computer_country)
-        self.countries_connection = self.countries_connection + ' --> ' + '<span style="color: blue; ">' + computer_country + '<span>'
+        self.countries_connection = self.countries_connection + ' &rarr; ' + '<span style="color: blue; ">' + computer_country + '<span>'
         self.score += 1
 
     def __init__(self):
