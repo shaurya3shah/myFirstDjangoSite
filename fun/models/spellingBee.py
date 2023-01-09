@@ -1,6 +1,6 @@
 import random
 
-from fun.spelling_bee_practise_graph import dynamo_db_to_list
+from fun.spelling_bee_load_spelling_from_dynamodb import dynamo_db_to_list
 
 
 class SpellingBee:
