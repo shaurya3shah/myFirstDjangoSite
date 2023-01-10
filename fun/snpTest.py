@@ -6,6 +6,7 @@ import yfinance as yf
 
 class RobotFinance(unittest.TestCase):
     def test_snp_500(self):
+        # https://tcoil.info
         table = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
         companies = table[0]
 
@@ -22,6 +23,7 @@ class RobotFinance(unittest.TestCase):
         self.assertEqual(True, True)  # add assertion here
 
     def test_ticker_msft(self):
+        # https://pypi.org/project/yfinance/
         data = yf.download(  # or pdr.get_data_yahoo(...
             # tickers list or string as well
             tickers="SPY AAPL MSFT",
