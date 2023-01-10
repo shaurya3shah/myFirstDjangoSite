@@ -1,3 +1,5 @@
+#Program to enter data into Dynamo DB
+
 import boto3
 import os
 import datetime
