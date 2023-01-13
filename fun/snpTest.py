@@ -163,7 +163,7 @@ class RobotFinance(unittest.TestCase):
     def test_get_stock_info(self):
         msft = yf.Ticker("MSFT")
         print(msft.info)
-        print(msft.info['regularMarketPrice'])
+        # print(msft.info['regularMarketPrice'])
         self.assertEqual(True, True)  # add assertion here
 
     def test_date_name(self):
