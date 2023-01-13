@@ -1,7 +1,62 @@
+import datetime
 import unittest
 import pandas as pd
 import lxml
 import yfinance as yf
+
+
+def getPerformance(ticker):
+    # https://pypi.org/project/yfinance/
+    data = yf.download(  # or pdr.get_data_yahoo(...
+        # tickers list or string as well
+        # tickers="SPY AAPL MSFT",
+        tickers=ticker,
+
+        # use "period" instead of start/end
+        # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
+        # (optional, default is '1mo')
+        period="1d",
+
+        # fetch data by interval (including intraday if period < 60 days)
+        # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
+        # (optional, default is '1d')
+        interval="1d",
+
+        # Whether to ignore timezone when aligning ticker data from
+        # different timezones. Default is True. False may be useful for
+        # minute/hourly data.
+        ignore_tz=False,
+
+        # group by ticker (to access via data['SPY'])
+        # (optional, default is 'column')
+        group_by='ticker',
+
+        # adjust all OHLC automatically
+        # (optional, default is False)
+        auto_adjust=True,
+
+        # attempt repair of missing data or currency mixups e.g. $/cents
+        repair=False,
+
+        # download pre/post regular market hours data
+        # (optional, default is False)
+        prepost=True,
+
+        # use threads for mass downloading? (True/False/Integer)
+        # (optional, default is True)
+        threads=True,
+
+        # proxy URL scheme use use when downloading?
+        # (optional, default is None)
+        proxy=None
+    )
+
+    data.insert(0, 'Ticker', ticker, True)
+    data.insert(6, 'Performance', ((data['Close'] - data['Open']) * 100 / data['Open']), True)
+
+    # data['Performance'] = (data['Close'] - data['Open']) * 100 / data['Open']
+
+    return data
 
 
 class RobotFinance(unittest.TestCase):
@@ -88,76 +143,42 @@ class RobotFinance(unittest.TestCase):
 
         frames = []
 
-        # full_performance_data1 = self.getPerformance(str(tickers[0]))
-        # frames.append(full_performance_data1)
-        # full_performance_data2 = self.getPerformance(str(tickers[1]))
-        # frames.append(full_performance_data2)
+        performance_data = getPerformance('SPY')  # first add SPY
+        frames.append(performance_data)
 
         for ticker in tickers:
-            performance_data = self.getPerformance(ticker)
+            performance_data = getPerformance(ticker)
             frames.append(performance_data)
 
-        result = pd.concat(frames)
+        result = pd.concat(frames).sort_values(by='Performance', ascending=False)
 
         with pd.option_context('display.max_rows', None, 'display.max_columns',
                                None, 'expand_frame_repr', False):  # more options can be specified also
-            print(result.sort_values(by='Performance', ascending=False))
+            print(result)
+
+        # result.plot(kind='bar', x='Ticker', y='Performance')
 
         self.assertEqual(True, True)  # add assertion here
 
-    def getPerformance(self, ticker):
-        # https://pypi.org/project/yfinance/
-        data = yf.download(  # or pdr.get_data_yahoo(...
-            # tickers list or string as well
-            # tickers="SPY AAPL MSFT",
-            tickers=ticker,
+    def test_get_stock_info(self):
+        msft = yf.Ticker("MSFT")
+        print(msft.info)
+        print(msft.info['regularMarketPrice'])
+        self.assertEqual(True, True)  # add assertion here
 
-            # use "period" instead of start/end
-            # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
-            # (optional, default is '1mo')
-            period="1d",
+    def test_date_name(self):
+        # e = datetime.date.today()
+        # print(str(e))
+        # print(str(e).replace('-', '_'))
+        # print(str(e.month) + '_' + str(e.day) + '_' + str(e.year))
 
-            # fetch data by interval (including intraday if period < 60 days)
-            # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
-            # (optional, default is '1d')
-            interval="1d",
+        table_name = 'snp_performance_' + str(datetime.date.today()).replace('-', '_')
 
-            # Whether to ignore timezone when aligning ticker data from
-            # different timezones. Default is True. False may be useful for
-            # minute/hourly data.
-            ignore_tz=False,
+        print(table_name)
 
-            # group by ticker (to access via data['SPY'])
-            # (optional, default is 'column')
-            group_by='ticker',
-
-            # adjust all OHLC automatically
-            # (optional, default is False)
-            auto_adjust=True,
-
-            # attempt repair of missing data or currency mixups e.g. $/cents
-            repair=False,
-
-            # download pre/post regular market hours data
-            # (optional, default is False)
-            prepost=True,
-
-            # use threads for mass downloading? (True/False/Integer)
-            # (optional, default is True)
-            threads=True,
-
-            # proxy URL scheme use use when downloading?
-            # (optional, default is None)
-            proxy=None
-        )
-
-        data.insert(0, 'Ticker', ticker, True)
-        data.insert(6, 'Performance', ((data['Close'] - data['Open']) * 100 / data['Open']), True)
-
-        # data['Performance'] = (data['Close'] - data['Open']) * 100 / data['Open']
-
-        return data
-
+        self.assertEqual(True, True)  # add assertion here
 
 if __name__ == '__main__':
     unittest.main()
+
+# storing data: https://stackoverflow.com/questions/64773557/load-a-pandas-table-to-dynamodb
