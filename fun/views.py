@@ -12,6 +12,7 @@ from fun.models.guessNumber import GuessNumber
 from fun.models.models import CrazyLibs
 from fun.models.numberdle import Numberdle
 from fun.models.spellingBee import SpellingBee
+from fun.models.stocks import Stocks
 from fun.models.usage import Usage
 from myFirstDjangoSite.settings import env
 
@@ -366,9 +367,27 @@ def feedback(request):
 
 def stocks(request):
     template = loader.get_template('fun/stocks.html')
-    feedback_message = 'Stocks!'
+    welcome = 'Stocks!'
 
-    context = {'feedback_message': feedback_message}
+    labels = "['Jan 11', 'Jan 12', 'Jan 13']"
+
+    data = "{                           "  \
+           "   labels: labels1,          "  \
+           "   datasets: [               "  \
+           "     {                       "  \
+           "       label: 'SPY',         "  \
+           "       data: [1, 3, 5],      "  \
+           "     },                      "  \
+           "     {                       "  \
+           "       label: 'UAL',         "  \
+           "       data: [1.2, 3.6, 6.4],"  \
+           "     }                       "  \
+           "   ]                         "  \
+           " };                          "
+
+    superStars = Stocks.getSuperStars()
+
+    context = {'welcome': welcome, 'data': data, 'labels': labels}
 
     print(context)
     return HttpResponse(template.render(context, request))

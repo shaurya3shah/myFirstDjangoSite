@@ -5,7 +5,7 @@
     {% load static %}
 
     <div>
-        <h1>Stocks!</h1>
+        <h1>!</h1>
 
         <canvas id="superStarsChart" width="800" height="300"></canvas>
 
@@ -16,21 +16,9 @@
         <script>
             const ctx1 = document.getElementById('superStarsChart').getContext('2d');
 
-            const labels1 = ['Jan 11', 'Jan 12', 'Jan 13'];
+            const labels1 = {{ labels|safe }};
 
-            const data1 = {
-                  labels: labels1,
-                  datasets: [
-                    {
-                      label: 'SPY',
-                      data: [1, 3, 5],
-                    },
-                    {
-                      label: 'UAL',
-                      data: [1.2, 3.6, 6.4],
-                    }
-                  ]
-                };
+            const data1 = {{ data|safe }};
 
             const realtimeChart = new Chart(ctx1, {
               type: 'line',
