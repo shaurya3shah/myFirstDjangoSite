@@ -363,3 +363,12 @@ def feedback(request):
 
     print(context)
     return HttpResponse(template.render(context, request))
+
+def stocks(request):
+    template = loader.get_template('fun/stocks.html')
+    feedback_message = 'Stocks!'
+
+    context = {'feedback_message': feedback_message}
+
+    print(context)
+    return HttpResponse(template.render(context, request))

@@ -1,0 +1,78 @@
+{% extends "./base_generic.html" %}
+
+{% block content %}
+{% load app_extras %}
+    {% load static %}
+
+    <div class="flex-middle flex-center">
+        <h1>Stocks!</h1>
+
+        <canvas id="superStarsChart" width="800" height="300"></canvas>
+
+        <!--canvas id="wordChart" width="800" height="300"></canvas-->
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+            const ctx1 = document.getElementById('superStarsChart').getContext('2d');
+
+            const labels1 = {{ dates|safe }};
+
+            const data1 = {
+              labels: dates,
+              datasets: [
+                {
+                  label: 'SPY',
+                  data: {{ spy|safe }},
+                },
+                {
+                  label: 'UAL',
+                  data: {{ ual|safe }},
+                }
+              ]
+            };
+
+            const realtimeChart = new Chart(ctx1, {
+              type: 'line',
+              data: data1,
+              options: {
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: 'bottom',
+                  },
+                  title: {
+                    display: true,
+                    text: 'Super Stars'
+                  }
+                },
+                scales: {
+                  y: {
+                    ticks: {
+                      // forces step size to be 1 units
+                      // stepSize: 1
+                    }
+                  }
+                }
+              },
+            });
+        </script>
+    </div>
+
+{% endblock %}
+
+
+const labels = ['Jan 11', 'Jan 12', 'Jan 13'];
+const data = {
+  labels: labels,
+  datasets: [
+    {
+      label: 'SPY',
+      data: [1, 3, 5],
+    },
+    {
+      label: 'UAL',
+      data: [1.2, 3.6, 6.4],
+    }
+  ]
+};

@@ -16,5 +16,6 @@ urlpatterns = [
     path('spelling_bee', views.spelling_bee, name='spelling_bee'),
     path('spell_check', views.spell_check, name='spell_check'),
     path('spell_new', views.spell_new, name='spell_new'),
-    path('feedback', views.feedback, name='feedback')
+    path('feedback', views.feedback, name='feedback'),
+    path('stocks', views.stocks, name='stocks')
 ]
