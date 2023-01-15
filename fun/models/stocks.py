@@ -4,20 +4,19 @@ class Stocks:
     everGreen = None
 
     def getSuperStars(self):
-        self.superStars = StockCollection()
         spy = Stock()
         spy.ticker = 'SPY'
         spy.performance = [1, 3, 5]
+        spy.times = "['Jan 11', 'Jan 12', 'Jan 13']"
 
-        self.superStars.collection.append(spy)
-        self.superStars.tickers.append(spy.ticker)
+        self.superStars.append(spy)
 
         ual = Stock()
         ual.ticker = 'UAL'
         ual.performance = [4, 5, 6]
+        ual.times = "['Jan 11', 'Jan 12', 'Jan 13']"
 
-        self.superStars.collection.append(ual)
-        self.superStars.tickers.append(ual.ticker)
+        self.superStars.append(ual)
 
         return self.superStars
 
@@ -30,12 +29,9 @@ class Stocks:
 class Stock:
     ticker = None
     performance = []
+    times = []
 
     def __init__(self):
         self.ticker = None
         self.performance = []
-
-
-class StockCollection:
-    collection = []
-    tickers = []
+        self.times = []

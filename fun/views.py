@@ -365,29 +365,30 @@ def feedback(request):
     print(context)
     return HttpResponse(template.render(context, request))
 
+
 def stocks(request):
     template = loader.get_template('fun/stocks.html')
     welcome = 'Stocks!'
 
     labels = "['Jan 11', 'Jan 12', 'Jan 13']"
 
-    data = "{                           "  \
-           "   labels: labels1,          "  \
-           "   datasets: [               "  \
-           "     {                       "  \
-           "       label: 'SPY',         "  \
-           "       data: [1, 3, 5],      "  \
-           "     },                      "  \
-           "     {                       "  \
-           "       label: 'UAL',         "  \
-           "       data: [1.2, 3.6, 6.4],"  \
-           "     }                       "  \
-           "   ]                         "  \
-           " };                          "
+    stocks = Stocks()
+    superStars = stocks.getSuperStars()
 
-    superStars = Stocks.getSuperStars()
+    data = "{                           " \
+           "   labels: labels1,          " \
+           "   datasets: [               "
 
-    context = {'welcome': welcome, 'data': data, 'labels': labels}
+    for stock in superStars:
+        data = data + "     {                       " \
+                      "       label: '" + str(stock.ticker) + '\',' \
+                      "       data:" + str(stock.performance) + \
+               "     },                      " \
+
+    data = data + "   ]                         " \
+                  " }; "
+
+    context = {'welcome': welcome, 'data': data, 'labels': superStars[0].times}
 
     print(context)
     return HttpResponse(template.render(context, request))
