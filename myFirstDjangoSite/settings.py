@@ -13,6 +13,7 @@ import os
 
 import boto3
 import environ
+import sqlalchemy as db
 from pathlib import Path
 
 from myFirstDjangoSite.createDBModels import DBModels
@@ -159,3 +160,10 @@ createDB.createSimpleTimestampDB(TABLE_NAME_CRAZYLIBS, client, ddb_exceptions)
 createDB.createSimpleTimestampDB(TABLE_NAME_USAGE, client, ddb_exceptions)
 createDB.createSimpleTimestampDB(TABLE_NAME_FEEDBACK, client, ddb_exceptions)
 createDB.createSimpleTimestampDB(TABLE_NAME_COUNTRIESCONNECTION, client, ddb_exceptions)
+
+if env("KEY_ID") == "PROD":
+    engine = db.create_engine("mysql://sns:connectdb@sns.mysql.pythonanywhere-services.com/sns$stocks")
+else:
+    engine = db.create_engine("mysql://root:Hello123!@localhost/stocks")
+
+connection = engine.connect()

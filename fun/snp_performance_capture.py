@@ -13,7 +13,8 @@ def getPerformance(ticker):
         # use "period" instead of start/end
         # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
         # (optional, default is '1mo')
-        period="1d",
+        # period="1d",
+        start="2023-01-12", end="2023-01-13",
 
         # fetch data by interval (including intraday if period < 60 days)
         # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
@@ -77,9 +78,11 @@ with pd.option_context('display.max_rows', None, 'display.max_columns',
     print(result)
 
 
-engine = db.create_engine("mysql://sns:connectdb@sns.mysql.pythonanywhere-services.com/sns$stocks")
+# engine = db.create_engine("mysql://sns:connectdb@sns.mysql.pythonanywhere-services.com/sns$stocks")
+engine = db.create_engine("mysql://root:Hello123!@localhost/stocks")
 connection = engine.connect()
 
-table_name = 'snp_performance_' + str(datetime.date.today()).replace('-', '_')
+# table_name = 'snp_performance_' + str(datetime.date.today()).replace('-', '_')
+table_name = 'snp_performance_' + str('2023-01-12').replace('-', '_')
 
 result.to_sql(name = table_name , con = engine, if_exists = 'replace', index = True)

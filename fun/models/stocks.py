@@ -35,3 +35,15 @@ class Stock:
         self.ticker = None
         self.performance = []
         self.times = []
+
+
+
+# Rising Stars -->
+# mysql> select * from  snp_performance_2023_01_11 as jan11 inner join snp_performance_2023_01_12 jan12 on jan11.Ticker = \
+#     jan12.Ticker and jan11.Performance > 1 and jan12.Performance > 2 inner join snp_performance_2023_01_13 as jan13
+# on jan12.Ticker = jan13.Ticker and jan13.Performance > 3;
+#
+# Super Stars -->
+# select * from  snp_performance_2023_01_11 as jan11 inner join snp_performance_2023_01_12 jan12 on jan11.Ticker = jan12.Ticker
+# and jan11.Performance > 3 and jan12.Performance > 3 inner join snp_performance_2023_01_13 as jan13 on jan12.Ticker = jan13.Ticker \
+# and jan13.Performance > 3;
