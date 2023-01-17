@@ -5,7 +5,7 @@
     {% load static %}
 
     <div>
-        <h1>!</h1>
+        <h1>{{ welcome }}</h1>
 
         <canvas id="superStarsChart" width="800" height="300"></canvas>
 
@@ -27,24 +27,36 @@
                 responsive: true,
                 plugins: {
                   legend: {
-                    position: 'bottom',
+                    position: 'top',
                   },
                   title: {
                     display: true,
-                    text: 'Super Stars'
+                    text: 'Super Stars (Stocks with more than 3% performance gain every day for past 3 days)'
                   }
                 },
                 scales: {
+                  x: {
+                    title: {
+                      display: true,
+                      text: 'Trading Date'
+                    }
+                  },
                   y: {
+                    title: {
+                      display: true,
+                      text: 'Performance Increase %'
+                    },
                     ticks: {
                       // forces step size to be 1 units
-                      // stepSize: 1
+                      stepSize: 0.1
                     }
                   }
                 }
               },
             });
         </script>
+
+        Performance Increase % = [100 * (Close Price - Open Price) / Open Price] %
     </div>
 
 {% endblock %}

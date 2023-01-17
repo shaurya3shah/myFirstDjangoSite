@@ -370,8 +370,6 @@ def stocks(request):
     template = loader.get_template('fun/stocks.html')
     welcome = 'Stocks!'
 
-    labels = "['Jan 11', 'Jan 12', 'Jan 13']"
-
     stocks = Stocks()
     superStars = stocks.getSuperStars()
 
