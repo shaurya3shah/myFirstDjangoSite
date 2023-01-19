@@ -1,8 +1,12 @@
 import datetime
+from datetime import timedelta
 import unittest
+
 import pandas as pd
-import lxml
 import yfinance as yf
+from sqlalchemy.exc import ProgrammingError
+
+from myFirstDjangoSite.settings import connection
 
 
 def getPerformance(ticker):
@@ -178,6 +182,53 @@ class RobotFinance(unittest.TestCase):
         print(table_name)
 
         self.assertEqual(True, True)  # add assertion here
+
+    def test_super_stars_query(self):
+        superStarQuery = "select day1.Date as day1_date,  day1.Ticker as day1_ticker, day1.Performance as " \
+                         "day1_performance," \
+                         "day2.Date as day2_date,  day2.Ticker as day2_ticker, day2.Performance as day2_performance," \
+                         "day3.Date as day3_date,  day3.Ticker as day3_ticker, day3.Performance as day3_performance " \
+                         "from  snp_performance_2023_01_11 as day1 inner join snp_performance_2023_01_12 day2 " \
+                         "on day1.Ticker = day2.Ticker and day1.Performance > 3 and day2.Performance > 3 " \
+                         "inner join snp_performance_2023_01_13 as day3 on day2.Ticker = day3.Ticker and " \
+                         "day3.Performance > 3; "
+        result = connection.execute(superStarQuery)
+
+        for row in result.fetchall():
+            print(row)
+            print(row['day1_date'])
+            print(row['day1_ticker'])
+            print(row['day1_performance'])
+            print(row['day2_date'])
+            print(row['day2_ticker'])
+            print(row['day2_performance'])
+            print(row['day3_date'])
+            print(row['day3_ticker'])
+            print(row['day3_performance'])
+        self.assertEqual(True, True)  # add assertion here
+
+    def test_days_before(self):
+        daysBefore = []
+
+        for x in range(31):
+            table_name = 'snp_performance_' + str(datetime.date.today() - timedelta(days=x)).replace('-', '_')
+            daysBefore.append(table_name)
+            print(daysBefore[x])
+
+        self.assertEqual(True, True)
+
+    def test_check_table_exists(self):
+        table_name = 'snp_performance_2023_01_17'
+        checkQuery = 'select * from ' + table_name
+
+        try:
+            connection.execute(checkQuery)
+        except ProgrammingError:
+            print('The table does not exist. ')
+        except Exception as e:
+            print('Printing generic exception: ' + str(e))
+
+        self.assertEqual(True, True)
 
 if __name__ == '__main__':
     unittest.main()
