@@ -1,6 +1,6 @@
 import datetime
 from datetime import timedelta
-
+import pandas_market_calendars as mcal
 from sqlalchemy.exc import ProgrammingError
 
 from myFirstDjangoSite.settings import connection
@@ -79,27 +79,29 @@ class Stocks:
     def setDaysBefore(self):
         self.daysBefore = []
 
-        minus_a_day = 1
+        today = datetime.date.today()
+        past_date = datetime.date.today() - timedelta(days=31)
 
-        if self.checkTodaysTableExists():
-            minus_a_day = 0
+        nyse = mcal.get_calendar('NYSE')
+        market_days = nyse.valid_days(start_date=past_date, end_date=today)
 
-        for x in range(31):
-            date_part = ''
+        for market_day in reversed(market_days):
+            table_name = 'snp_performance_' + str(market_day.date()).replace('-', '_')
 
-            if (datetime.date.today() - timedelta(days=x + minus_a_day)).isoweekday() < 6:
-                date_part = str(datetime.date.today() - timedelta(days=x + minus_a_day)).replace('-', '_')
-                table_name = 'snp_performance_' + date_part
+            if self.checkTableExists(table_name):
                 self.daysBefore.append(table_name)
                 # print(self.daysBefore[x])
 
-    def checkTodaysTableExists(self):
-        table_name = 'snp_performance_' + str(datetime.date.today()).replace('-', '_')
+    def checkTableExists(self, table_name):
         print(table_name)
         checkQuery = 'select * from ' + table_name
 
+        # MySQLdb._exceptions.OperationalError
+        # 2013, 'Lost connection to MySQL server during query')  # 012[SQL: select * from snp_performance_2023_01_19
+
         try:
             connection.execute(checkQuery)
+            return True
         except ProgrammingError:
             print('The table does not exist. ')
             return False

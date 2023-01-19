@@ -2,11 +2,13 @@ import datetime
 from datetime import timedelta
 import unittest
 
+import pandas_market_calendars as mcal
 import pandas as pd
 import yfinance as yf
 from sqlalchemy.exc import ProgrammingError
 
 from myFirstDjangoSite.settings import connection
+
 
 
 def getPerformance(ticker):
@@ -227,6 +229,20 @@ class RobotFinance(unittest.TestCase):
             print('The table does not exist. ')
         except Exception as e:
             print('Printing generic exception: ' + str(e))
+
+        self.assertEqual(True, True)
+
+    def test_check_market_day(self):
+        # check valid market date = https://stackoverflow.com/questions/59360230/get-next-trading-day-using-pandas-market-calendar
+
+        today = datetime.date.today()
+        past_date = datetime.date.today() - timedelta(days=31)
+
+        nyse = mcal.get_calendar('NYSE')
+        market_days = nyse.valid_days(start_date=past_date, end_date=today)
+
+        for market_day in reversed(market_days):
+            print(market_day.date())
 
         self.assertEqual(True, True)
 
