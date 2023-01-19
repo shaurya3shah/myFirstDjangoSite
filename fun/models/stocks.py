@@ -85,10 +85,13 @@ class Stocks:
             minus_a_day = 0
 
         for x in range(31):
-            table_name = 'snp_performance_' + str(datetime.date.today() - timedelta(days=x + minus_a_day)).replace('-',
-                                                                                                                   '_')
-            self.daysBefore.append(table_name)
-            # print(self.daysBefore[x])
+            date_part = ''
+
+            if (datetime.date.today() - timedelta(days=x + minus_a_day)).isoweekday() < 6:
+                date_part = str(datetime.date.today() - timedelta(days=x + minus_a_day)).replace('-', '_')
+                table_name = 'snp_performance_' + date_part
+                self.daysBefore.append(table_name)
+                # print(self.daysBefore[x])
 
     def checkTodaysTableExists(self):
         table_name = 'snp_performance_' + str(datetime.date.today()).replace('-', '_')
