@@ -36,10 +36,10 @@ class Stocks:
 
     def setSPY5DaysQuery(self):
         self.spy5DaysQuery = "select Date, Ticker, Performance from " + self.daysBefore[0] + "  where Ticker = 'SPY' " \
-                        "union select Date, Ticker, Performance from " + self.daysBefore[1] + " where Ticker = 'SPY' " \
-                        "union select Date, Ticker, Performance from " + self.daysBefore[2] + " where Ticker = 'SPY' " \
-                        "union select Date, Ticker, Performance from " + self.daysBefore[3] + " where Ticker = 'SPY' " \
-                        "union select Date, Ticker, Performance from " + self.daysBefore[4] + " where Ticker = 'SPY' " \
+                        "union all select Date, Ticker, Performance from " + self.daysBefore[1] + " where Ticker = 'SPY' " \
+                        "union all select Date, Ticker, Performance from " + self.daysBefore[2] + " where Ticker = 'SPY' " \
+                        "union all select Date, Ticker, Performance from " + self.daysBefore[3] + " where Ticker = 'SPY' " \
+                        "union all select Date, Ticker, Performance from " + self.daysBefore[4] + " where Ticker = 'SPY' " \
                         "order by Date asc; "
 
         print(self.spy5DaysQuery)
