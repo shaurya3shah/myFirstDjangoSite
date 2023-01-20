@@ -27,7 +27,7 @@ def index(request):
 
     try:
         usage = Usage()
-        usage.saveUsage(request.META['REMOTE_ADDR'], request.META['HTTP_HOST'], request.META['HTTP_USER_AGENT'],
+        usage.saveUsage(0, request.META['REMOTE_ADDR'], request.META['HTTP_HOST'], request.META['HTTP_USER_AGENT'],
                         request.META['HTTP_X_REAL_IP'], request.META['HTTP_X_FORWARDED_FOR'])
     except Exception as e:
         print('exception when saving usage: ' + str(e))
