@@ -29,8 +29,8 @@ def index(request):
         usage = Usage()
         usage.saveUsage(request.META['REMOTE_ADDR'], request.META['HTTP_HOST'], request.META['HTTP_USER_AGENT'],
                         request.META['HTTP_X_REAL_IP'], request.META['HTTP_X_FORWARDED_FOR'])
-    except:
-        print('localhost')
+    except Exception as e:
+        print('exception when saving usage: ' + str(e))
 
     context = {'welcome_message': welcome_message}
 
