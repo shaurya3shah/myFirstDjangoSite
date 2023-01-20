@@ -1,4 +1,5 @@
 # Create your models here.
+import random
 import time
 
 import nltk
@@ -46,6 +47,28 @@ class CrazyLibs:
                     if pos_tag_word[0] not in self.adjectives:
                         self.adjectives.append(pos_tag_word[0])
 
+        self.limitInputWords()
+
+    def limitInputWords(self):
+        limit = 5
+        if len(self.nouns) < limit:
+            limit = len(self.nouns)
+
+        self.nouns = random.choices(self.nouns, k=limit)
+
+        limit = 5
+        if len(self.verbs) < limit:
+            limit = len(self.verbs)
+
+        self.verbs = random.choices(self.verbs, k=limit)
+
+        limit = 5
+        if len(self.adjectives) < limit:
+            limit = len(self.adjectives)
+
+        self.adjectives = random.choices(self.adjectives, k=limit)
+
+
     def original_story(self):
         return str(self.initial_text) + " " + str(self.added_story)
 
@@ -55,9 +78,11 @@ class CrazyLibs:
             self.crazy_story = str(self.initial_text) + " " + str(self.added_story)
         if input_item != '':
             self.crazy_story = self.crazy_story.replace(str(item),
-                                                        '<span style="color: green; "><u>' + str(input_item) + '</u></span>')
+                                                        '<span style="color: green; "><u>' + str(
+                                                            input_item) + '</u></span>')
 
-        self.initial_text = self.initial_text.replace(str(item), '<span style="color: green; ">' + str(item) + '</span>')
+        self.initial_text = self.initial_text.replace(str(item),
+                                                      '<span style="color: green; ">' + str(item) + '</span>')
         self.added_story = self.added_story.replace(str(item), '<span style="color: green; ">' + str(item) + '</span>')
 
         print("crazy story is: " + self.crazy_story)
