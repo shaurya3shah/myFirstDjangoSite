@@ -6,7 +6,7 @@ import time
 class Usage:
 
     def saveUsage(self, user_id, REMOTE_ADDR, HTTP_HOST, HTTP_USER_AGENT, HTTP_X_REAL_IP, HTTP_X_FORWARDED_FOR):
-        print('user_id: ' + user_id + ' REMOTE_ADDR: ' + REMOTE_ADDR + ' HTTP_HOST: ' + HTTP_HOST + ' HTTP_USER_AGENT: '
+        print('user_id: ' + str(user_id) + ' REMOTE_ADDR: ' + REMOTE_ADDR + ' HTTP_HOST: ' + HTTP_HOST + ' HTTP_USER_AGENT: '
               + HTTP_USER_AGENT + ' HTTP_X_REAL_IP: ' + HTTP_X_REAL_IP + ' HTTP_X_FORWARDED_FOR: ' + HTTP_X_FORWARDED_FOR)
         try:
             response = client.put_item(
