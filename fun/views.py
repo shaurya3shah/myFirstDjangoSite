@@ -373,20 +373,36 @@ def stocks(request):
     stocks = Stocks()
     superStars = stocks.getSuperStars()
 
-    data = "{                           " \
+    dataSuperStars = "{                           " \
            "   labels: labels1,          " \
            "   datasets: [               "
 
     for stock in superStars:
-        data = data + "     {                       " \
+        dataSuperStars = dataSuperStars + "     {                       " \
                       "       label: '" + str(stock.ticker) + '\',' \
                       "       data:" + str(stock.performance) + \
                "     },                      " \
 
-    data = data + "   ]                         " \
+    dataSuperStars = dataSuperStars + "   ]                         " \
                   " }; "
 
-    context = {'welcome': welcome, 'data': data, 'labels': superStars[0].times}
+    risingStars = stocks.getRisingStars()
+
+    dataRisingStars = "{                           " \
+                     "   labels: labels2,          " \
+                     "   datasets: [               "
+
+    for stock in risingStars:
+        dataRisingStars = dataRisingStars + "     {                       " \
+                        "       label: '" + str(stock.ticker) + '\',' \
+                        "       data:" + str(stock.performance) + \
+                        "     },                      " \
+
+    dataRisingStars = dataRisingStars + "   ]                         " \
+                    " }; "
+
+    context = {'welcome': welcome, 'dataSuperStars': dataSuperStars, 'labelsSuperStars': superStars[0].times,
+               'dataRisingStars': dataRisingStars, 'labelsRisingStars': risingStars[0].times}
 
     print(context)
     return HttpResponse(template.render(context, request))

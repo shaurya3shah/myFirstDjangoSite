@@ -8,6 +8,9 @@
         <h1>{{ welcome }}</h1>
 
         <canvas id="superStarsChart" width="800" height="300"></canvas>
+        <hr>
+        <canvas id="risingStarsChart" width="800" height="300"></canvas>
+        <hr>
 
         <!--canvas id="wordChart" width="800" height="300"></canvas-->
 
@@ -15,12 +18,15 @@
 
         <script>
             const ctx1 = document.getElementById('superStarsChart').getContext('2d');
+            const ctx2 = document.getElementById('risingStarsChart').getContext('2d');
 
-            const labels1 = {{ labels|safe }};
+            const labels1 = {{ labelsSuperStars|safe }};
+            const labels2 = {{ labelsRisingStars|safe }};
 
-            const data1 = {{ data|safe }};
+            const data1 = {{ dataSuperStars|safe }};
+            const data2 = {{ dataRisingStars|safe }};
 
-            const realtimeChart = new Chart(ctx1, {
+            const realtimeChart1 = new Chart(ctx1, {
               type: 'line',
               data: data1,
               options: {
@@ -32,6 +38,41 @@
                   title: {
                     display: true,
                     text: 'Super Stars (Stocks with more than 0% performance gain every day for past 5 days)'
+                  }
+                },
+                scales: {
+                  x: {
+                    title: {
+                      display: true,
+                      text: 'Trading Date'
+                    }
+                  },
+                  y: {
+                    title: {
+                      display: true,
+                      text: 'Performance Increase %'
+                    },
+                    ticks: {
+                      // forces step size to be 1 units
+                      stepSize: 0.1
+                    }
+                  }
+                }
+              },
+            });
+
+            const realtimeChart2 = new Chart(ctx2, {
+              type: 'line',
+              data: data2,
+              options: {
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: 'top',
+                  },
+                  title: {
+                    display: true,
+                    text: 'Rising Stars (Stocks which are continuously rising in performance every day for past 5 days)'
                   }
                 },
                 scales: {

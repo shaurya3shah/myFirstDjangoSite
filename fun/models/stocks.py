@@ -1,7 +1,7 @@
 import datetime
 from datetime import timedelta
 import pandas_market_calendars as mcal
-from sqlalchemy.exc import ProgrammingError
+from sqlalchemy.exc import ProgrammingError, OperationalError
 
 from myFirstDjangoSite.settings import connection
 
@@ -33,6 +33,23 @@ class Stocks:
         self.superStars.append(self.spy5DaysStock)
 
         return self.superStars
+
+    def getRisingStars(self):
+        result = connection.execute(self.risingStarsQuery)
+
+        for row in result.fetchall():
+            print('The data of the row is: ' + str(row))
+            stock = Stock()
+            stock.ticker = row['day1_ticker']
+            stock.performance = [row['day5_performance'], row['day4_performance'], row['day3_performance'],
+                                 row['day2_performance'], row['day1_performance']]
+            stock.times = [str(row['day5_date'].date()), str(row['day4_date'].date()), str(row['day3_date'].date()),
+                           str(row['day2_date'].date()), str(row['day1_date'].date())]
+            self.risingStars.append(stock)
+
+        self.risingStars.append(self.spy5DaysStock)
+
+        return self.risingStars
 
     def setSPY5DaysQuery(self):
         self.spy5DaysQuery = "select Date, Ticker, Performance from " + self.daysBefore[0] + "  where Ticker = 'SPY' " \
@@ -71,7 +88,20 @@ class Stocks:
         print(self.superStarsQuery)
 
     def setRisingStarsQuery(self):
-        self.risingStarsQuery = None
+        self.risingStarsQuery = "select day1.Date as day1_date,  day1.Ticker as day1_ticker, day1.Performance as " \
+                               "day1_performance," \
+                               "day2.Date as day2_date,  day2.Ticker as day2_ticker, day2.Performance as day2_performance," \
+                               "day3.Date as day3_date,  day3.Ticker as day3_ticker, day3.Performance as day3_performance, " \
+                               "day4.Date as day4_date,  day4.Ticker as day4_ticker, day4.Performance as day4_performance, " \
+                               "day5.Date as day5_date,  day5.Ticker as day5_ticker, day5.Performance as day5_performance " \
+                               "from  " + self.daysBefore[0] + " as day1 inner join " + self.daysBefore[1] + " day2 " \
+                                "on day1.Ticker = day2.Ticker and day1.Performance > day2.Performance " \
+                                "inner join  " + self.daysBefore[2] + " as day3 on day2.Ticker = day3.Ticker and " \
+                                "day2.Performance > day3.Performance inner join  " + self.daysBefore[3] + " as day4 " \
+                                "on day3.Ticker = day4.Ticker and day3.Performance > day4.Performance inner join  " + self.daysBefore[4] + \
+                               " as day5 on day4.Ticker = day5.Ticker and day4.Performance > day5.Performance;" \
+
+        print(self.risingStarsQuery)
 
     def setEverGreenQuery(self):
         self.everGreenQuery = None
@@ -105,9 +135,12 @@ class Stocks:
         except ProgrammingError:
             print('The table does not exist. ')
             return False
+        except OperationalError as oe:
+            print('OperationalError ' + str(oe))
+            return self.checkTableExists(table_name)
         except Exception as e:
             print('Printing generic exception: ' + str(e))
-            return True
+            return False
 
     def __init__(self):
         self.superStars = []
