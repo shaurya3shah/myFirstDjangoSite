@@ -7,7 +7,7 @@
     {% if secret_number %}
 <!--        <p>Secret Number is:  {{ secret_number }} </p>-->
         <p><h1>Mystery Number Challenge</h1></p>
-        <p><h2>Let's play a game of guessing a mystery number between 1 to 100</h2></p>
+        <p><h2>Let's play a game of guessing a Mystery Number between 1 to 100</h2></p>
         <form class="form" action="{% url 'fun:check_guess' %}" method="post">
         {% csrf_token %}
             <input type="number" name="Enter Your Guess" autofocus>
@@ -15,29 +15,30 @@
         </form>
     {% elif error_message %}
             <p><h2> The entered value is not a number  </h2></p>
-            <p><h2>Number of guesses:  {{ guess_count }} </h2></p>
-
             <form class="form" action="{% url 'fun:check_guess' %}" method="post">
             {% csrf_token %}
                 <input type="number" name="Enter Your Guess" autofocus>
                 <button class="btn btn-primary" name="check_guess">Check Guess</button>
                 <p><h6 class="error">Please input a number</h6></p>
             </form>
+            <p><h2>Number of guesses:  {{ guess_count }} </h2></p>
     {% elif guess_number %}
         {% if guess_number.comparison == 'equal' %}
-            <p><h2 class="success">YAY!!! You correctly guessed the secret number {{ guess_number.guessed_number }} in {{ guess_count }} guesses</h2></p>
+            <p><h2 class="success">YAY!!! You successfully guessed the Mystery Number {{ guess_number.guessed_number }} in {{ guess_count }} guesses</h2></p>
             <form class="form" action="{% url 'fun:guess_number' %}" method="post">
                 {% csrf_token %}
                 <input class="btn btn-primary" type="submit" value="Play Again">
             </form>
 
 
-            <canvas id="myChart" width="800" height="400"></canvas>
+            <canvas id="myChart"></canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
         const ctx = document.getElementById('myChart').getContext('2d');
+        ctx.canvas.width  = window.innerWidth;
+        ctx.canvas.height = window.innerHeight * 0.7;
 
         const data = {
           labels: {{ user_guesses|safe }},
@@ -73,14 +74,15 @@
         });
     </script>
         {% else %}
-            <p><h2>The guessed number  {{ guess_number.guessed_number }} is  {{ guess_number.comparison }} than the secret number</h2></p>
-            <p><h2>Number of guesses:  {{ guess_count }} </h2></p>
+            <p><h2>{{ guess_number.guessed_number }} is  {{ guess_number.comparison }} than the Mystery Number, enter next guess</h2></p>
+
 
             <form class="form" action="{% url 'fun:check_guess' %}" method="post">
             {% csrf_token %}
                 <input type="number" name="Enter Your Guess" autofocus>
                 <button class="btn btn-primary" name="check_guess">Check Guess</button>
             </form>
+            <p><h2>Number of guesses:  {{ guess_count }} </h2></p>
         {% endif %}
     {% else %}
         <p><h2>No data is available.</h2></p>
