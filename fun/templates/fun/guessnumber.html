@@ -4,9 +4,9 @@
 {% load app_extras %}
 
     {% load static %}
+    <p><h1>Mystery Number Challenge</h1></p>
     {% if secret_number %}
 <!--        <p>Secret Number is:  {{ secret_number }} </p>-->
-        <p><h1>Mystery Number Challenge</h1></p>
         <p><h2>Let's play a game of guessing a Mystery Number between 1 to 100</h2></p>
         <form class="form" action="{% url 'fun:check_guess' %}" method="post">
         {% csrf_token %}
@@ -38,7 +38,7 @@
     <script>
         const ctx = document.getElementById('myChart').getContext('2d');
         ctx.canvas.width  = window.innerWidth;
-        ctx.canvas.height = window.innerHeight * 0.7;
+        ctx.canvas.height = window.innerHeight * 0.50;
 
         const data = {
           labels: {{ user_guesses|safe }},
