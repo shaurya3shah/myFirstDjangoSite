@@ -12,6 +12,8 @@ class Stocks:
     spy5DaysQuery = None
     risingStars = None
     risingStarsQuery = None
+    spyWinners = None
+    spyWinnersQuery = None
     everGreen = None
     everGreenQuery = None
     spy5DaysStock = None
@@ -50,6 +52,23 @@ class Stocks:
         self.risingStars.append(self.spy5DaysStock)
 
         return self.risingStars
+
+    def getSPYWinners(self):
+        result = connection.execute(self.spyWinnersQuery)
+
+        for row in result.fetchall():
+            print('The data of the row is: ' + str(row))
+            stock = Stock()
+            stock.ticker = row['day1_ticker']
+            stock.performance = [row['day5_performance'], row['day4_performance'], row['day3_performance'],
+                                 row['day2_performance'], row['day1_performance']]
+            stock.times = [str(row['day5_date'].date()), str(row['day4_date'].date()), str(row['day3_date'].date()),
+                           str(row['day2_date'].date()), str(row['day1_date'].date())]
+            self.spyWinners.append(stock)
+
+        self.spyWinners.append(self.spy5DaysStock)
+
+        return self.spyWinners
 
     def setSPY5DaysQuery(self):
         self.spy5DaysQuery = "select Date, Ticker, Performance from " + self.daysBefore[0] + "  where Ticker = 'SPY' " \
@@ -103,6 +122,25 @@ class Stocks:
 
         print(self.risingStarsQuery)
 
+    def setSPYWinnersQuery(self):
+        self.spyWinnersQuery = "select day1.Date as day1_date,  day1.Ticker as day1_ticker, day1.Performance as day1_performance," \
+                                "day2.Date as day2_date,  day2.Ticker as day2_ticker, day2.Performance as day2_performance," \
+                                "day3.Date as day3_date,  day3.Ticker as day3_ticker, day3.Performance as day3_performance, " \
+                                "day4.Date as day4_date,  day4.Ticker as day4_ticker, day4.Performance as day4_performance, " \
+                                "day5.Date as day5_date,  day5.Ticker as day5_ticker, day5.Performance as day5_performance " \
+                                "from  " + self.daysBefore[0] + " as day1 " \
+                                "inner join " + self.daysBefore[1] + " day2 on day1.Ticker = day2.Ticker and " \
+                                "day1.Performance >  (select Performance from " + self.daysBefore[0] + " where Ticker = 'SPY') and " \
+                                "day2.Performance > (select Performance from " + self.daysBefore[1] + " where Ticker = 'SPY') " \
+                                "inner join  " + self.daysBefore[2] + " as day3 on day2.Ticker = day3.Ticker and " \
+                                "day3.Performance > (select Performance from " + self.daysBefore[2] + " where Ticker = 'SPY') " \
+                                " inner join  " + self.daysBefore[3] + " as day4 on day3.Ticker = day4.Ticker and " \
+                                "day4.Performance > (select Performance from " + self.daysBefore[3] + " where Ticker = 'SPY') " \
+                                "inner join  " + self.daysBefore[4] + " as day5 on day4.Ticker = day5.Ticker and " \
+                                "day5.Performance > (select Performance from " + self.daysBefore[4] + " where Ticker = 'SPY');"
+
+        print(self.spyWinnersQuery)
+
     def setEverGreenQuery(self):
         self.everGreenQuery = None
 
@@ -146,12 +184,16 @@ class Stocks:
         self.superStars = []
         self.risingStars = []
         self.everGreen = []
+        self.spyWinners = []
         self.setDaysBefore()
         self.setSPY5DaysQuery()
         self.setSPYStock()
         self.setSuperStarsQuery()
         self.setRisingStarsQuery()
+        self.setSPYWinnersQuery()
         self.setEverGreenQuery()
+
+
 
 
 class Stock:
@@ -173,3 +215,19 @@ class Stock:
 # select * from  snp_performance_2023_01_11 as jan11 inner join snp_performance_2023_01_12 jan12 on jan11.Ticker = jan12.Ticker
 # and jan11.Performance > 3 and jan12.Performance > 3 inner join snp_performance_2023_01_13 as jan13 on jan12.Ticker = jan13.Ticker \
 # and jan13.Performance > 3;
+
+# SPY Winners -->
+# select day1.Date as day1_date,  day1.Ticker as day1_ticker, day1.Performance as day1_performance,day2.Date as day2_date,
+# day2.Ticker as day2_ticker, day2.Performance as day2_performance,day3.Date as day3_date,  day3.Ticker as day3_ticker,
+# day3.Performance as day3_performance, day4.Date as day4_date,  day4.Ticker as day4_ticker, day4.Performance as day4_performance,
+# day5.Date as day5_date,  day5.Ticker as day5_ticker, day5.Performance as day5_performance from  snp_performance_2023_01_20 as day1
+# inner join snp_performance_2023_01_18 day2 on day1.Ticker = day2.Ticker
+# and day1.Performance >  (select Performance from snp_performance_2023_01_20 where Ticker = 'SPY')
+# and day2.Performance > (select Performance from snp_performance_2023_01_18 where Ticker = 'SPY')
+# inner join  snp_performance_2023_01_17 as day3 on day2.Ticker = day3.Ticker
+# and day3.Performance > (select Performance from snp_performance_2023_01_17 where Ticker = 'SPY')
+# inner join  snp_performance_2023_01_13 as day4 on day3.Ticker = day4.Ticker
+# and day4.Performance > (select Performance from snp_performance_2023_01_13 where Ticker = 'SPY')
+# inner join  snp_performance_2023_01_12 as day5 on day4.Ticker = day5.Ticker
+# and day5.Performance > (select Performance from snp_performance_2023_01_12 where Ticker = 'SPY');
+

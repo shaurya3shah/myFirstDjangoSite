@@ -401,8 +401,24 @@ def stocks(request):
     dataRisingStars = dataRisingStars + "   ]                         " \
                     " }; "
 
+    spyWinners = stocks.getSPYWinners()
+
+    dataSPYWinners = "{                           " \
+                     "   labels: labels3,          " \
+                     "   datasets: [               "
+
+    for stock in spyWinners:
+        dataSPYWinners = dataSPYWinners + "     {                       " \
+                                          "       label: '" + str(stock.ticker) + '\',' \
+                                          "       data:" + str(stock.performance) + \
+                                          "     },                      " \
+
+    dataSPYWinners = dataSPYWinners + "   ]                         " \
+                " }; "
+
     context = {'welcome': welcome, 'dataSuperStars': dataSuperStars, 'labelsSuperStars': superStars[0].times,
-               'dataRisingStars': dataRisingStars, 'labelsRisingStars': risingStars[0].times}
+               'dataRisingStars': dataRisingStars, 'labelsRisingStars': risingStars[0].times,
+               'dataSPYWinners': dataSPYWinners, 'labelsSPYWinners': spyWinners[0].times}
 
     print(context)
     return HttpResponse(template.render(context, request))
