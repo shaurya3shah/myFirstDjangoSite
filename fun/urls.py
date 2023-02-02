@@ -17,5 +17,7 @@ urlpatterns = [
     path('spell_check', views.spell_check, name='spell_check'),
     path('spell_new', views.spell_new, name='spell_new'),
     path('feedback', views.feedback, name='feedback'),
-    path('stocks', views.stocks, name='stocks')
+    path('stocks', views.stocks, name='stocks'),
+    path('sorting_hat', views.sorting_hat, name='sorting_hat'),
+    path('sorting_hat_admin', views.sorting_hat_admin, name='sorting_hat_admin')
 ]

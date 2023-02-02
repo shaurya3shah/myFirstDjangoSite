@@ -422,3 +422,23 @@ def stocks(request):
 
     print(context)
     return HttpResponse(template.render(context, request))
+
+
+def sorting_hat(request):
+    template = loader.get_template('fun/sortinghat.html')
+    welcome = 'Sorting Hat!'
+
+    context = {'welcome': welcome}
+
+    print(context)
+    return HttpResponse(template.render(context, request))
+
+
+def sorting_hat_admin(request):
+    template = loader.get_template('fun/sortinghatadmin.html')
+    welcome = 'Sorting Hat Admin!'
+
+    context = {'welcome': welcome}
+
+    print(context)
+    return HttpResponse(template.render(context, request))
