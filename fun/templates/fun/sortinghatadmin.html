@@ -1,0 +1,26 @@
+{% extends "./base_generic.html" %}
+
+{% block content %}
+{% load app_extras %}
+
+    {% load static %}
+    <p><h1>Sorting Hat Admin!</h1></p>
+
+    <form class="form" action="{% url 'fun:sorting_hat' %}" method="post">
+        {% csrf_token %}
+
+        <p><h3>Given a situation what would you do?</h3></p>
+        <input type="radio" name="multiple-inputs" value="this"/>I would do this
+        <br>
+        <input type="radio" name="multiple-inputs" value="that"/>I would do that
+        <br>
+        <input type="radio" name="multiple-inputs" value="this_instead"/>I would do this instead
+        <br>
+        <input type="radio" name="multiple-inputs" value="that_instead"/>I would do that instead
+        <hr>
+
+        <br>
+        <input class="btn btn-primary" type="submit" value="Save Question">
+    </form>
+
+{% endblock %}
