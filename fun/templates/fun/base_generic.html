@@ -14,8 +14,13 @@
 </head>
 <body>
     <div>
-    <input class="btn btn-right" type="submit" value="Log In" onclick="location.href = '/accounts/login';">
-    <input class="btn btn-right" type="submit" value="Feedback" onclick="location.href = '/fun/feedback';">
+        {% if user.is_authenticated %}
+            <p><h7 class="success">Welcome back {{ user.username }}!</h7></p>
+        {% else %}
+            <input class="btn btn-right" type="submit" value="Log In" onclick="location.href = '/accounts/login';">
+        {% endif %}
+
+        <input class="btn btn-right" type="submit" value="Feedback" onclick="location.href = '/fun/feedback';">
         {% if feedback %}
             <p><h7 class="success">Thank you! Feedback Submitted</h7></p>
             <p><h7 class="success">We promise to read your feedback</h7></p>
