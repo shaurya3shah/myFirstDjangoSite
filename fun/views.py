@@ -251,7 +251,11 @@ def connect_country(request):
 def spelling_bee(request):
     template = loader.get_template('fun/spelling.html')
 
-    welcome_message = 'Spelling Bee!'
+    bee_user = request.user
+
+    print('username = ' + str(bee_user) + ', user id = ' + str(bee_user.id))
+
+    welcome_message = bee_user.username + ', welcome to Spelling Bee!'
 
     language = 'en-us'
 
