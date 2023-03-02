@@ -19,5 +19,6 @@ urlpatterns = [
     path('feedback', views.feedback, name='feedback'),
     path('stocks', views.stocks, name='stocks'),
     path('sorting_hat', views.sorting_hat, name='sorting_hat'),
-    path('sorting_hat_admin', views.sorting_hat_admin, name='sorting_hat_admin')
+    path('sorting_hat_admin', views.sorting_hat_admin, name='sorting_hat_admin'),
+    path('puzzles', views.puzzles, name='puzzles')
 ]

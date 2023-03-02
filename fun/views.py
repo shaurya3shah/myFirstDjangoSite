@@ -446,3 +446,12 @@ def sorting_hat_admin(request):
 
     print(context)
     return HttpResponse(template.render(context, request))
+
+def puzzles(request):
+    template = loader.get_template('fun/puzzles.html')
+    welcome = 'I <3 Puzzles!'
+
+    context = {'welcome': welcome}
+
+    print(context)
+    return HttpResponse(template.render(context, request))
