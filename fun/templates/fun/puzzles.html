@@ -5,6 +5,19 @@
     {% load gTTS %}
     {% load static %}
 
-    <p><h1>I <3 Puzzles!!!</h1></p>
+    <p><h1>{{ welcome }}</h1></p>
 
+    <p>{{ puzzle.question }}</p>
+    <p style="display:none">{{ puzzle.solution }}</p>
+
+    <form class="form" action="{% url 'fun:check_puzzle_answer' %}" method="post">
+        {% csrf_token %}
+        <div class="flex-left units-gap">
+            <label class="unit-0 text-right" for="Answer">Answer: </label>
+                <div class="unit">
+                      <textarea id="Answer" name="Answer" autofocus placeholder="my answer..."></textarea>
+                </div>
+        </div>
+        <button class="btn btn-primary" name="check_puzzle_answer">Check Answer</button>
+    </form>
 {% endblock %}
