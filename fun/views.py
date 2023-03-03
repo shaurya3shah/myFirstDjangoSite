@@ -450,7 +450,7 @@ def sorting_hat_admin(request):
 
 def puzzles(request):
     template = loader.get_template('fun/puzzles.html')
-    welcome = 'I <3 Puzzles!'
+    welcome = 'It\'s a Puzzle Party!'
 
     puzzle = Puzzle()
 
@@ -464,26 +464,30 @@ def puzzles(request):
     return HttpResponse(template.render(context, request))
 
 def check_puzzle_answer(request):
-    template = loader.get_template('fun/puzzles.html')
-    welcome = 'I <3 Puzzles!'
+    try:
+        template = loader.get_template('fun/puzzles.html')
+        welcome = 'It\'s a Puzzle Party!'
 
-    player_answer = str(request.POST.get("Answer")).strip()
+        player_answer = str(request.POST.get("Answer")).strip()
 
-    puzzle = request.session['puzzle_obj']
+        puzzle = request.session['puzzle_obj']
 
-    puzzle.answer = player_answer
+        puzzle.answer = player_answer
 
-    puzzle.validateAnswer()
+        puzzle.validateAnswer()
 
-    print(puzzle)
+        print(puzzle)
 
-    validation = puzzle.validation
+        validation = puzzle.validation
 
-    puzzle.getPuzzle()
+        puzzle.getPuzzle()
 
-    request.session['puzzle_obj'] = puzzle
+        request.session['puzzle_obj'] = puzzle
 
-    context = {'welcome': welcome, 'puzzle': puzzle, 'validation': validation}
+        context = {'welcome': welcome, 'puzzle': puzzle, 'validation': validation}
 
-    print(context)
-    return HttpResponse(template.render(context, request))
+        print(context)
+        return HttpResponse(template.render(context, request))
+
+    except:
+        return puzzles(request)

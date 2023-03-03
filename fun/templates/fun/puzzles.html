@@ -18,10 +18,9 @@
     <form class="form" action="{% url 'fun:check_puzzle_answer' %}" method="post">
         {% csrf_token %}
         <div class="flex-left units-gap">
-            <label class="unit-0 text-right" for="Answer">Answer: </label>
-                <div class="unit">
-                      <textarea id="Answer" name="Answer" autofocus placeholder="my answer..."></textarea>
-                </div>
+            <div class="unit">
+                  <textarea id="Answer" name="Answer" autofocus placeholder="my answer..."></textarea>
+            </div>
         </div>
         <button class="btn btn-primary" name="check_puzzle_answer">Check Answer</button>
     </form>
