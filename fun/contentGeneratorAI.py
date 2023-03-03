@@ -45,10 +45,10 @@ def generateSentence(word):
     return response.choices[0].text
 
 
-def generatePuzzle():
+def generatePuzzle(subject):
     response = openai.Completion.create(
         model="text-davinci-003",
-        prompt="can you please give me a math puzzle and solution? And explain the solution",
+        prompt="can you please give me a " + subject + "  puzzle and solution? And explain the solution",
         temperature=0.7,
         max_tokens=256,
         top_p=1,

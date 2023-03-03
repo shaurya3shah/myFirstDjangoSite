@@ -1,3 +1,5 @@
+import random
+
 from fun.contentGeneratorAI import generatePuzzle, checkPuzzleAnswer
 
 
@@ -6,6 +8,7 @@ class Puzzle:
     solution = str
     answer = str
     validation = str
+    subjects = ['math', 'geography', 'logic', 'science', 'geometry', 'astronomy', 'funny']
 
     def getPuzzle(self):
         self.question = ''
@@ -13,7 +16,7 @@ class Puzzle:
         self.answer = ''
         self.validation = ''
 
-        generated_puzzle = generatePuzzle()
+        generated_puzzle = generatePuzzle(random.choice(self.subjects))
 
         print(generated_puzzle)
 
