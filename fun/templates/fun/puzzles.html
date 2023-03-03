@@ -7,11 +7,13 @@
 
     <p><h1>{{ welcome }}</h1></p>
 
+    {% if validation %}
+        <p>{{ validation }}</p>
+        <p>Here is another puzzle for you - </p>
+    {% endif %}
+
     <p>{{ puzzle.question }}</p>
     <p style="display:none">{{ puzzle.solution }}</p>
-    {% if puzzle.validation %}
-        <p>{{ puzzle.validation }}</p>
-    {% endif %}
 
     <form class="form" action="{% url 'fun:check_puzzle_answer' %}" method="post">
         {% csrf_token %}

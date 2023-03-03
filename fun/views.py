@@ -477,9 +477,13 @@ def check_puzzle_answer(request):
 
     print(puzzle)
 
+    validation = puzzle.validation
+
+    puzzle.getPuzzle()
+
     request.session['puzzle_obj'] = puzzle
 
-    context = {'welcome': welcome, 'puzzle': puzzle}
+    context = {'welcome': welcome, 'puzzle': puzzle, 'validation': validation}
 
     print(context)
     return HttpResponse(template.render(context, request))

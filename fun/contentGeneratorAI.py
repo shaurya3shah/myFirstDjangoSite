@@ -60,7 +60,7 @@ def generatePuzzle():
 
 
 def checkPuzzleAnswer(question, answer):
-    prompt = 'for ' + question + ', Answer: ' + answer + '. Is the answer correct?'
+    prompt = 'for ' + question + ', Answer provided = ' + answer + '. Is the answer provided correct?'
     response = openai.Completion.create(
         model="text-davinci-003",
         prompt=prompt,

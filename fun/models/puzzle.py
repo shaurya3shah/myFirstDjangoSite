@@ -8,6 +8,11 @@ class Puzzle:
     validation = str
 
     def getPuzzle(self):
+        self.question = ''
+        self.solution = ''
+        self.answer = ''
+        self.validation = ''
+
         generated_puzzle = generatePuzzle()
 
         print(generated_puzzle)
