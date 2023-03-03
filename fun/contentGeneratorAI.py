@@ -44,10 +44,26 @@ def generateSentence(word):
     print(response)
     return response.choices[0].text
 
+
 def generatePuzzle():
     response = openai.Completion.create(
         model="text-davinci-003",
         prompt="can you please give me a math puzzle and solution? And explain the solution",
+        temperature=0.7,
+        max_tokens=256,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+    print(response)
+    return response.choices[0].text
+
+
+def checkPuzzleAnswer(question, answer):
+    prompt = 'for ' + question + ', Answer: ' + answer + '. Is the answer correct?'
+    response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt=prompt,
         temperature=0.7,
         max_tokens=256,
         top_p=1,

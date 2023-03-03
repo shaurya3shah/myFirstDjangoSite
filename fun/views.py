@@ -469,13 +469,17 @@ def check_puzzle_answer(request):
 
     player_answer = str(request.POST.get("Answer")).strip()
 
-    print(player_answer)
-
     puzzle = request.session['puzzle_obj']
+
+    puzzle.answer = player_answer
+
+    puzzle.validateAnswer()
 
     print(puzzle)
 
-    context = {'welcome': welcome}
+    request.session['puzzle_obj'] = puzzle
+
+    context = {'welcome': welcome, 'puzzle': puzzle}
 
     print(context)
     return HttpResponse(template.render(context, request))
