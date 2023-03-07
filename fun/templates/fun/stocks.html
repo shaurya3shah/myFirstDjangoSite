@@ -39,6 +39,7 @@
                 plugins: {
                   legend: {
                     position: 'top',
+                    onClick: infopopup,
                   },
                   title: {
                     display: true,
@@ -74,6 +75,7 @@
                 plugins: {
                   legend: {
                     position: 'top',
+                    onClick: infopopup,
                   },
                   title: {
                     display: true,
@@ -109,6 +111,7 @@
                 plugins: {
                   legend: {
                     position: 'top',
+                    onClick: infopopup,
                   },
                   title: {
                     display: true,
@@ -135,6 +138,12 @@
                 }
               },
             });
+
+            function infopopup(evt, item, legend) {
+                alert(item.text);
+                window.open('https://finance.yahoo.com/quote/' + item.text);
+            }
+
         </script>
 
         Performance Increase % = [100 * (Close Price - Open Price) / Open Price] %
