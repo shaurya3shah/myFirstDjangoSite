@@ -75,7 +75,7 @@
                         {% csrf_token %}
                     {% for row in numberdle_obj.board %}
                     <div class="board__row">
-                        <span class="tile--past--input"><span class="hint--bottom" aria-label="Input Number">{{row.0}}</span></span>
+                        <span class="tile--past--input"><span class="hint--bottom" type="number" aria-label="Input Number">{{row.0}}</span></span>
                         <span class="{{row.1|tile|safe}}"><span {{row.1|hint|safe}}>{{row.1}}</span></span>
                         <span class="{{row.2|tile|safe}}"><span {{row.2|hint|safe}}>{{row.2}}</span></span>
                         <span class="{{row.3|tile|safe}}"><span {{row.3|hint|safe}}>{{row.3}}</span></span>
@@ -86,7 +86,7 @@
                     {% endfor %}
                     {% if numberdle_obj.correct_guesses < 5 %}
                     <div id="row-input" class="board__row">
-                      <input class="tile--input" type="text" name="player_guess" autofocus>
+                      <input class="tile--input" type="number" name="player_guess" autofocus>
                       <span class="tile"></span>
                       <span class="tile"></span>
                       <span class="tile"></span>
