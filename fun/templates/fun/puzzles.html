@@ -8,7 +8,7 @@
     <p><h1>{{ welcome }}</h1></p>
 
     {% if validation %}
-        <p>{{ validation }}</p>
+        <p>{{ validation | safe }}</p>
         <p>Here is another puzzle for you - </p>
     {% endif %}
 
@@ -24,4 +24,14 @@
         </div>
         <button class="btn btn-primary" name="check_puzzle_answer">Check Answer</button>
     </form>
+
+    <br><br><br><br><br><br>
+    <sub>
+    Note: This game is in BETA mode. <br>
+    Robots powered by artificial intelligence are working very hard behind the scenes to generate fun puzzles for you.
+    But just like us humans, every now and then robots may make mistakes too.
+    As we humans get smarter, the robots we make will get more intelligent, and make less mistakes.
+    If a puzzle or its solution does not make sense, then just go ahead and click on 'Check Answer' button,
+    and it will load a new puzzle specially for you!
+    </sub>
 {% endblock %}

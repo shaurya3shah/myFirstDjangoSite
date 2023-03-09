@@ -478,7 +478,7 @@ def check_puzzle_answer(request):
 
         print(puzzle)
 
-        validation = puzzle.validation + ' ' + puzzle.solution
+        validation = puzzle.validation + ' <br> ' + puzzle.solution
 
         puzzle.getPuzzle()
 
