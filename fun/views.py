@@ -1,7 +1,8 @@
 import random
 
+from django.contrib.auth.models import AnonymousUser
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 
 from fun.contentGeneratorAI import generateSentence
@@ -47,8 +48,12 @@ def index(request):
     print(context)
     print('LOVE is ' + str(env('LOVE')))
 
-    return HttpResponse(template.render(context, request))
-
+    if str(request.user) == 'AnonymousUser':
+        print('user is not logged in')
+        return HttpResponse(template.render(context, request))
+    else:
+        print('user = ' + str(request.user))
+        return HttpResponse(template.render(context, request))
 
 def guess_number(request):
     template = loader.get_template('fun/guessnumber.html')
@@ -449,6 +454,11 @@ def sorting_hat_admin(request):
     return HttpResponse(template.render(context, request))
 
 def puzzles(request):
+
+    if str(request.user) == 'AnonymousUser':
+        print('user is not logged in')
+        return HttpResponseRedirect('../accounts/login/?next=' + request.path)
+
     template = loader.get_template('fun/puzzles.html')
     welcome = 'It\'s a Puzzle Party!'
 

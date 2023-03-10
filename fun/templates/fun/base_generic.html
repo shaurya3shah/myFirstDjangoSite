@@ -18,7 +18,7 @@
             <p><h7 class="success">Welcome back {{ user.username }}!</h7></p>
             <input class="btn btn-right" type="submit" value="Log Out" onclick="location.href = '/accounts/logout';">
         {% else %}
-            <input class="btn btn-right" type="submit" value="Log In" onclick="location.href = '/accounts/login';">
+            <input class="btn btn-right" type="submit" value="Log In" onclick="location.href = '/accounts/login?next={{request.path}}';">
         {% endif %}
 
         <input class="btn btn-right" type="submit" value="Feedback" onclick="location.href = '/fun/feedback';">
