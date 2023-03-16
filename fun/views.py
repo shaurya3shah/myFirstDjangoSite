@@ -508,8 +508,38 @@ def signup(request):
         welcome = 'Sign Up!'
         context = {'welcome': welcome}
 
+        print('signup called')
+        print(request.session.items())
+        for key, value in request.session.items():
+            print('{} => {}'.format(key, value))
+
         print(context)
         return HttpResponse(template.render(context, request))
 
-    except:
+    except Exception as ex:
+        print(ex.__str__())
         return index(request)
+
+def process_payment(request):
+    try:
+        template = loader.get_template('fun/signup.html')
+        welcome = 'Sign Up!'
+        context = {'welcome': welcome}
+
+        print('processing payment')
+        print(request.session.items())
+        for key, value in request.session.items():
+            print('{} => {}'.format(key, value))
+
+        if request.method == 'POST':
+            # retrieve nonce
+            nonce = request.POST.get('paymentMethodNonce', None)
+
+        print(nonce)
+
+        print(context)
+        return HttpResponse(template.render(context, request))
+
+    except Exception as ex:
+        print(ex.__str__())
+        return signup(request)
