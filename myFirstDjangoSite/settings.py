@@ -157,12 +157,12 @@ ddb_exceptions = client.exceptions
 
 createDB = DBModels()
 
-createDB.createSimpleTimestampDB(TABLE_NAME_GUESS_NUMBER, client, ddb_exceptions)
-createDB.createSimpleTimestampDB(TABLE_NAME_NUMBERDLE, client, ddb_exceptions)
-createDB.createSimpleTimestampDB(TABLE_NAME_CRAZYLIBS, client, ddb_exceptions)
-createDB.createSimpleTimestampDB(TABLE_NAME_USAGE, client, ddb_exceptions)
-createDB.createSimpleTimestampDB(TABLE_NAME_FEEDBACK, client, ddb_exceptions)
-createDB.createSimpleTimestampDB(TABLE_NAME_COUNTRIESCONNECTION, client, ddb_exceptions)
+# createDB.createSimpleTimestampDB(TABLE_NAME_GUESS_NUMBER, client, ddb_exceptions)
+# createDB.createSimpleTimestampDB(TABLE_NAME_NUMBERDLE, client, ddb_exceptions)
+# createDB.createSimpleTimestampDB(TABLE_NAME_CRAZYLIBS, client, ddb_exceptions)
+# createDB.createSimpleTimestampDB(TABLE_NAME_USAGE, client, ddb_exceptions)
+# createDB.createSimpleTimestampDB(TABLE_NAME_FEEDBACK, client, ddb_exceptions)
+# createDB.createSimpleTimestampDB(TABLE_NAME_COUNTRIESCONNECTION, client, ddb_exceptions)
 
 if env("ENV") == "PROD":
     engine = db.create_engine("mysql://sns:connectdb@sns.mysql.pythonanywhere-services.com/sns$stocks")

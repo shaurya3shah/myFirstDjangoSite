@@ -50,10 +50,10 @@ def index(request):
 
     if str(request.user) == 'AnonymousUser':
         print('user is not logged in')
-        return HttpResponse(template.render(context, request))
     else:
         print('user = ' + str(request.user))
-        return HttpResponse(template.render(context, request))
+
+    return HttpResponse(template.render(context, request))
 
 def guess_number(request):
     template = loader.get_template('fun/guessnumber.html')
@@ -501,3 +501,15 @@ def check_puzzle_answer(request):
 
     except:
         return puzzles(request)
+
+def signup(request):
+    try:
+        template = loader.get_template('fun/signup.html')
+        welcome = 'Sign Up!'
+        context = {'welcome': welcome}
+
+        print(context)
+        return HttpResponse(template.render(context, request))
+
+    except:
+        return index(request)

@@ -21,5 +21,6 @@ urlpatterns = [
     path('sorting_hat', views.sorting_hat, name='sorting_hat'),
     path('sorting_hat_admin', views.sorting_hat_admin, name='sorting_hat_admin'),
     path('puzzles', views.puzzles, name='puzzles'),
-    path('check_puzzle_answer', views.check_puzzle_answer, name='check_puzzle_answer')
+    path('check_puzzle_answer', views.check_puzzle_answer, name='check_puzzle_answer'),
+    path('signup', views.signup, name='signup'),
 ]
