@@ -37,3 +37,5 @@ SQLAlchemy~=1.4.46
 yfinance~=0.2.3
 matplotlib~=3.6.2
 pandas_market_calendars
+braintree
+python-graphql-client
