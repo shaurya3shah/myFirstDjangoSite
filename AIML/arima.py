@@ -54,7 +54,7 @@ for t in range(len(test) + 5):
     print(output)
     yhat = output[0]
     new_predictions.append(yhat)
-    new = yhat + 5.0
+    new = yhat
     history.append(new)
 
 print(new_predictions)

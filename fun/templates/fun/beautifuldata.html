@@ -6,7 +6,50 @@
     {% load static %}
 
     <p><h1>{{ welcome }}</h1></p>
+    <canvas id="realtimeChart" width="800" height="300"></canvas>
 
-    <p> visualize data </p>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx1 = document.getElementById('realtimeChart').getContext('2d');
+
+        const labels1 = {{ dates|safe }};
+
+        const data1 = {
+          labels: labels1,
+          datasets: [
+            {
+              label: 'Daily Rides on CTA',
+              data: {{ rides|safe }},
+              borderColor: 'rgb(0, 55, 255)',
+              backgroundColor: 'rgba(0, 55, 255, 0.5)',
+            }
+          ]
+        };
+
+        const realtimeChart = new Chart(ctx1, {
+          type: 'line',
+          data: data1,
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'bottom',
+              },
+              title: {
+                display: true,
+                text: 'Impact of COVID Lockdown on Chicago Public Transport'
+              }
+            },
+            scales: {
+              y: {
+                ticks: {
+                  // forces step size to be 1 units
+                  stepSize: 10000
+                }
+              }
+            }
+          },
+        });
+    </script>
 
 {% endblock %}

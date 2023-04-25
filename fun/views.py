@@ -553,7 +553,10 @@ def beautifuldata(request):
         template = loader.get_template('fun/beautifuldata.html')
         welcome = 'Data is Beautiful!'
 
-        context = {'welcome': welcome}
+        helpView = HelpView()
+        data = helpView.getCTARidershipData()
+
+        context = {'welcome': welcome, 'dates': data['service_date'].tolist()[0::13], 'rides': data['total_rides'].tolist()[0::13]}
 
         print(context)
         return HttpResponse(template.render(context, request))
