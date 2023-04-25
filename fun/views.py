@@ -558,7 +558,7 @@ def beautifuldata(request):
 
         context = {'welcome': welcome, 'dates': data['service_date'].tolist()[0::13], 'rides': data['total_rides'].tolist()[0::13]}
 
-        print(context)
+        # print(context)
         return HttpResponse(template.render(context, request))
 
     except Exception as ex:
