@@ -16,6 +16,7 @@ from fun.models.spellingBee import SpellingBee
 from fun.models.stocks import Stocks
 from fun.models.usage import Usage
 from fun.models.puzzle import Puzzle
+from fun.paymentGateway import PymentGateway
 from myFirstDjangoSite.settings import env
 
 
@@ -522,6 +523,7 @@ def signup(request):
 
 def process_payment(request):
     try:
+        paymentGateway = PymentGateway()
         template = loader.get_template('fun/signup.html')
         welcome = 'Sign Up!'
         context = {'welcome': welcome}
@@ -535,7 +537,9 @@ def process_payment(request):
             # retrieve nonce
             nonce = request.POST.get('paymentMethodNonce', None)
 
-        print(nonce)
+        print("nonce:" + nonce)
+
+        paymentGateway.chargePaymentMethod(nonce)
 
         print(context)
         return HttpResponse(template.render(context, request))
@@ -543,3 +547,17 @@ def process_payment(request):
     except Exception as ex:
         print(ex.__str__())
         return signup(request)
+
+def beautifuldata(request):
+    try:
+        template = loader.get_template('fun/beautifuldata.html')
+        welcome = 'Data is Beautiful!'
+
+        context = {'welcome': welcome}
+
+        print(context)
+        return HttpResponse(template.render(context, request))
+
+    except Exception as ex:
+        print(ex.__str__())
+        return index(request)

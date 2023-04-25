@@ -167,6 +167,6 @@ createDB = DBModels()
 if env("ENV") == "PROD":
     engine = db.create_engine("mysql://sns:connectdb@sns.mysql.pythonanywhere-services.com/sns$stocks")
 else:
-    engine = db.create_engine("mysql://root:Hello123!@localhost/stocks")
+    engine = db.create_engine("mysql://root:Shaurya0306@localhost/stocks")
 
 connection = engine.connect()

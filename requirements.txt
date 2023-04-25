@@ -32,7 +32,7 @@ typing_extensions==4.4.0
 urllib3==1.26.13
 ConfigParser
 mysql-connector-python
-mysql-python
+mysqlclient
 SQLAlchemy~=1.4.46
 yfinance~=0.2.3
 matplotlib~=3.6.2

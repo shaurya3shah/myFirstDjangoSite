@@ -24,4 +24,5 @@ urlpatterns = [
     path('check_puzzle_answer', views.check_puzzle_answer, name='check_puzzle_answer'),
     path('signup', views.signup, name='signup'),
     path('process_payment', views.process_payment, name='process_payment'),
+    path('beautifuldata', views.beautifuldata, name='beautifuldata'),
 ]

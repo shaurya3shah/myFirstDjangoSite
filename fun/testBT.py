@@ -5,6 +5,7 @@ from requests.auth import HTTPBasicAuth
 
 
 class BTTestCase(unittest.TestCase):
+    # https: // developer.paypal.com / braintree / docs / reference / general / testing / python
     def test_basic_gql_connect(self):
         # Instantiate the client with an endpoint.
         client = GraphqlClient(endpoint="https://countries.trevorblades.com")
@@ -42,7 +43,36 @@ class BTTestCase(unittest.TestCase):
 
         # Synchronous request
         data = client.execute(query=query)
-        print(data)  # => {'data': {'country': {'code': 'CA', 'name': 'Canada'}}}
+        print(data)
+
+        self.assertEqual(True, True)  # add assertion here
+
+    def test_bt_chargePaymentMethod(self):
+        # Instantiate the client with an endpoint.
+        headers = {'Authorization': 'Basic cjV6NDNkdGQzdmo2amo1aDpjMjQ4NGRkZTYyZjhiMGZlNWNlYjQ1ZDc0YWQ0MmYyNA==',
+                   'Braintree-Version': '2023-03-01', 'Content-Type': 'application/json'}
+        client = GraphqlClient(endpoint="https://payments.sandbox.braintree-api.com/graphql", headers=headers)
+
+        # Create the query string and variables required for the request.
+        query = """
+              mutation chargePaymentMethod($input: ChargePaymentMethodInput!) {
+                  chargePaymentMethod(input: $input) {
+                    transaction {
+                      id
+                      status
+                    }
+                  }
+                } 
+        """
+
+        transaction = {"amount": "11.23"}
+        input = {"paymentMethodId": "fake-valid-nonce", "transaction": transaction}
+
+        variables = {"input": input}
+
+        # Synchronous request
+        data = client.execute(query=query, variables=variables)
+        print(data)
 
         self.assertEqual(True, True)  # add assertion here
 
