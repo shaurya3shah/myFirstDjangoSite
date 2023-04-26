@@ -14,7 +14,8 @@
 <br>
 
     <canvas id="predictiveChart" width="800" height="400"></canvas>
-
+<br>
+<br>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         const ctx1 = document.getElementById('historicChart').getContext('2d');
@@ -64,13 +65,13 @@
           labels: labels2,
           datasets: [
             {
-              label: '2023 Rides on CTA',
+              label: 'Monthly Rides on CTA',
               data: {{ predictive_rides|safe }},
               borderColor: 'rgb(0, 55, 255)',
               backgroundColor: 'rgba(0, 55, 255, 0.5)',
             },
             {
-              label: '2023 Rides on CTA - Predictions',
+              label: ['Monthly Rides on CTA - Forecast (based on Time Series ML model)'],
               data: [{x: '2023-02', y: 19366395},
                     {x: '2023-03', y: 19379780},
                     {x: '2023-04', y: 20598945},
