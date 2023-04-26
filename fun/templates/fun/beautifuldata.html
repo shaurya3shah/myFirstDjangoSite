@@ -7,6 +7,12 @@
 
     <p><h1>{{ welcome }}</h1></p>
     <canvas id="historicChart" width="800" height="300"></canvas>
+
+<br>
+<hr>
+<hr>
+<hr>
+
     <canvas id="predictiveChart" width="800" height="300"></canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -62,6 +68,18 @@
               data: {{ predictive_rides|safe }},
               borderColor: 'rgb(0, 55, 255)',
               backgroundColor: 'rgba(0, 55, 255, 0.5)',
+            },
+            {
+              label: '2023 Rides on CTA - Predictions',
+              data: [{x: '2023-02', y: 19366395},
+                    {x: '2023-03', y: 19379780},
+                    {x: '2023-04', y: 20598945},
+                    {x: '2023-05', y: 21322522},
+                    {x: '2023-06', y: 22212405},
+                    {x: '2023-07', y: 22147609}],
+              borderColor: 'rgb(0, 255, 0)',
+              backgroundColor: 'rgba(0, 255, 0, 0.5)',
+              borderDash: [2,2]
             }
           ]
         };
