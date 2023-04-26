@@ -6,20 +6,23 @@
     {% load static %}
 
     <p><h1>{{ welcome }}</h1></p>
-    <canvas id="realtimeChart" width="800" height="300"></canvas>
+    <canvas id="historicChart" width="800" height="300"></canvas>
+    <canvas id="predictiveChart" width="800" height="300"></canvas>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const ctx1 = document.getElementById('realtimeChart').getContext('2d');
+        const ctx1 = document.getElementById('historicChart').getContext('2d');
+        const ctx2 = document.getElementById('predictiveChart').getContext('2d');
 
-        const labels1 = {{ dates|safe }};
+        const labels1 = {{ historic_dates|safe }};
+        const labels2 = {{ predictive_dates|safe }};
 
         const data1 = {
           labels: labels1,
           datasets: [
             {
               label: 'Daily Rides on CTA',
-              data: {{ rides|safe }},
+              data: {{ historic_rides|safe }},
               borderColor: 'rgb(0, 55, 255)',
               backgroundColor: 'rgba(0, 55, 255, 0.5)',
             }
@@ -38,6 +41,43 @@
               title: {
                 display: true,
                 text: 'Impact of COVID Lockdown on Chicago Public Transport'
+              }
+            },
+            scales: {
+              y: {
+                ticks: {
+                  // forces step size to be 1 units
+                  stepSize: 10000
+                }
+              }
+            }
+          },
+        });
+
+        const data2 = {
+          labels: labels2,
+          datasets: [
+            {
+              label: '2023 Rides on CTA',
+              data: {{ predictive_rides|safe }},
+              borderColor: 'rgb(0, 55, 255)',
+              backgroundColor: 'rgba(0, 55, 255, 0.5)',
+            }
+          ]
+        };
+
+        const realtimeChart2 = new Chart(ctx2, {
+          type: 'line',
+          data: data2,
+          options: {
+            responsive: true,
+            plugins: {
+              legend: {
+                position: 'bottom',
+              },
+              title: {
+                display: true,
+                text: 'CTA Ridership: Predictive look at 2023'
               }
             },
             scales: {

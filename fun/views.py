@@ -554,9 +554,13 @@ def beautifuldata(request):
         welcome = 'Data is Beautiful!'
 
         helpView = HelpView()
-        data = helpView.getCTARidershipData()
+        historicData = helpView.getHistoricCTARidershipData()
+        predictiveData = helpView.getPredictiveCTARidershipData()
 
-        context = {'welcome': welcome, 'dates': data['service_date'].tolist()[0::13], 'rides': data['total_rides'].tolist()[0::13]}
+        context = {'welcome': welcome, 'historic_dates': historicData['service_date'].tolist()[0::13],
+                   'historic_rides': historicData['total_rides'].tolist()[0::13],
+                   'predictive_dates': predictiveData['Month'].tolist(),
+                   'predictive_rides': predictiveData['Ridership'].tolist()}
 
         # print(context)
         return HttpResponse(template.render(context, request))

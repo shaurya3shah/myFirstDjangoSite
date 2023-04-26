@@ -53,10 +53,19 @@ class HelpView:
         except:
             print('Error')
 
-    def getCTARidershipData(self):
+    def getHistoricCTARidershipData(self):
         try:
             print(os.path.abspath(os.path.dirname(__file__)))
             data = read_csv(os.path.abspath(os.path.dirname(__file__)) + '/static/data/CTA_Ridership_Univariate.csv')
+
+            return data
+        except Exception as ex:
+            print(ex.__str__())
+
+    def getPredictiveCTARidershipData(self):
+        try:
+            print(os.path.abspath(os.path.dirname(__file__)))
+            data = read_csv(os.path.abspath(os.path.dirname(__file__)) + '/static/data/CTA_Ridership2023.csv')
 
             return data
         except Exception as ex:
