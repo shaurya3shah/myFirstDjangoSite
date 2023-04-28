@@ -556,11 +556,18 @@ def beautifuldata(request):
         helpView = HelpView()
         historicData = helpView.getHistoricCTARidershipData()
         predictiveData = helpView.getPredictiveCTARidershipData()
+        dayOfWeekData = helpView.getDayOfWeekRidershipData()
 
         context = {'welcome': welcome, 'historic_dates': historicData['service_date'].tolist()[0::13],
                    'historic_rides': historicData['total_rides'].tolist()[0::13],
                    'predictive_dates': predictiveData['Month'].tolist(),
-                   'predictive_rides': predictiveData['Ridership'].tolist()}
+                   'predictive_rides': predictiveData['Ridership'].tolist(),
+                   'days': dayOfWeekData['day'].tolist(),
+                   'commutes_2022': dayOfWeekData['2022'].tolist(),
+                   'commutes_2020': dayOfWeekData['2020'].tolist(),
+                   'commutes_2019': dayOfWeekData['2019'].tolist(),
+                   'commutes_2021': dayOfWeekData['2021'].tolist()
+                   }
 
         # print(context)
         return HttpResponse(template.render(context, request))
