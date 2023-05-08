@@ -56,7 +56,7 @@ class HelpView:
     def getHistoricCTARidershipData(self):
         try:
             print(os.path.abspath(os.path.dirname(__file__)))
-            data = read_csv(os.path.abspath(os.path.dirname(__file__)) + '/static/data/CTA_Ridership_Univariate.csv')
+            data = read_csv(os.path.abspath(os.path.dirname(__file__)) + '/static/data/cta_ridership_months.csv')
 
             return data
         except Exception as ex:

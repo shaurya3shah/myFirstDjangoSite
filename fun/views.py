@@ -559,8 +559,8 @@ def beautifuldata(request):
         dayOfWeekData = helpView.getDayOfWeekRidershipData()
         corrData = helpView.getCorrelationData()
 
-        context = {'welcome': welcome, 'historic_dates': historicData['service_date'].tolist()[0::13],
-                   'historic_rides': historicData['total_rides'].tolist()[0::13],
+        context = {'welcome': welcome, 'historic_dates': historicData['month'].tolist(),
+                   'historic_rides': historicData['total_rides'].tolist(),
                    'predictive_dates': predictiveData['Month'].tolist(),
                    'predictive_rides': predictiveData['Ridership'].tolist(),
                    'days': dayOfWeekData['day'].tolist(),
