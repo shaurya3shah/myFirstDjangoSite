@@ -6,22 +6,22 @@
     {% load static %}
 
     <p><h1>{{ welcome }}</h1></p>
-    <canvas id="historicChart" width="800" height="400"></canvas>
-<hr>
-<hr>
-<hr>
-<br>
-<br>
-
-    <canvas id="predictiveChart" width="800" height="400"></canvas>
-<br>
-<br>
-
-<hr>
-<hr>
-<hr>
-<br>
     <canvas id="correlationChart" width="800" height="400"></canvas>
+<hr>
+<hr>
+<hr>
+<br>
+<br>
+
+    <canvas id="historicChart" width="800" height="400"></canvas>
+<br>
+<br>
+
+<hr>
+<hr>
+<hr>
+<br>
+    <canvas id="predictiveChart" width="800" height="400"></canvas>
 <br>
 <br>
 <br>
@@ -203,7 +203,7 @@
               yAxisID: 'y'
             },
             {
-              label: 'Total Monthly Road Crashes',
+              label: 'Total Monthly Road Accidents',
               data: {{ crashes |safe }},
               borderColor: 'rgb(500, 0, 0)',
               backgroundColor: 'rgb(500, 0, 0)',
@@ -224,7 +224,8 @@
               title: {
                 display: true,
                 text: ['Correlation:',
-                'CTA ridership -- TNP (Uber, Lyft, etc.) rides -- Crashes']
+                'CTA ridership -- TNP (Uber, Lyft, etc.) rides -- Chicago Road Accidents',
+                'Showcase: Chicago road traffic and accidents are back to pre-COVID era']
               }
             },
             scales: {
