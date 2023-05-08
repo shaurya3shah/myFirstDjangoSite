@@ -80,3 +80,12 @@ class HelpView:
             return data
         except Exception as ex:
             print(ex.__str__())
+
+    def getCorrelationData(self):
+        try:
+            print(os.path.abspath(os.path.dirname(__file__)))
+            data = read_csv(os.path.abspath(os.path.dirname(__file__)) + '/static/data/chicago_traffic.csv')
+
+            return data
+        except Exception as ex:
+            print(ex.__str__())

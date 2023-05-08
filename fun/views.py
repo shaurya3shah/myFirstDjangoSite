@@ -557,6 +557,7 @@ def beautifuldata(request):
         historicData = helpView.getHistoricCTARidershipData()
         predictiveData = helpView.getPredictiveCTARidershipData()
         dayOfWeekData = helpView.getDayOfWeekRidershipData()
+        corrData = helpView.getCorrelationData()
 
         context = {'welcome': welcome, 'historic_dates': historicData['service_date'].tolist()[0::13],
                    'historic_rides': historicData['total_rides'].tolist()[0::13],
@@ -566,7 +567,11 @@ def beautifuldata(request):
                    'commutes_2022': dayOfWeekData['2022'].tolist(),
                    'commutes_2020': dayOfWeekData['2020'].tolist(),
                    'commutes_2019': dayOfWeekData['2019'].tolist(),
-                   'commutes_2021': dayOfWeekData['2021'].tolist()
+                   'commutes_2021': dayOfWeekData['2021'].tolist(),
+                   'corr': corrData['Month'].tolist(),
+                   'cta_rides': corrData['CTA Ridership'].tolist(),
+                   'tnp_rides': corrData['TNP Trips'].tolist(),
+                   'crashes': corrData['Crashes'].tolist()
                    }
 
         # print(context)

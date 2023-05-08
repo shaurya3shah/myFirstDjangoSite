@@ -13,7 +13,7 @@ monthly_series = read_csv('CTA_Ridership2023.csv', header=0, index_col=0, parse_
 monthly_series.index = monthly_series.index.to_period('M')
 monthly_x = monthly_series.values
 
-model = ARIMA(monthly_x, order=(0, 0, 5))
+model = ARIMA(monthly_x, order=(3, 1, 0))
 model_fit = model.fit()
 output = model_fit.forecast(6)
 
