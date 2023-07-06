@@ -580,3 +580,17 @@ def beautifuldata(request):
     except Exception as ex:
         print(ex.__str__())
         return index(request)
+
+
+def learn(request):
+    try:
+        template = loader.get_template('fun/learn.html')
+        welcome = 'Let\'s Learn!'
+
+        context = {'welcome': welcome}
+
+        return HttpResponse(template.render(context, request))
+
+    except Exception as ex:
+        print(ex.__str__())
+        return index(request)
