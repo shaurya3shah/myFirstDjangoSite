@@ -27,6 +27,11 @@
             <p><h7 class="success">Thank you! Feedback Submitted</h7></p>
             <p><h7 class="success">We promise to read your feedback</h7></p>
         {% endif %}
+        {% if signup %}
+            <p><h7 class="success">Thank you! </h7></p>
+            <p><h7 class="success">You have successfully signed up for SNS Newsletter. Expect fun puzzles, news and so much more...</h7></p>
+            <p><h7 class="success">In the meantime, please enjoy playing the games below</h7></p>
+        {% endif %}
         <input class="btn btn-right" type="submit" value="Go To Hub" onclick="location.href = '/fun/';">
     <input style="display:none" class="btn btn-right" type="submit" value="Sign In" onclick="location.href = '/fun/';">
     <input style="display:none" class="btn btn-right" type="submit" value="Sign Up" onclick="location.href = '/fun/';">

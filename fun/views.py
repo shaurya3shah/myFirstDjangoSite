@@ -4,6 +4,7 @@ from django.contrib.auth.models import AnonymousUser
 # Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
+from django.utils.datastructures import MultiValueDictKeyError
 
 from fun.contentGeneratorAI import generateSentence
 from fun.helpView import HelpView
@@ -43,8 +44,14 @@ def index(request):
         print('feedback = ' + feedback + ' email = ' + email)
         Feedback().addFeedback(0, feedback, email)
         context['feedback'] = 'success'
-    except:
-        print('direct landing')
+    except MultiValueDictKeyError as ex:
+        try:
+            print(type(ex).__name__)
+            email = request.POST["Enter Email"]
+            print('signup email: ' + email)
+            context['signup'] = 'success'
+        except:
+            print('direct landing')
 
     print(context)
     print('LOVE is ' + str(env('LOVE')))
