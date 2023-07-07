@@ -10,6 +10,7 @@ from fun.contentGeneratorAI import generateSentence
 from fun.helpView import HelpView
 from fun.models.countriesConnection import CountriesConnection
 from fun.models.feedback import Feedback
+from fun.models.newsletter import Newsletter
 from fun.models.guessNumber import GuessNumber
 from fun.models.models import CrazyLibs
 from fun.models.numberdle import Numberdle
@@ -49,6 +50,7 @@ def index(request):
             print(type(ex).__name__)
             email = request.POST["Enter Email"]
             print('signup email: ' + email)
+            Newsletter().addNewsletterSignUp(email)
             context['signup'] = 'success'
         except:
             print('direct landing')
