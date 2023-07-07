@@ -603,3 +603,16 @@ def learn(request):
     except Exception as ex:
         print(ex.__str__())
         return index(request)
+
+def T4D7W(request):
+    try:
+        template = loader.get_template('fun/T4D7W.html')
+        puzzle = 'T4D7W'
+
+        context = {'puzzle': puzzle}
+
+        return HttpResponse(template.render(context, request))
+
+    except Exception as ex:
+        print(ex.__str__())
+        return index(request)

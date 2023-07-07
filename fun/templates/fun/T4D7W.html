@@ -1,0 +1,13 @@
+{% extends "./base_generic.html" %}
+
+{% block content %}
+{% load app_extras %}
+    {% load gTTS %}
+    {% load static %}
+
+    <p><h1>Puzzle Solution</h1></p>
+    <p>Without touching the green pebble, and without changing the shape of the cup, bring the pebble outside the cup by only moving two blue sticks.</p>
+
+    <img src="{% static 'images/solution_T4D7W.gif' %}">
+
+{% endblock %}

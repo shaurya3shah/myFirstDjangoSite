@@ -26,4 +26,5 @@ urlpatterns = [
     path('process_payment', views.process_payment, name='process_payment'),
     path('beautifuldata', views.beautifuldata, name='beautifuldata'),
     path('learn', views.learn, name='learn'),
+    path('T4D7W', views.T4D7W, name='T4D7W'),
 ]
