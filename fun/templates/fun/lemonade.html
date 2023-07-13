@@ -1,0 +1,46 @@
+{% extends "./base_generic.html" %}
+
+{% block content %}
+{% load app_extras %}
+{% load gTTS %}
+{% load static %}
+
+    <p><h1>{{ welcome }}</h1></p>
+
+    <form class="form" action="{% url 'fun:lemonade' %}" method="post">
+    {% csrf_token %}
+        <div>
+            <select name="jars" id="jars">
+              <option selected value="select number of jars">select number of jars</option>
+              <option value="6">6</option>
+              <option value="12">12</option>
+            </select>
+<!--            <select class="1-12"></select>-->
+            <label for="Enter Phone">Phone: </label>
+            <div class="unit">
+                <input id="Enter Phone" type="tel" name="Enter Phone" autofocus placeholder="enter phone number...">
+            </div>
+
+            <label for="Enter Address">Address: </label>
+            <div class="unit">
+              <textarea id="Enter Address" name="Enter Address" placeholder="enter address..."></textarea>
+            </div>
+
+        </div>
+        <button type="reset" class="btn btn-danger">Reset</button>
+        <button class="btn btn-primary" name="check_guess">Place Order</button>
+    </form>
+    <br><br><br>
+    <input class="btn btn-primary" type="submit" value="Go To Hub" onclick="location.href = '/fun/';">
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script>
+        $(function(){
+            var $select = $(".1-12");
+            for (i=1;i<=12;i++){
+                $select.append($('<option></option>').val(i).html(i))
+            }
+        });
+    </script>
+{% endblock %}

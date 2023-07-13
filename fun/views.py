@@ -616,3 +616,17 @@ def T4D7W(request):
     except Exception as ex:
         print(ex.__str__())
         return index(request)
+
+
+def lemonade(request):
+    try:
+        template = loader.get_template('fun/lemonade.html')
+        welcome = 'Muy Bien Lemonade!'
+
+        context = {'welcome': welcome}
+
+        return HttpResponse(template.render(context, request))
+
+    except Exception as ex:
+        print(ex.__str__())
+        return index(request)
