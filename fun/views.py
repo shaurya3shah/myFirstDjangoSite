@@ -630,3 +630,16 @@ def lemonade(request):
     except Exception as ex:
         print(ex.__str__())
         return index(request)
+
+def hikethespike(request):
+    try:
+        template = loader.get_template('fun/hikethespike.html')
+        welcome = 'Hike The Spike!'
+
+        context = {'welcome': welcome}
+
+        return HttpResponse(template.render(context, request))
+
+    except Exception as ex:
+        print(ex.__str__())
+        return index(request)

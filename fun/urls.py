@@ -28,4 +28,5 @@ urlpatterns = [
     path('learn', views.learn, name='learn'),
     path('T4D7W', views.T4D7W, name='T4D7W'),
     path('lemonade', views.lemonade, name='lemonade'),
+    path('hikethespike', views.lemonade, name='hikethespike'),
 ]
