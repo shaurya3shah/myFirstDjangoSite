@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12" project-jdk-type="Python SDK" />
+=======
+  <component name="Black">
+    <option name="enabledOnReformat" value="true" />
+    <option name="enabledOnSave" value="true" />
+    <option name="sdkUUID" value="9b6010ae-f357-44f2-afaf-a747bab71c1f" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.9 (myFirstDjangoSite-main)" project-jdk-type="Python SDK" />
+>>>>>>> a9be7de (commit and push everything)
   <component name="PyCharmProfessionalAdvertiser">
     <option name="shown" value="true" />
   </component>

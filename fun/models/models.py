@@ -36,6 +36,7 @@ class CrazyLibs:
         # https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html
         for pos_tag_word in self.pos_tagged_text:
             # print(pos_tag_word[0], ":", pos_tag_word[1])
+<<<<<<< HEAD
             match pos_tag_word[1]:
                 case 'NN':
                     if pos_tag_word[0] not in self.nouns:
@@ -44,6 +45,15 @@ class CrazyLibs:
                     if pos_tag_word[0] not in self.verbs:
                         self.verbs.append(pos_tag_word[0])
                 case 'JJ':
+=======
+            if pos_tag_word[1] == 'NN':
+                    if pos_tag_word[0] not in self.nouns:
+                        self.nouns.append(pos_tag_word[0])
+            elif pos_tag_word[1] == 'VB':
+                    if pos_tag_word[0] not in self.verbs:
+                        self.verbs.append(pos_tag_word[0])
+            elif pos_tag_word[1] == 'JJ':
+>>>>>>> a9be7de (commit and push everything)
                     if pos_tag_word[0] not in self.adjectives:
                         self.adjectives.append(pos_tag_word[0])
 
