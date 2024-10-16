@@ -20,6 +20,6 @@ from fun import views
 urlpatterns = [
     path('fun/', include('fun.urls')),
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
+    path('', views.sns, name='sns'),
     path("accounts/", include("django.contrib.auth.urls")),
 ]

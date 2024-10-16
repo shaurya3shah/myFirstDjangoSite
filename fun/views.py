@@ -25,8 +25,8 @@ from myFirstDjangoSite.settings import env
 # from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 
 
-def index(request):
-    template = loader.get_template("fun/index.html")
+def hub(request):
+    template = loader.get_template("fun/hub.html")
     welcome_message = "My Fun Hub!"
     print(request.META)
 

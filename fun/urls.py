@@ -4,7 +4,7 @@ from . import views
 
 app_name = "fun"
 urlpatterns = [
-    path("", views.index, name="index"),
+    path("", views.sns, name="sns"),
     path("guess_number", views.guess_number, name="guess_number"),
     path("check_guess", views.check_guess, name="check_guess"),
     path("crazy_libs", views.crazy_libs, name="crazy_libs"),
@@ -31,5 +31,5 @@ urlpatterns = [
     path("T4D7W", views.T4D7W, name="T4D7W"),
     path("lemonade", views.lemonade, name="lemonade"),
     path("hikethespike", views.hikethespike, name="hikethespike"),
-    path("sns", views.sns, name="sns"),
+    path("hub", views.hub, name="hub"),
 ]
