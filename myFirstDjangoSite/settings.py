@@ -37,7 +37,7 @@ ALLOWED_HOSTS = ['sns.pythonanywhere.com', '127.0.0.1', 'www.snsfungames.com', '
 
 CSRF_TRUSTED_ORIGINS = ['sns.pythonanywhere.com', '127.0.0.1', 'www.snsfungames.com', 'snsfungames.com', 'https://www.snsfungames.com']
 
-SESSION_COOKIE_DOMAIN = 'snsfungames.com'
+SESSION_COOKIE_DOMAIN = '.snsfungames.com'
 # Application definition
 
 INSTALLED_APPS = [
