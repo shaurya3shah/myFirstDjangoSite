@@ -33,7 +33,7 @@ SECRET_KEY = 'django-insecure-r+^giro05+2efa(vtd11ayj8w&9dt!nkhfsmwtf^kuz#qk^x+i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['sns.pythonanywhere.com', '127.0.0.1', 'www.snsfungames.com', 'snsfungames.com']
+ALLOWED_HOSTS = ['sns.pythonanywhere.com', '127.0.0.1', 'www.snsfungames.com', 'snsfungames.com', 'https://www.snsfungames.com']
 
 
 # Application definition
