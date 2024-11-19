@@ -39,3 +39,4 @@ matplotlib~=3.6.2
 pandas_market_calendars
 braintree
 python-graphql-client
+django-cors-headers
