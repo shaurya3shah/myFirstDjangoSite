@@ -68,9 +68,9 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 SESSION_SAVE_EVERY_REQUEST = True
 
-CSRF_USE_SESSIONS = True
-
-CSRF_COOKIE_SECURE = True
+# CSRF_USE_SESSIONS = True
+#
+# CSRF_COOKIE_SECURE = True
 
 TEMPLATES = [
     {
