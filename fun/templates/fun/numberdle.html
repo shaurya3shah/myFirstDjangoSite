@@ -87,6 +87,7 @@
                     {% if numberdle_obj.correct_guesses < 5 %}
                     <div id="row-input" class="board__row">
                       <input class="tile--input" type="number" name="player_guess" autofocus>
+                      <input type="hidden" name="hidden_numberdle_obj" value=numberdle_obj>
                       <span class="tile"></span>
                       <span class="tile"></span>
                       <span class="tile"></span>
