@@ -203,8 +203,7 @@ def numberdle(request):
 def check_numberdle(request):
     template = loader.get_template("fun/numberdle.html")
     welcome_message = "Numberdle!"
-    # numberdle_obj = request.session["numberdle_obj"]
-    numberdle_obj = request.POST.get("hidden_numberdle_obj")
+    numberdle_obj = request.session["numberdle_obj"]
     helpView = HelpView()
 
     user_input = request.POST.get("player_guess")
