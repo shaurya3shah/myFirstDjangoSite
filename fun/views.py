@@ -5,6 +5,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.utils.datastructures import MultiValueDictKeyError
+from django.views.decorators.csrf import csrf_exempt
 
 from fun.contentGeneratorAI import generateSentence
 from fun.helpView import HelpView
@@ -24,7 +25,7 @@ from myFirstDjangoSite.settings import env
 
 # from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 
-
+@csrf_exempt
 def hub(request):
     template = loader.get_template("fun/hub.html")
     welcome_message = "My Fun Hub!"
@@ -198,7 +199,7 @@ def numberdle(request):
 
     return HttpResponse(template.render(context, request))
 
-
+@csrf_exempt
 def check_numberdle(request):
     template = loader.get_template("fun/numberdle.html")
     welcome_message = "Numberdle!"
