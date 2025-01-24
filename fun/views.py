@@ -200,9 +200,14 @@ def numberdle(request):
 
     numberdle_obj = Numberdle()
     request.session["numberdle_obj"] = numberdle_obj
+
     context = {"welcome_message": welcome_message, "numberdle_obj": numberdle_obj}
     print(numberdle_obj.secret_numbers)
     print(context)
+
+    session_id = request.session.session_key
+    print("session_id: " + str(session_id))
+    request.session["session_id"] = session_id
 
     return HttpResponse(template.render(context, request))
 
@@ -211,6 +216,9 @@ def check_numberdle(request):
     template = loader.get_template("fun/numberdle.html")
     welcome_message = "Numberdle!"
     numberdle_obj = request.session["numberdle_obj"]
+    session_id = request.session.session_key
+    print("session_id: " + str(session_id))
+    request.session["session_id"] = session_id
     helpView = HelpView()
 
     user_input = request.POST.get("player_guess")
