@@ -35,9 +35,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['sns.pythonanywhere.com', '127.0.0.1', 'www.snsfungames.com', 'snsfungames.com', 'https://www.snsfungames.com']
 
-CSRF_TRUSTED_ORIGINS = ['sns.pythonanywhere.com', '127.0.0.1', 'www.snsfungames.com', 'snsfungames.com', 'https://www.snsfungames.com']
+CSRF_TRUSTED_ORIGINS = ['https://www.sns.pythonanywhere.com', 'http://www.127.0.0.1', 'https://www.snsfungames.com']
 
-SESSION_COOKIE_DOMAIN = '.snsfungames.com'
+# SESSION_COOKIE_DOMAIN = '.snsfungames.com'
 # Application definition
 
 INSTALLED_APPS = [
@@ -177,7 +177,7 @@ createDB = DBModels()
 if env("ENV") == "PROD":
     engine = db.create_engine("mysql://sns:connectdb@sns.mysql.pythonanywhere-services.com/sns$stocks")
 else:
-    engine = db.create_engine("mysql://root:Hello123!@localhost/stocks")
+    engine = db.create_engine("mysql://root:admin123@localhost/stocks")
 
 
 connection = engine.connect()

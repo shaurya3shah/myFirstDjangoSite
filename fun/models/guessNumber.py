@@ -35,4 +35,4 @@ class GuessNumber:
         self.guesses = []
 
     def __str__(self):
-        return str(self.guessed_number) + ' is' + self.comparison + ' than the secret number'
+        return str(self.guessed_number) + ' is ' + str(self.comparison) + ' than the secret number'

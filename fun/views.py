@@ -1,4 +1,5 @@
 import random
+import traceback
 
 from django.contrib.auth.models import AnonymousUser
 # Create your views here.
@@ -83,11 +84,13 @@ def guess_number(request):
 
     context = {"secret_number": secret_number}
 
+    print("secret_number: " + str(secret_number))
 
     return HttpResponse(template.render(context, request))
 
 
 def check_guess(request):
+    print("checking the guess")
     try:
         template = loader.get_template("fun/guessnumber.html")
         helpView = HelpView()
@@ -109,6 +112,8 @@ def check_guess(request):
                 guess_number_obj.addResult(0)
                 helpView.getUserGuessesAndCounts(guess_number_obj.getStats())
 
+            print("user_input: " + str(user_input) + " guess_number_obj: " + str(guess_number_obj))
+
             request.session["guess_number_obj"] = guess_number_obj
             context = {
                 "guess_number": guess_number_obj,
@@ -124,7 +129,9 @@ def check_guess(request):
             }
 
         return HttpResponse(template.render(context, request))
-    except:
+    except Exception as e:
+        print("An exception occurred when checking for the guessed number:", e)
+        print(traceback.format_exc())
         return guess_number(request)
 
 
