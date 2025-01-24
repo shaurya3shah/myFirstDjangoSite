@@ -195,6 +195,10 @@ def generate_crazy_libs(request):
 
 
 def numberdle(request):
+    print('printing all the session contents init start')
+    for key, value in request.session.items():
+        print('{} => {}'.format(key, value))
+
     template = loader.get_template("fun/numberdle.html")
     welcome_message = "Numberdle!"
 
@@ -209,10 +213,17 @@ def numberdle(request):
     print("session_id: " + str(session_id))
     request.session["session_id"] = session_id
 
+    print('printing all the session contents init end')
+    for key, value in request.session.items():
+        print('{} => {}'.format(key, value))
+
     return HttpResponse(template.render(context, request))
 
 @csrf_exempt
 def check_numberdle(request):
+    print('printing all the session contents check numberdle start')
+    for key, value in request.session.items():
+        print('{} => {}'.format(key, value))
     template = loader.get_template("fun/numberdle.html")
     welcome_message = "Numberdle!"
     numberdle_obj = request.session["numberdle_obj"]
