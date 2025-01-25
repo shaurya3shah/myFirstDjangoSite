@@ -1,3 +1,5 @@
+import json
+import pickle
 import random
 import traceback
 
@@ -80,7 +82,8 @@ def guess_number(request):
     guess_number_obj = GuessNumber()
     guess_number_obj.secret_number = secret_number
 
-    request.session["guess_number_obj"] = guess_number_obj
+    request.session["secret_number"] = guess_number_obj.secret_number
+    request.session["guesses"] = json.dumps([])
 
     context = {"secret_number": secret_number}
 
@@ -96,7 +99,12 @@ def check_guess(request):
         helpView = HelpView()
         user_input = request.POST["Enter Your Guess"]
 
-        guess_number_obj = request.session["guess_number_obj"]
+        guess_number_obj = GuessNumber()
+
+        if "secret_number" in request.session:
+            guess_number_obj.secret_number = int(request.session["secret_number"])
+        if "guesses" in request.session:
+            guess_number_obj.guesses = json.loads(request.session["guesses"])
 
         if user_input.isdigit():
             number = int(user_input)
@@ -114,7 +122,8 @@ def check_guess(request):
 
             print("user_input: " + str(user_input) + " guess_number_obj: " + str(guess_number_obj))
 
-            request.session["guess_number_obj"] = guess_number_obj
+            request.session["guesses"] = json.dumps(guess_number_obj.guesses)
+
             context = {
                 "guess_number": guess_number_obj,
                 "guess_count": len(guess_number_obj.guesses),
@@ -203,7 +212,7 @@ def numberdle(request):
     welcome_message = "Numberdle!"
 
     numberdle_obj = Numberdle()
-    request.session["numberdle_obj"] = numberdle_obj
+    request.session["numberdle_obj"] = json.dumps(numberdle_obj)
 
     context = {"welcome_message": welcome_message, "numberdle_obj": numberdle_obj}
     print(numberdle_obj.secret_numbers)
@@ -226,7 +235,7 @@ def check_numberdle(request):
         print('{} => {}'.format(key, value))
     template = loader.get_template("fun/numberdle.html")
     welcome_message = "Numberdle!"
-    numberdle_obj = request.session["numberdle_obj"]
+    numberdle_obj = json.loads(request.session["numberdle_obj"])
     session_id = request.session.session_key
     print("session_id: " + str(session_id))
     request.session["session_id"] = session_id
