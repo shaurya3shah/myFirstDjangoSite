@@ -1,5 +1,4 @@
 import json
-import pickle
 import random
 import traceback
 
@@ -212,7 +211,12 @@ def numberdle(request):
     welcome_message = "Numberdle!"
 
     numberdle_obj = Numberdle()
-    request.session["numberdle_obj"] = json.dumps(numberdle_obj)
+    request.session["secret_numbers"] = json.dumps(numberdle_obj.secret_numbers)
+    request.session["successful_guesses"] = json.dumps(numberdle_obj.successful_guesses)
+    request.session["board"] = json.dumps(numberdle_obj.board)
+    request.session["guesses"] = int(numberdle_obj.guesses)
+    request.session["correct_guesses"] = int(numberdle_obj.correct_guesses)
+
 
     context = {"welcome_message": welcome_message, "numberdle_obj": numberdle_obj}
     print(numberdle_obj.secret_numbers)
@@ -235,7 +239,20 @@ def check_numberdle(request):
         print('{} => {}'.format(key, value))
     template = loader.get_template("fun/numberdle.html")
     welcome_message = "Numberdle!"
-    numberdle_obj = json.loads(request.session["numberdle_obj"])
+
+    numberdle_obj = Numberdle()
+
+    if "secret_numbers" in request.session:
+        numberdle_obj.secret_numbers = json.loads(request.session["secret_numbers"])
+    if "successful_guesses" in request.session:
+        numberdle_obj.successful_guesses = json.loads(request.session["successful_guesses"])
+    if "board" in request.session:
+        numberdle_obj.board = json.loads(request.session["board"])
+    if "guesses" in request.session:
+        numberdle_obj.guesses = int(request.session["guesses"])
+    if "correct_guesses" in request.session:
+        numberdle_obj.correct_guesses = int(request.session["correct_guesses"])
+
     session_id = request.session.session_key
     print("session_id: " + str(session_id))
     request.session["session_id"] = session_id
@@ -254,7 +271,12 @@ def check_numberdle(request):
             numberdle_obj.addResult(0)
             helpView.getUserGuessesAndCounts(numberdle_obj.getStats())
 
-        request.session["numberdle_obj"] = numberdle_obj
+        request.session["successful_guesses"] = json.dumps(numberdle_obj.successful_guesses)
+        request.session["board"] = json.dumps(numberdle_obj.board)
+        request.session["guesses"] = int(numberdle_obj.guesses)
+        request.session["correct_guesses"] = int(numberdle_obj.correct_guesses)
+
+
         context = {
             "welcome_message": welcome_message,
             "numberdle_obj": numberdle_obj,
