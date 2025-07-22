@@ -774,6 +774,32 @@ def hikethespike(request):
         print(ex.__str__())
         return index(request)
 
+def army(request):
+    try:
+        template = loader.get_template("fun/army.html")
+        welcome = "Army!"
+
+        context = {"welcome": welcome}
+
+        return HttpResponse(template.render(context, request))
+
+    except Exception as ex:
+        print(ex.__str__())
+        return index(request)
+
+
+def index(request):
+    try:
+        template = loader.get_template("sns/adobe.html")
+        welcome = "SNS!"
+
+        context = {"welcome": welcome}
+
+        return HttpResponse(template.render(context, request))
+
+    except Exception as ex:
+        print(ex.__str__())
+
 
 def sns(request):
     try:
