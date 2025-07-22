@@ -31,5 +31,6 @@ urlpatterns = [
     path("T4D7W", views.T4D7W, name="T4D7W"),
     path("lemonade", views.lemonade, name="lemonade"),
     path("hikethespike", views.hikethespike, name="hikethespike"),
+    path("army", views.army, name="army"),
     path("hub", views.hub, name="hub"),
 ]
