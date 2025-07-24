@@ -1,13 +1,18 @@
 It's great to hear you're looking to integrate your Jeopardy app with a Django backend!
 
-Since your current Jeopardy app is built with React (a JavaScript library that runs in the user's browser), and Django is a Python framework that runs on the server, you can't directly "convert" the React code into Python code. Instead, you'll integrate them by having Django serve the React application as its frontend.
+Since your current Jeopardy app is built with React (a JavaScript library that runs in the user's browser),
+and Django is a Python framework that runs on the server, you can't directly "convert" the React code into Python code.
+Instead, you'll integrate them by having Django serve the React application as its frontend.
 
 Here's how you can prepare your React Jeopardy app to be used within your Django web application:
 
 Step 1: Build Your React App for Production
-First, you need to compile your React application into static HTML, CSS, and JavaScript files. This is typically done using a build tool (like Create React App's built-in scripts).
+First, you need to compile your React application into static HTML, CSS, and JavaScript files.
+This is typically done using a build tool (like Create React App's built-in scripts).
 
-Save your React code: Ensure the React code I provided is saved in a file named App.js (or similar) within a React project structure. If you don't have a React project, you'd typically set one up using npx create-react-app my-jeopardy-frontend. Then replace the src/App.js content with the provided React code.
+Save your React code: Ensure the React code I provided is saved in a file named App.js (or similar) within a React
+project structure. If you don't have a React project, you'd typically set one up using npx create-react-app
+my-jeopardy-frontend. Then replace the src/App.js content with the provided React code.
 
 Install dependencies (if not already done):
 
@@ -24,7 +29,8 @@ Bash
 npm run build
 # or
 yarn build
-This command will create a build folder in your React project directory. This build folder contains the optimized, static files (HTML, CSS, JS) that Django will serve.
+This command will create a build folder in your React project directory.
+This build folder contains the optimized, static files (HTML, CSS, JS) that Django will serve.
 
 Step 2: Configure Your Django Project to Serve Static Files
 Now, you need to tell your Django project where to find these static files and how to serve them.

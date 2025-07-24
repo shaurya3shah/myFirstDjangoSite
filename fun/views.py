@@ -787,6 +787,19 @@ def army(request):
         print(ex.__str__())
         return index(request)
 
+def jeopardy(request):
+    try:
+        template = loader.get_template("fun/jeopardy.html")
+        welcome = "Jeopardy!"
+
+        context = {"welcome": welcome}
+
+        return HttpResponse(template.render(context, request))
+
+    except Exception as ex:
+        print(ex.__str__())
+        return index(request)
+
 
 def index(request):
     try:
